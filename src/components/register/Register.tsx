@@ -33,6 +33,8 @@ const Register = () => {
 };
 
     return (
+      <>
+      <h1>Stegvis</h1>
         <div className={styles.registerContainer}>
             <h2>Skapa ett nytt konto</h2>
             <form onSubmit={handleSubmit}>
@@ -66,6 +68,7 @@ const Register = () => {
   Har du redan ett konto? 
 </Link>
         </div>
+        </>
     );
 }
 

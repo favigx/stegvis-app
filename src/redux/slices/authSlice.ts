@@ -17,16 +17,11 @@ const authSlice = createSlice({
             state,
             action: PayloadAction<{ id: string; user: string; token: string; expiresIn: number }>
         ) => {
-            state.user = action.payload.id;
+            state.id = action.payload.id;
             state.user = action.payload.user;
             state.token = action.payload.token;
             state.expiresIn = action.payload.expiresIn;
             state.isAuthenticated = true;
-
-            localStorage.setItem('id', action.payload.token);
-            localStorage.setItem('user', action.payload.user);
-            localStorage.setItem('token', action.payload.token);
-            localStorage.setItem('expiresIn', action.payload.expiresIn.toString());
         },
         logout: (state) => {
             state.id = null;

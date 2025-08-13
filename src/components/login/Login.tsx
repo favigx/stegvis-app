@@ -28,7 +28,7 @@ const Login = () => {
                 token: response.token,
                 expiresIn: response.expiresIn,
             }));
-             navigate('/home');
+             navigate('/onboarding');
         } catch (err) {
             const apiError = err as ApiError;
             setError(apiError.message);
@@ -36,6 +36,7 @@ const Login = () => {
         };
 
     return (
+        <>
     <div className={styles.loginContainer}>
         <form onSubmit={handleSubmit}>
             <input
@@ -62,6 +63,7 @@ const Login = () => {
   Skapa nytt konto
 </Link>
     </div>
+    </>
 );
 }
 
