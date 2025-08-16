@@ -6,30 +6,22 @@ import { apiFetch } from "../../apiClient";
 
 const TASK_API_BASE = "/calender/task";
 
-
-
 export async function addTask(addTaskDTO: AddTaskDTO): Promise<AddTaskResponse> {
-
     const state = store.getState();
     const userId = state.auth.id;
 
-    return apiFetch(`${TASK_API_BASE}/${userId}`, {
+    const data = await apiFetch(`${TASK_API_BASE}/${userId}`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
         body: JSON.stringify(addTaskDTO),
-    }) as Promise<AddTaskResponse>;
+    });
+
+    return data as AddTaskResponse;
 }
 
 export async function getTasksByUserId(): Promise<TaskDTO[]> {
     const state = store.getState();
     const userId = state.auth.id;
 
-    return apiFetch(`${TASK_API_BASE}/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }) as Promise<TaskDTO[]>
+    const data = await apiFetch(`${TASK_API_BASE}/${userId}`, { method: "GET" });
+    return data as TaskDTO[];
 }

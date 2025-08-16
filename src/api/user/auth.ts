@@ -3,11 +3,16 @@ import type { UserLoginResponse } from "../../interfaces/user/dto/loginResponse"
 import { apiFetch } from "../apiClient";
 
 export async function loginUser(loginDto: LoginDTO): Promise<UserLoginResponse> {
-    return apiFetch("/user/login", {
+    const data = await apiFetch("/user/login", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
         body: JSON.stringify(loginDto),
-    }) as Promise<UserLoginResponse>;
+    });
+
+    return data as UserLoginResponse;
+}
+
+export async function logoutUser(): Promise<void> {
+    await apiFetch("/user/logout", {
+        method: "POST",
+    });
 }

@@ -3,11 +3,10 @@ import type { UserRegisterResponse } from "../../interfaces/user/dto/registerRes
 import { apiFetch } from "../apiClient";
 
 export async function registerUser(registerDto: RegisterDTO): Promise<UserRegisterResponse> {
-    return apiFetch("/user/register", {
+    const data = await apiFetch("/user/register", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
         body: JSON.stringify(registerDto),
-    }) as Promise<UserRegisterResponse>;
+    });
+
+    return data as UserRegisterResponse;
 }

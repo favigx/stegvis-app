@@ -1,5 +1,5 @@
 import moment from "moment";
-import styles from './SimpleCalender.module.css';
+import styles from './SimpleCalendar.module.css';
 
 interface TaskEvent {
   id: string;

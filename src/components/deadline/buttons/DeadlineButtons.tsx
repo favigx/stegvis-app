@@ -1,5 +1,5 @@
 import styles from './DeadlineButtons.module.css';
-import type { TaskEvent } from './Deadline'; 
+import type { TaskEvent } from '../types'; 
 
 interface DeadlineButtonsProps {
   events: TaskEvent[];

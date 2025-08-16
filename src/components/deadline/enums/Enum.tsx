@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getCalenderTypeEnum } from "../../api/calender/task/enum"; 
-import { setCalenderEnums } from "../../redux/slices/calenderEnum"; 
-import type { ApiError } from "../../api/apiClient";
+import { getCalenderTypeEnum } from "../../../api/calender/task/enum"; 
+import { setCalenderEnums } from "../../../redux/slices/calenderEnum"; 
+import type { ApiError } from "../../../api/apiClient";
 
 export function LoadCalenderEnums() {
   const dispatch = useDispatch();

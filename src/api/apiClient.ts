@@ -5,25 +5,25 @@ export interface ApiError {
   status?: number;
 }
 
-export async function apiFetch(path: string, options?: RequestInit): Promise<any> {
-  const response = await fetch(`${baseUrl}${path}`, options);
+export async function apiFetch(input: RequestInfo, init?: RequestInit) {
+    const url = typeof input === "string" ? `${baseUrl}${input}` : input;
 
-  const contentType = response.headers.get('Content-Type');
-
-  let data;
-  if (contentType && contentType.includes('application/json')) {
-    data = await response.json();
-  } else {
-    data = await response.text();
-  }
-
-  if (!response.ok) {
-    const error: ApiError = {
-      message: data?.message || data || 'Något gick fel',
-      status: response.status,
+    const defaultInit: RequestInit = {
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            ...init?.headers,
+        },
+        ...init,
     };
-    throw error;
-  }
 
-  return data;
+    const response = await fetch(url, defaultInit);
+
+    if (!response.ok) {
+        const error = await response.json().catch(() => ({ message: "Något gick fel" }));
+        throw new Error(error.message);
+    }
+
+    const text = await response.text();
+    return text ? JSON.parse(text) : {};
 }

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
+import type { RootState } from "../../../redux/store";
 import styles from './AddTask.module.css';
-import { LoadCalenderEnums } from "./Enum";
+import { LoadCalenderEnums } from "../enums/Enum";
 import { AddTaskButtons } from "./AddTaskbuttons";
-import { addTask } from "../../api/calender/task/task";
-import type { AddTaskDTO } from "../../interfaces/calender/task/dto/addTask";
+import { addTask } from "../../../api/calender/task/task";
+import type { AddTaskDTO } from "../../../interfaces/calender/task/dto/addTask";
 import { registerLocale } from "react-datepicker";
 import { sv } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";

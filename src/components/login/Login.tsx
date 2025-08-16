@@ -22,12 +22,10 @@ const Login = () => {
 
         try {
             const response = await loginUser(loginDto);
-            dispatch(loginSucess({
-                id: response.id,
-                user: response.email,
-                token: response.token,
-                expiresIn: response.expiresIn,
-            }));
+        dispatch(loginSucess({
+            id: response.id,
+            user: response.email,
+        }));
              navigate('/onboarding');
         } catch (err) {
             const apiError = err as ApiError;
