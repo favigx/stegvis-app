@@ -30,13 +30,15 @@
 }
 
 .button {
-     letter-spacing: -0.3px;
+    letter-spacing: -0.3px;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 15px;
   cursor: pointer;
   border: 2px solid #343155;
   transition: background-color 0.2s ease, border-color 0.2s ease;
+  background-color: rgb(79, 87, 145);
+  color: white;
 }
 
 .selected {
@@ -58,4 +60,16 @@
 
 .selected:hover {
   border-color: #ada8f3;
+}
+
+.savePrefBtn {
+  display: block; 
+  margin: 20px 0 0 0;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-size: 13px;
+  border: 2px solid #343155;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #2a2d57;
 }

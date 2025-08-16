@@ -1,0 +1,52 @@
+.header {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  right: 0;  
+  height: 65px;
+  background-color: rgba(15, 18, 32, 0.8);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #1b193b;
+  border-bottom: 1px solid #1b193b;
+  padding: 0 20px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+  margin-right: 16px;
+  filter: drop-shadow(0 0 6px rgba(173, 216, 230, 0.7)); 
+}
+.text {
+  font-size: 23px;
+  font-weight: 700;
+  color: white;
+}
+
+.headerButtonWrapper {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;  
+  max-width: 100%;    
+  overflow-x: auto;   
+}
+.headerButtonWrapper button {
+  padding: 6px 16px;
+  border-radius: 11px;
+  background-color: #312f4d;
+  color: #fff;
+  border: 1px solid #444269;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border 0.2s ease;
+  font-size: 14px;
+  white-space: nowrap; 
+}
+
+.headerButtonWrapper button:hover {
+  background-color: #645c83;
+  border: 1px solid #ada8f3;
+}

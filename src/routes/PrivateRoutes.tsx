@@ -1,4 +1,4 @@
-import React, { type JSX } from "react";
+import { type JSX } from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";

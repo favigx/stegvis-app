@@ -38,21 +38,23 @@ export function EnumButtons({
     onSelect(newValue);
   };
 
-  return (
-    <div>
-      <h2>{title}</h2>
-      <div className={styles.container}>
-        {options.map((opt) => (
-          <button
-            key={opt}
-            onClick={() => handleClick(opt)}
-            className={`${styles.button} ${
-              isSelected(opt) ? styles.selected : styles.unselected
-            }`}
-          >
-            {opt}
-          </button>
-        ))}
+    return (
+    <div className={styles.buttonContainer}>
+      <div className={styles.row}>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.container}>
+          {options.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => handleClick(opt)}
+              className={`${styles.button} ${
+                isSelected(opt) ? styles.selected : styles.unselected
+              }`}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,85 @@
+.calendarWrapper {
+  width: 800px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-bottom: 1px solid #2a2f49;
+}
+.simpleWeekGrid {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.dayCard {
+  flex: 0 0 90px;
+  border: 1px solid #292650;
+  background: #16163b; 
+  color: white;
+  border-radius: 20px;
+  padding: 8px;
+}
+
+.dayHeader {
+  text-align: center;
+font-size: 14px;
+font-weight:700;
+color:#d6d6eb;
+
+  padding: 8px;
+  
+  background: #16163b; 
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.dayEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.eventCard {
+  background: rgba(27, 133, 44, 0.3);
+  border-radius: 12px;
+  border: 1px solid #10721d;
+  padding: 4px;
+  margin-top: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.eventCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+.eventType {
+  font-size: 13px;
+  opacity: 0.8;
+
+}
+
+.daysLeft {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
+.calendarWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+}

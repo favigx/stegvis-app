@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import enumsReducer from './slices/enumSlice';
-import userPreferenceReducer from './slices/userPreferenceSlice'
+import calenderEnumsReducer from './slices/calenderEnum';
+import userPreferenceReducer from './slices/userPreferenceSlice';
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -20,11 +21,17 @@ const preferencesPersistConfig = {
     storage,
 };
 
+const calenderEnumPersistConfig = {
+    key: "calenderenums",
+    storage,
+};
+
 export const store = configureStore({
     reducer: {
         auth: persistReducer(authPersistConfig, authReducer),
         enums: persistReducer(enumsPersistConfig, enumsReducer),
         preferences: persistReducer(preferencesPersistConfig, userPreferenceReducer),
+        calenderenums: persistReducer(calenderEnumPersistConfig, calenderEnumsReducer)
     },
 });
 

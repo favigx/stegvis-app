@@ -1,0 +1,32 @@
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+.button {
+  padding: 8px 12px;
+  border-radius: 16px;
+  border: 1px solid #343155;
+  background-color: #312f4d;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background-color: #645c83;
+}
+
+.selected {
+  background-color: #5867a8;
+  border-color: #4842a5;
+}
+
+.unselected {
+  background-color: #312f4d;
+}

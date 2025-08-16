@@ -1,0 +1,44 @@
+.onboardingContainer {
+  max-width: 800px;
+  flex: 1;
+  margin: 3rem 0; 
+  padding: 1rem 1.5rem;
+  border: 1px solid #343155;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background-color: #11162b;
+}
+.buttonContainer {
+    background-color: #1b2146;
+    padding-bottom: 40px;
+     border-radius: 20px;
+     margin-bottom: 15px;
+      border: 1px solid #343155;
+
+}
+
+.savePrefBtn {
+  display: block; 
+  margin: 20px 0 0 0;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-size: 13px;
+  border: 2px solid #343155;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #2a2d57;
+}
+
+.onboardingContainer h3 {
+  text-align: left;
+ font-size: 22px;
+  color: #fff; 
+}
+.onboardingWrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
