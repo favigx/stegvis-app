@@ -1,29 +1,14 @@
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+import axios, { type AxiosInstance } from "axios";
 
 export interface ApiError {
   message: string;
   status?: number;
 }
 
-export async function apiFetch(input: RequestInfo, init?: RequestInit) {
-    const url = typeof input === "string" ? `${baseUrl}${input}` : input;
+const baseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
-    const defaultInit: RequestInit = {
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            ...init?.headers,
-        },
-        ...init,
-    };
-
-    const response = await fetch(url, defaultInit);
-
-    if (!response.ok) {
-        const error = await response.json().catch(() => ({ message: "Något gick fel" }));
-        throw new Error(error.message);
-    }
-
-    const text = await response.text();
-    return text ? JSON.parse(text) : {};
-}
+export const apiClient: AxiosInstance = axios.create({
+  baseURL: baseUrl,
+  withCredentials: true,
+  headers: { "Content-Type": "application/json" },
+});

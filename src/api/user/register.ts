@@ -1,12 +1,15 @@
 import type { RegisterDTO } from "../../interfaces/user/dto/register";
 import type { UserRegisterResponse } from "../../interfaces/user/dto/registerResponse";
-import { apiFetch } from "../apiClient";
+import { apiClient } from "../apiClient";
 
 export async function registerUser(registerDto: RegisterDTO): Promise<UserRegisterResponse> {
-    const data = await apiFetch("/user/register", {
-        method: "POST",
-        body: JSON.stringify(registerDto),
-    });
-
-    return data as UserRegisterResponse;
+  try {
+    const response = await apiClient.post<UserRegisterResponse>("/auth/register", registerDto);
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || "Något gick fel vid registrering");
+    }
+    throw new Error("Kunde inte nå servern");
+  }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { SimpleCalender } from "./calendar/SimpleCalendar"; 
+import { SimpleCalender } from "./calendar/SimpleCalendar";
 import { getTasksByUserId } from "../../api/calender/task/task";
 import type { TaskDTO } from "../../interfaces/calender/task/dto/task";
 import styles from './Deadline.module.css';
@@ -14,6 +14,7 @@ export function Deadline() {
     try {
       const data: TaskDTO[] = await getTasksByUserId();
       setEvents(mapTaskDTOsToEvents(data));
+      console.log("Uppgifter hämtade:", data);
     } catch (err) {
       console.error("Fel vid hämtning av uppgifter:", err);
       setEvents([]);

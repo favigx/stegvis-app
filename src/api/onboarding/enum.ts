@@ -1,10 +1,14 @@
 import type { UserPreferenceEnums } from "../../interfaces/user/enum/userPreferenceEnums";
-import { apiFetch } from "../apiClient";
+import { apiClient } from "../apiClient";
 
 export async function getUserPreferenceEnums(): Promise<UserPreferenceEnums> {
-    const data = await apiFetch('/onboarding/enums', {
-        method: 'GET',
-    });
-
-    return data as UserPreferenceEnums;
+  try {
+    const response = await apiClient.get<UserPreferenceEnums>("/onboarding/enums");
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || "Kunde inte hämta enums");
+    }
+    throw new Error("Kunde inte nå servern");
+  }
 }

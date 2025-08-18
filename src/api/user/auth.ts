@@ -1,18 +1,28 @@
 import type { LoginDTO } from "../../interfaces/user/dto/login";
 import type { UserLoginResponse } from "../../interfaces/user/dto/loginResponse";
-import { apiFetch } from "../apiClient";
+import { apiClient, type ApiError } from "../apiClient";
 
 export async function loginUser(loginDto: LoginDTO): Promise<UserLoginResponse> {
-    const data = await apiFetch("/user/login", {
-        method: "POST",
-        body: JSON.stringify(loginDto),
-    });
-
-    return data as UserLoginResponse;
+  try {
+    const response = await apiClient.post<UserLoginResponse>("/auth/login", loginDto);
+    return response.data;
+  } catch (error: any) {
+    const apiError: ApiError = {
+      message: error.response?.data?.message || "Inloggning misslyckades",
+      status: error.response?.status,
+    };
+    throw apiError;
+  }
 }
 
 export async function logoutUser(): Promise<void> {
-    await apiFetch("/user/logout", {
-        method: "POST",
-    });
+  try {
+    await apiClient.post("/auth/logout");
+  } catch (error: any) {
+    const apiError: ApiError = {
+      message: error.response?.data?.message || "Utloggning misslyckades",
+      status: error.response?.status,
+    };
+    throw apiError;
+  }
 }

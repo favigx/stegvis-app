@@ -1,26 +1,33 @@
 import type { UserPreference } from "../../interfaces/user/preferences";
 import type { UserPreferenceResponse } from "../../interfaces/user/dto/preferenceResponse";
-import { apiFetch } from "../apiClient";
+import { apiClient, type ApiError } from "../apiClient";
 import { store } from "../../redux/store";
 
-export async function setUserPreferences(userPreference: UserPreference): Promise<UserPreferenceResponse> {
-    const state = store.getState();
-    const userId = state.auth.id;
-    
-    const payload = {
-        ...userPreference,
-        educationLevel: userPreference.educationLevel?.toString().toUpperCase() || null,
-        fieldOfStudy: userPreference.fieldOfStudy?.toString().toUpperCase() || null,
-        subjects: userPreference.subjects?.map(s => s.toUpperCase()) || [],
-        focusDays: userPreference.focusDays?.map(d => d.toUpperCase()) || [],
-        dailyGoal: userPreference.dailyGoal,
-        helpRequests: userPreference.helpRequests?.map(h => h.toUpperCase()) || [],
-    };
+export async function setUserPreferences(
+  userPreference: UserPreference
+): Promise<UserPreferenceResponse> {
+  const state = store.getState();
+  const userId = state.auth.id;
 
-    const data = await apiFetch(`/user/${userId}/preferences`, {
-        method: "PUT",
-        body: JSON.stringify(payload),
-    });
+  const payload = {
+    ...userPreference,
+    educationLevel: userPreference.educationLevel?.toString().toUpperCase() || null,
+    fieldOfStudy: userPreference.fieldOfStudy?.toString().toUpperCase() || null,
+    subjects: userPreference.subjects?.map((s) => s.toUpperCase()) || [],
+    focusDays: userPreference.focusDays?.map((d) => d.toUpperCase()) || [],
+    dailyGoal: userPreference.dailyGoal,
+    helpRequests: userPreference.helpRequests?.map((h) => h.toUpperCase()) || [],
+  };
 
-    return data as UserPreferenceResponse;
+  try {
+    const response = await apiClient.put<UserPreferenceResponse>(
+      `/user/${userId}/preferences`,
+      payload
+    );
+    return response.data;
+  } catch (error: any) {
+    // Om interceptorn redan konverterar errors till ApiError
+    const apiError: ApiError = error;
+    throw apiError;
+  }
 }

@@ -5,6 +5,7 @@ import Header from './components/header/Header';
 import type { RootState } from './redux/store';
 import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import './api/interceptors.ts' 
 
 function App() {
 
