@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { X, Settings, Home, SlidersHorizontal, LogOut, CircleX } from "lucide-react"; 
+import { Settings, Home, SlidersHorizontal, LogOut, CircleX } from "lucide-react"; 
 import styles from "./HamburgerMenu.module.css";
 import { useDispatch } from "react-redux";
 import { handleLogout } from "../logout/Logout";

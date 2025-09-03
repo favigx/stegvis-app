@@ -5,7 +5,7 @@ export function ChoiceButton({ name, selected, onClick, disabled, className }: E
   return (
     <button
       onClick={onClick}
-      className={`${className ?? ''} ${selected ? styles.selected : styles.unselected}`}
+      className={`${styles.button} ${className ?? ''} ${selected ? styles.selected : styles.unselected}`}
       disabled={disabled}
     >
       {name}
