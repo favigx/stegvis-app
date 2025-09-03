@@ -1,5 +1,6 @@
 export interface UserPreference {
     educationLevel: string | null;
+    year: string | null;
     fieldOfStudy: string | null;
     subjects: string[] | null;
     focusDays: string[] | null;

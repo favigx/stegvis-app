@@ -1,7 +1,6 @@
 export interface UserPreferenceEnums {
   educationLevels: string[];
-  fieldOfStudies: string[];
-  subjects: string[];
+  year: string[];
   focusDays: string[];
   dailyGoals: number[];
   helpRequests: string[];

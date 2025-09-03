@@ -7,14 +7,21 @@ interface PrivateRouteProps {
   children: JSX.Element;
 }
 
-function PrivateRoute({ children }: PrivateRouteProps) {
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+export default function PrivateRoute({ children }: PrivateRouteProps) {
+  const { isAuthenticated, hasCompletedOnboarding } = useSelector((state: RootState) => state.auth);
+  const path = window.location.pathname;
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  if (!hasCompletedOnboarding && path !== "/onboarding") {
+    return <Navigate to="/onboarding" replace />;
+  }
+
+if (hasCompletedOnboarding && path === "/onboarding") {
+  return <Navigate to="/home" replace />;
 }
 
-export default PrivateRoute;
+  return children;
+}

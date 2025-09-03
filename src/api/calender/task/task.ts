@@ -1,17 +1,13 @@
 import type { AddTaskDTO } from "../../../interfaces/calender/task/dto/addTask";
 import type { AddTaskResponse } from "../../../interfaces/calender/task/dto/addTaskResponse";
 import type { TaskDTO } from "../../../interfaces/calender/task/dto/task";
-import { store } from "../../../redux/store";
 import { apiClient } from "../../apiClient"; 
 
 const TASK_API_BASE = "/calender/task";
 
 export async function addTask(addTaskDTO: AddTaskDTO): Promise<AddTaskResponse> {
-  const state = store.getState();
-  const userId = state.auth.id;
-
   try {
-    const response = await apiClient.post<AddTaskResponse>(`${TASK_API_BASE}/${userId}`, addTaskDTO);
+    const response = await apiClient.post<AddTaskResponse>(`${TASK_API_BASE}`, addTaskDTO);
     return response.data;
   } catch (error: any) {
     if (error.response) {
@@ -21,12 +17,9 @@ export async function addTask(addTaskDTO: AddTaskDTO): Promise<AddTaskResponse> 
   }
 }
 
-export async function getTasksByUserId(): Promise<TaskDTO[]> {
-  const state = store.getState();
-  const userId = state.auth.id;
-
+export async function getTasks(): Promise<TaskDTO[]> {
   try {
-    const response = await apiClient.get<TaskDTO[]>(`${TASK_API_BASE}/${userId}`);
+    const response = await apiClient.get<TaskDTO[]>(`${TASK_API_BASE}`);
     return response.data;
   } catch (error: any) {
     if (error.response) {

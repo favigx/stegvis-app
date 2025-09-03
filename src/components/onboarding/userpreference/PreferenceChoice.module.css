@@ -1,0 +1,129 @@
+.buttonContainer {
+  background-color: #1a1c31;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  border: 1px solid #423f61;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 1rem;
+}
+
+.title {
+  min-width: 115px;
+  color: #fff;
+  text-align: left; 
+
+  margin-left: 0; 
+  color: #fff; 
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end; 
+}
+
+.button {
+  letter-spacing: -0.3px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 2px solid #343155;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.selected {
+  background-color: #5867a8;
+  color: #fff;
+  border-color: #4842a5;
+  border: 2px solid #343155;
+}
+
+.unselected {
+  background-color: #312f4d;
+  color: #fff;
+}
+
+.unselected:hover {
+  background-color: #645c83;
+  border-color: #ada8f3;
+}
+
+.selected:hover {
+  border-color: #ada8f3;
+}
+
+.scrollable {
+  max-height: 120px;
+  min-height: 120px;
+  overflow-y: auto;
+}
+
+.searchInput {
+  width: 200px;
+  min-width: 100px;
+  max-width: 300px;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #343155;
+  background-color: #1a1c31;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.optionWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+.dropdown {
+  position: absolute;  
+  top: 100%;            
+  left: 0;              
+
+  border-radius: 12px;
+;
+  padding: 4px 0;
+  max-height: 200px;   
+  overflow-y: auto;
+  z-index: 1000;       
+  min-width: 180px;    
+
+
+}
+
+.courseButton {
+  background: rgba(63, 67, 112, 0.6);
+  border: 1px solid rgba(75, 76, 128, 0.7);
+  margin: 2px 8px;    
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 12px;
+  text-align: left;
+  backdrop-filter: blur(8px);
+  color: #fff;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.courseButton:hover {
+  background-color: rgba(88, 103, 168, 0.6);
+}
+
+.courseButton.selected {
+  background-color: rgba(88, 103, 168, 0.9);
+  border-color: #4842a5;
+  color: #fff;
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { SimpleCalender } from "./calendar/SimpleCalendar";
-import { getTasksByUserId } from "../../api/calender/task/task";
+import { getTasks } from "../../api/calender/task/task";
 import type { TaskDTO } from "../../interfaces/calender/task/dto/task";
 import styles from './Deadline.module.css';
 import { AddTask } from "./add-task/AddTask";
@@ -12,7 +12,7 @@ export function Deadline() {
 
   const fetchTasks = useCallback(async () => {
     try {
-      const data: TaskDTO[] = await getTasksByUserId();
+      const data: TaskDTO[] = await getTasks();
       setEvents(mapTaskDTOsToEvents(data));
       console.log("Uppgifter hämtade:", data);
     } catch (err) {

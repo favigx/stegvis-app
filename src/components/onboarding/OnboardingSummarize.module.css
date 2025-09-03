@@ -1,20 +1,27 @@
 .summarizeContainer {
   width: 400px;
   flex-shrink: 0;
-  background-color: #1b2146;
-  border-radius: 20px;
+  margin-left: 2rem;
+  padding: 1rem 1.5rem;
   border: 1px solid #343155;
-  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background-color: #11162b;
   overflow-y: auto;
   color: #fff;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-}
 
+  position: sticky;
+  top: 80px;
+}
 .summarizeCard {
-  background-color: #11162b;
-  border-radius: 12px;
+    background-color: #1a1c31;
+  border-radius: 20px;
+
+  border: 1px solid #423f61;
   padding: 0.75rem;
   display: flex;
   flex-direction: column;

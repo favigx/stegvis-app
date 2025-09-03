@@ -1,88 +1,169 @@
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from "../../redux/store";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { setPreferences } from "../../redux/slices/userPreferenceSlice";
-import { EnumButtons } from "./EnumButtons";
+import { setUserPreferences, getUserPreferences } from "../../api/user/preferences";
+import { setHasCompletedOnboarding } from "../../redux/slices/authSlice";
+import { PreferenceSection } from "./PreferenceSection";
 import { LoadEnums } from "./Enums";
-import type { UserPreference } from "../../interfaces/user/preferences";
-import { setUserPreferences } from "../../api/user/preferences";
 import { Summarize } from "./OnboardingSummarize";
-import styles from './Onboarding.module.css'
+import { LoadPrograms, useAppDispatch, useAppSelector } from "./LoadPrograms";
+import { fetchSubjectsForProgram, resetSubjects } from "../../redux/slices/subject";
+import { mapSubjectsToOptions } from "./utils/mapSubjectsToOptions";
+
+import { SavingOverlay } from './SavingOverlay';
+
+import type { UserPreference } from "../../interfaces/user/preferences";
+import styles from "./Onboarding.module.css";
+import { useSelectionHandler } from "./hooks/useSelectionHandler";
 
 
-export function Onboarding() {
-  const dispatch = useDispatch();
-  const enums = useSelector((state: RootState) => state.enums);
-  const userPrefs = useSelector((state: RootState) => state.preferences);
+export function Onboarding({ 
+  title = "Komma igång med Stegvis", 
+  buttonText = "Fortsätt", 
+  hint = "Du kan alltid ändra dina preferenser i inställningar",
+  hint2 = "Ställ in dina preferenser nedan för att få en anpassad upplevelse", redirectPath }: any) {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const enums = useAppSelector(state => state.enums);
+  const userPrefs = useAppSelector(state => state.preferences);
+  const programsState = useAppSelector(state => state.programs);
+  const subjectsState = useAppSelector(state => state.subjects);
+  const programs = programsState.data;
+  const programDetails = subjectsState.data;
+
+  const [localPrefs, setLocalPrefs] = useState<UserPreference>({ ...userPrefs, educationLevel: userPrefs.educationLevel || "Gymnasiet" });
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const fetchPreferences = async () => {
+      try {
+        const resp = await getUserPreferences();
+        setLocalPrefs({ ...resp.userPreference, educationLevel: resp.userPreference.educationLevel || "Gymnasiet" });
+        dispatch(setPreferences(resp.userPreference));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchPreferences();
+  }, [dispatch]);
 
   const updateField = (field: keyof UserPreference, value: any) => {
-    dispatch(setPreferences({ [field]: value }));
+    setLocalPrefs(prev => ({ ...prev, [field]: value }));
+    if (field === "fieldOfStudy" && typeof value === "string") {
+      dispatch(resetSubjects());
+      const selectedProgram = programs.find(p => `${p.name} (${p.code})` === value);
+      if (selectedProgram) dispatch(fetchSubjectsForProgram(selectedProgram.code));
+    }
   };
 
   const handleSave = async () => {
+    setSaving(true); setSaved(false);
     try {
-      console.log("Saving preferences:", userPrefs);
-      const response = await setUserPreferences(userPrefs);
-      console.log("Preferences saved successfully:", response);
-    } catch (err) {
-      console.error("Failed to save preferences:", err);
-    }
+      await setUserPreferences(localPrefs);
+      dispatch(setPreferences(localPrefs));
+      setSaved(true);
+      setTimeout(() => { dispatch(setHasCompletedOnboarding(true)); setSaving(false); if (redirectPath) navigate(redirectPath); }, 2000);
+    } catch (err) { console.error(err); setSaving(false); }
   };
 
   if (!enums) return <p>Laddar enums...</p>;
 
+  const foundationSubjects = localPrefs.fieldOfStudy ? programDetails?.foundationSubjects?.subjects ?? [] : [];
+  const programmeSubjects = localPrefs.fieldOfStudy ? programDetails?.programmeSpecificSubjects?.subjects ?? [] : [];
+  const specializationSubjects = localPrefs.fieldOfStudy ? programDetails?.specialization?.subjects ?? [] : [];
+  const specializationSubjectsFiltered = specializationSubjects.filter(s => !foundationSubjects.some(f => f.code === s.code) && !programmeSubjects.some(p => p.code === s.code));
+
+
+  const handleSelect = useSelectionHandler(localPrefs.educationLevel, val => updateField("educationLevel", val), false);
+
   return (
-  <>
-  <div className={styles.onboardingWrapper}>
-    <div className={styles.onboardingContainer}>
-      <h3>Onboarding</h3>
-      <LoadEnums />
-      <EnumButtons
+    <div className={styles.onboardingWrapper}>
+      <div className={styles.onboardingContainer}>
+        <h3>{title}</h3>
+        <p className={styles.hint2}>{hint2}</p>
+        <LoadEnums />
+        <LoadPrograms />
+
+        <PreferenceSection
         title="Skolnivå"
-        options={enums.educationLevels}
-        selected={userPrefs.educationLevel}
-        onSelect={(val) => updateField("educationLevel", val)}
-      />
-      <EnumButtons
+        options={enums.educationLevels.map(e => ({ name: e, code: e }))}
+        selected={localPrefs.educationLevel}
+        onSelect={handleSelect}
+        />
+
+        <PreferenceSection
+        title="År"
+        options={enums.year.map(y => ({ name: y, code: y }))}
+        selected={localPrefs.year}
+        onSelect={val => updateField("year", val)} 
+        />
+
+        {!programsState.loading && !programsState.error && programs.length > 0 &&
+        <PreferenceSection 
         title="Program"
-        options={enums.fieldOfStudies}
-        selected={userPrefs.fieldOfStudy}
-        onSelect={(val) => updateField("fieldOfStudy", val)}
-      />
-      <EnumButtons
-        title="Ämnen"
-        options={enums.subjects}
-        selected={userPrefs.subjects}
-        onSelect={(val) => updateField("subjects", val)}
-        multiple
-      />
-      <EnumButtons
+        options={programs.map(p => ({ name: `${p.name} (${p.code})`, code: `${p.name} (${p.code})` }))}
+        selected={localPrefs.fieldOfStudy}
+        onSelect={val => updateField("fieldOfStudy", val)} searchable 
+        />}
+
+        {foundationSubjects.length > 0 &&
+        <PreferenceSection title="Grundämnen"
+        options={mapSubjectsToOptions(foundationSubjects)}
+        selected={localPrefs.subjects}
+        onSelect={val => updateField("subjects", val)} multiple
+        />}
+
+        {programmeSubjects.length > 0 &&
+        <PreferenceSection
+        title="Programgemensamma ämnen"
+        options={mapSubjectsToOptions(programmeSubjects)}
+        selected={localPrefs.subjects}
+        onSelect={val => updateField("subjects", val)} multiple
+        />}
+
+        {specializationSubjectsFiltered.length > 0 &&
+        <PreferenceSection title="Fördjupningar"
+        options={mapSubjectsToOptions(specializationSubjectsFiltered)}
+        selected={localPrefs.subjects}
+        onSelect={val => updateField("subjects", val)} multiple
+        />}
+
+        <PreferenceSection
         title="Fokusdagar"
-        options={enums.focusDays}
-        selected={userPrefs.focusDays}
-        onSelect={(val) => updateField("focusDays", val)}
-        multiple
-      />
-      <EnumButtons
+        options={enums.focusDays.map(d => ({ name: d, code: d }))}
+        selected={localPrefs.focusDays}
+        onSelect={val => updateField("focusDays", val)} multiple
+        />
+          
+        <PreferenceSection
         title="Dagligt mål"
-        options={enums.dailyGoals.map(String)}
-        selected={userPrefs.dailyGoal?.toString() || null}
-        onSelect={(val) => updateField("dailyGoal", Number(val))}
+        options={enums.dailyGoals.map(g => ({ name: `${g} min`, code: `${g}` }))}
+        selected={localPrefs.dailyGoal ? `${localPrefs.dailyGoal} min` : null}
+        onSelect={val => updateField(
+          "dailyGoal",
+          typeof val === "string" ? Number(val.split(" ")[0]) : Number(val[0].split(" ")[0])
+        )}
       />
-      <EnumButtons
+
+        <PreferenceSection
         title="Vad vill du ha hjälp med?"
-        options={enums.helpRequests}
-        selected={userPrefs.helpRequests}
-        onSelect={(val) => updateField("helpRequests", val)}
-        multiple
-      />
-      <button className={styles.savePrefBtn} onClick={handleSave}>Fortsätt</button>
-    </div>
+        options={enums.helpRequests.map(h => ({ name: h, code: h }))}
+        selected={localPrefs.helpRequests}
+        onSelect={val => updateField("helpRequests", val)} multiple
+        />
 
-    <div className={styles.summarizeContainer}>
-      <Summarize />
-    </div>
-  </div>
-</>
+        <div className={styles.savePrefWrapper}>
+          <button className={styles.savePrefBtn} onClick={handleSave} disabled={saving}>{buttonText}</button>
+          <p>{hint}</p>
+        </div>
+      </div>
 
+      <div className={styles.summarizeContainer}>
+        <Summarize userPrefs={localPrefs} />
+      </div>
+      <SavingOverlay saving={saving} saved={saved} />
+    </div>
   );
 }

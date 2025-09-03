@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerUser } from '../../api/user/register'; 
+import { registerUser } from '../../api/user/auth'; 
 import type { RegisterDTO } from '../../interfaces/user/dto/register';
 import { Link, useNavigate } from 'react-router-dom';
 import type { ApiError } from '../../api/apiClient';

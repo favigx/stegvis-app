@@ -1,38 +1,34 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/authSlice";
-import enumsReducer from './slices/enumSlice';
-import calenderEnumsReducer from './slices/calenderEnum';
-import userPreferenceReducer from './slices/userPreferenceSlice';
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const authPersistConfig = {
-    key: "auth",
-    storage,
-};
+import authReducer from "./slices/authSlice";
+import enumsReducer from "./slices/enumSlice";
+import calenderEnumsReducer from "./slices/calenderEnum";
+import userPreferenceReducer from "./slices/userPreferenceSlice";
+import programReducer from "./slices/programs";
+import subjectReducer from "./slices/subject";
 
-const enumsPersistConfig = {
-    key: "enum",
-    storage,
-};
+const createPersistConfig = (key: string) => ({
+  key,
+  storage,
+});
 
-const preferencesPersistConfig = {
-    key: "preferences",
-    storage,
-};
-
-const calenderEnumPersistConfig = {
-    key: "calenderenums",
-    storage,
+const rootReducer = {
+  auth: persistReducer(createPersistConfig("auth"), authReducer),
+  enums: persistReducer(createPersistConfig("enum"), enumsReducer),
+  programs: persistReducer(createPersistConfig("programs"), programReducer),
+  subjects: persistReducer(createPersistConfig("subjects"), subjectReducer),
+  preferences: persistReducer(createPersistConfig("preferences"), userPreferenceReducer),
+  calenderenums: persistReducer(createPersistConfig("calenderenums"), calenderEnumsReducer),
 };
 
 export const store = configureStore({
-    reducer: {
-        auth: persistReducer(authPersistConfig, authReducer),
-        enums: persistReducer(enumsPersistConfig, enumsReducer),
-        preferences: persistReducer(preferencesPersistConfig, userPreferenceReducer),
-        calenderenums: persistReducer(calenderEnumPersistConfig, calenderEnumsReducer)
-    },
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export const persistor = persistStore(store);

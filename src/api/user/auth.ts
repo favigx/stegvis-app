@@ -1,5 +1,7 @@
 import type { LoginDTO } from "../../interfaces/user/dto/login";
 import type { UserLoginResponse } from "../../interfaces/user/dto/loginResponse";
+import type { RegisterDTO } from "../../interfaces/user/dto/register";
+import type { UserRegisterResponse } from "../../interfaces/user/dto/registerResponse";
 import { apiClient, type ApiError } from "../apiClient";
 
 export async function loginUser(loginDto: LoginDTO): Promise<UserLoginResponse> {
@@ -24,5 +26,17 @@ export async function logoutUser(): Promise<void> {
       status: error.response?.status,
     };
     throw apiError;
+  }
+}
+
+export async function registerUser(registerDto: RegisterDTO): Promise<UserRegisterResponse> {
+  try {
+    const response = await apiClient.post<UserRegisterResponse>("/auth/register", registerDto);
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || "Något gick fel vid registrering");
+    }
+    throw new Error("Kunde inte nå servern");
   }
 }

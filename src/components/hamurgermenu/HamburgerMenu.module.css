@@ -1,0 +1,70 @@
+.container {
+  position: relative;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  transition: transform 0.2s ease;
+}
+
+
+.menu {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background-color: none;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  z-index: 1500;
+  width: 240px;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 20px !important;
+  background: none;
+  border: none;
+  border-radius: 11px !important;
+  margin-bottom: 4px;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 15px;
+  color: #f0f0f0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.menuItem:hover {
+  background-color: #2c2d4a;
+  border-radius: 12px;
+  transform: translateY(2px) scale(1.04);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+  color: #a0a0ff;
+}

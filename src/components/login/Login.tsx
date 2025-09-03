@@ -3,14 +3,12 @@ import { useDispatch } from 'react-redux';
 import { loginSucess } from '../../redux/slices/authSlice';
 import { loginUser } from '../../api/user/auth';
 import type { LoginDTO } from '../../interfaces/user/dto/login';
-import { useNavigate } from 'react-router-dom';
 import type { ApiError } from '../../api/apiClient';
 import styles from './Login.module.css';
 import { Link } from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,8 +23,8 @@ const Login = () => {
         dispatch(loginSucess({
             id: response.id,
             user: response.email,
+            hasCompletedOnboarding: response.hasCompletedOnboarding
         }));
-             navigate('/onboarding');
         } catch (err) {
             const apiError = err as ApiError;
             setError(apiError.message);

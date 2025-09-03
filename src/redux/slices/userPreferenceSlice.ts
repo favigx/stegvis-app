@@ -3,6 +3,7 @@ import type { UserPreference } from "../../interfaces/user/preferences";
 
 const initialState: UserPreference = {
   educationLevel: null,
+  year: null,
   fieldOfStudy: null,
   subjects: [],
   focusDays: [],
