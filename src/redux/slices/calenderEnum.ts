@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { TypeEnum } from "../../interfaces/calender/task/enum/type"; 
+import type { TypeEnum } from "../../features/deadline/types/taskTypeEnum"; 
 
 const initialState: TypeEnum = {
   types: [],

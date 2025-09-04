@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { UserPreference } from "../../interfaces/user/preferences"; 
+import type { UserPreference } from "../../features/onboarding/types/userPreferences/userPreferences"; 
 
 const initialState: UserPreference = {
   educationLevel: null,

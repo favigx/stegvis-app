@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
-import { getSkolverketSubjectsForProgram } from "../../api/onboarding/skolverket/details";
-import type { ProgramDetailsInterface } from "../../api/onboarding/skolverket/dto/programdetails";
+import { getSkolverketSubjectsForProgram } from "../../features/onboarding/api/skolverket/skolverketAPI";
+import type { ProgramDetailsInterface } from "../../features/onboarding/types/skolverket/programdetails";
 
 interface SubjectsState {
   data: ProgramDetailsInterface | null;

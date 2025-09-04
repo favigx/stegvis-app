@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoutes";
-import Login from "../components/login/Login";
-import LandingPage from "../components/landing/Landing";
-import Register from "../components/register/Register";
-import { Onboarding } from "../components/onboarding/Onboarding";
-import { Deadline } from "../components/deadline/Deadline";
-import EditPreferences from "../components/settings/preferences/EditPreferences";
-import GoalPlanner from "../components/goalplanner/GoalPlanner";
+import Login from "../features/auth/components/Login";
+import LandingPage from "../features/landing/Landing";
+import Register from "../features/auth/components/Register";
+import { Onboarding } from "../features/onboarding/components/Onboarding";
+import { Deadline } from "../features/deadline/components/Deadline";
+import EditPreferences from "../features/user-settings/components/EditPreferences";
 import PublicRoute from "./PublicRoutes";
+import Notes from "../features/notes/components/Notes";
 
 const Home = () => <div>Home Page</div>;
 
@@ -24,7 +24,8 @@ export default function AppRoutes() {
   <Route path="/onboarding" element={<PrivateRoute><Onboarding redirectPath="/goalplanner" /></PrivateRoute>} />
   <Route path="/deadlines" element={<PrivateRoute><Deadline /></PrivateRoute>} />
   <Route path="/settings-preferences" element={<PrivateRoute><EditPreferences /></PrivateRoute>} />
-  <Route path="/goalplanner" element={<PrivateRoute><GoalPlanner /></PrivateRoute>} />
+    <Route path="/notes" element={<PrivateRoute><Notes /></PrivateRoute>} />
+
 </Routes>
 
   );

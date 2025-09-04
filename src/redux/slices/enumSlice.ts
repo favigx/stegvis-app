@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { UserPreferenceEnums } from "../../interfaces/user/enum/userPreferenceEnums";
+import type { UserPreferenceEnums } from "../../features/onboarding/types/userPreferences/userPreferenceEnums";
 
 const initialState: UserPreferenceEnums = {
   educationLevels: [],

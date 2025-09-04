@@ -1,7 +1,7 @@
 import './App.css';
 
 import AppRoutes from './routes/AppRoutes';
-import Header from './components/header/Header';
+import Header from './layout/Header.tsx';
 import type { RootState } from './redux/store';
 import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
