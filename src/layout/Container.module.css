@@ -1,0 +1,113 @@
+.mainContainer {
+  max-width: 800px;
+  flex: 1;
+  margin: 3rem 0; 
+  padding: 1rem 1.5rem;
+  border: 1px solid #343155;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background-color: #11162b;
+}
+.buttonContainer {
+  background-color: #1b2146;
+  padding-bottom: 40px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  border: 1px solid #343155;
+}
+
+.saveBtn {
+  display: block; 
+  margin: 20px 0 0 0;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-size: 13px;
+  border: 2px solid #343155;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #2a2d57;
+}
+
+.mainContainer h3 {
+  text-align: left;
+ font-size: 22px;
+  color: #fff; 
+}
+.mainWrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+.saveWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgb(151, 154, 189);
+}
+
+.textareaContainer {
+  background-color: #1a1c31;
+  padding: 0;              
+  border-radius: 20px;
+  margin-bottom: 15px;
+  border: 1px solid #343155;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+    padding: 0;
+}
+
+.textarea {
+  height: 100%;
+  width: 100%;
+  padding: 16px;
+  outline: none;
+  color: #fff;
+  text-align: left;
+  background-color: #1a1c31;
+  line-height: 1.4;
+  cursor: text;
+  border-radius: 12px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.textarea .ProseMirror {
+  height: 100%;
+  min-height: 100%;
+  padding: 16px;
+  outline: none;
+  box-sizing: border-box;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+ overflow-wrap: break-word !important;
+  word-break: break-word;
+}
+.textarea p {
+  margin: 0 0 8px 0;
+}
+
+.textarea ul,
+.textarea ol {
+  padding-left: 24px;
+  margin: 0 0 8px 0;
+}
+
+.textarea li {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.textarea .ProseMirror {
+  height: 100%;
+  min-height: 100%;
+  padding: 16px;
+  outline: none;
+  box-sizing: border-box;
+}

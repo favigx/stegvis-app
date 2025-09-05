@@ -3,7 +3,7 @@ import type { AddNoteResponse } from "../types/addNoteResponse";
 // import type { NoteDTO } from "./dto/NoteDTO";
 import { apiClient } from "../../../api/apiClient"; 
 
-const TASK_API_BASE = "/note";
+const TASK_API_BASE = "/notes";
 
 export async function addNote(addNoteDTO: AddNoteDTO): Promise<AddNoteResponse> {
   try {

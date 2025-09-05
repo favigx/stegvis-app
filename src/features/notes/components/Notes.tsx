@@ -1,12 +1,11 @@
+import { AddNote } from "./AddNote";
+
 function Notes() {
   return (
-    <>
-   <div>
-     <h1>Anteckningar</h1>
+    <div>
+      <AddNote />
     </div>
-    
-    </>
-  )
+  );
 }
 
-export default Notes
+export default Notes;
