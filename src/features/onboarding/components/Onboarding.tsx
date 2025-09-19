@@ -9,12 +9,14 @@ import { useLoadEnums } from "../hooks/useLoadEnums";
 import { useAppDispatch, useAppSelector, useLoadPrograms } from "../hooks/useLoadPrograms";
 import { fetchSubjectsForProgram, resetSubjects } from "../../../redux/slices/subject";
 import { mapSubjectsToOptions } from "../utils/mapSubjectsToOptions";
-
 import { StatusOverlay } from "../../../layout/StatusOverlay";
+import { Save } from "lucide-react";
+import styless from '../../../layout/Container.module.css';
 
 import type { UserPreference } from "../types/userPreferences/userPreferences";
 import styles from "./Onboarding.module.css";
 import { useSelectionHandler } from "../hooks/useSelectionHandler";
+import type { AddUserPreferencesOnboardingDTO } from "../types/userPreferences/addUserPreferencesOnboardingDTO";
 
 export function Onboarding({ 
   title = "Komma igång med Stegvis", 
@@ -23,7 +25,7 @@ export function Onboarding({
   hint2 = "Ställ in dina preferenser nedan för att få en anpassad upplevelse", 
   redirectPath 
 }: any) {
-  
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -35,10 +37,16 @@ export function Onboarding({
   const subjectsState = useAppSelector(state => state.subjects);
   const programDetails = subjectsState.data;
 
+  useEffect(() => {
+    console.log("Programdetails updated:", programDetails);
+  }, [programDetails]);
+
   const [localPrefs, setLocalPrefs] = useState<UserPreference>({
     ...userPrefs,
-    educationLevel: userPrefs.educationLevel || "Gymnasiet"
+    educationLevel: userPrefs.educationLevel || "Gymnasiet",
+    orientation: userPrefs.orientation || null
   });
+
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -48,7 +56,8 @@ export function Onboarding({
         const resp = await getUserPreferences();
         setLocalPrefs({
           ...resp.userPreference,
-          educationLevel: resp.userPreference.educationLevel || "Gymnasiet"
+          educationLevel: resp.userPreference.educationLevel || "Gymnasiet",
+          orientation: resp.userPreference.orientation || null
         });
         dispatch(setPreferences(resp.userPreference));
       } catch (err) {
@@ -66,17 +75,32 @@ export function Onboarding({
       const selectedProgram = programs.find(p => `${p.name} (${p.code})` === value);
       if (selectedProgram) {
         dispatch(fetchSubjectsForProgram(selectedProgram.code));
+        setLocalPrefs(prev => ({ ...prev, orientation: null }));
       }
+    }
+
+    if (field === "orientation") {
+      setLocalPrefs(prev => ({ ...prev, subjects: [] }));
     }
   };
 
   const handleSave = async () => {
     setSaving(true);
     setSaved(false);
+
     try {
-      await setUserPreferences(localPrefs);
-      dispatch(setPreferences(localPrefs));
+      const payload: AddUserPreferencesOnboardingDTO = {
+        educationLevel: localPrefs.educationLevel || "Gymnasiet",
+        fieldOfStudy: localPrefs.fieldOfStudy || "",
+        orientation: localPrefs.orientation || "",
+        year: localPrefs.year || 1,
+        subjects: localPrefs.subjects || [],
+      };
+
+      await setUserPreferences(payload);
+      dispatch(setPreferences(payload));
       setSaved(true);
+
       setTimeout(() => {
         dispatch(setHasCompletedOnboarding(true));
         setSaving(false);
@@ -88,32 +112,44 @@ export function Onboarding({
     }
   };
 
-  const foundationSubjects = localPrefs.fieldOfStudy
-    ? programDetails?.foundationSubjects?.subjects ?? []
-    : [];
-  const programmeSubjects = localPrefs.fieldOfStudy
-    ? programDetails?.programmeSpecificSubjects?.subjects ?? []
-    : [];
-  const specializationSubjects = localPrefs.fieldOfStudy
-    ? programDetails?.specialization?.subjects ?? []
-    : [];
-  const specializationSubjectsFiltered = specializationSubjects.filter(
-    s =>
-      !foundationSubjects.some(f => f.code === s.code) &&
-      !programmeSubjects.some(p => p.code === s.code)
-  );
+  const combinedSubjects = (() => {
+    if (!programDetails) return [];
 
-  const handleSelect = useSelectionHandler(
-    localPrefs.educationLevel,
-    val => updateField("educationLevel", val),
-    false
-  );
+    const subjectsMap: Record<string, any> = {};
+    const addSubjects = (list: any[]) => {
+      list.forEach(subj => {
+        const code = subj.code;
+        const courses = subj.courses ?? [];
+        if (subjectsMap[code]) {
+          const existingCodes = subjectsMap[code].courses.map((c: any) => c.code);
+          const newCourses = courses.filter((c: any) => !existingCodes.includes(c.code));
+          subjectsMap[code].courses.push(...newCourses);
+        } else {
+          subjectsMap[code] = { ...subj, courses: [...courses] };
+        }
+      });
+    };
+
+    addSubjects(programDetails.foundationSubjects?.subjects ?? []);
+    addSubjects(programDetails.programmeSpecificSubjects?.subjects ?? []);
+    if (localPrefs.orientation) {
+      const orientation = programDetails.orientations?.find(
+        o => o.code === localPrefs.orientation || o.name === localPrefs.orientation
+      );
+      if (orientation) addSubjects(orientation.subjects ?? []);
+    }
+
+    return Object.values(subjectsMap);
+  })();
+
+  const orientations = localPrefs.fieldOfStudy ? programDetails?.orientations ?? [] : [];
+  const handleSelect = useSelectionHandler(localPrefs.educationLevel, val => updateField("educationLevel", val), false);
 
   return (
-    <div className={styles.onboardingWrapper}>
-      <div className={styles.onboardingContainer}>
-        <h3>{title}</h3>
-        <p className={styles.hint2}>{hint2}</p>
+    <div className={styless.mainWrapper} style={{ paddingBottom: '2rem' }}>
+      <div className={styless.mainContainer
+      }>
+        <h3 style={{ position: "absolute", top: -60, left: 0 }}>{title}</h3>
 
         {(!enums || programsLoading) && <p>Laddar...</p>}
         {programsError && <p>Ett fel inträffade: {programsError}</p>}
@@ -127,96 +163,73 @@ export function Onboarding({
               onSelect={handleSelect}
             />
 
-            <PreferenceSection
-              title="År"
-              options={enums.year.map(y => ({ name: y, code: y }))}
-              selected={localPrefs.year}
-              onSelect={val => updateField("year", val)}
-            />
-
             {programs.length > 0 && (
               <PreferenceSection
                 title="Program"
-                options={programs.map(p => ({
-                  name: `${p.name} (${p.code})`,
-                  code: `${p.name} (${p.code})`
-                }))}
+                options={programs.map(p => ({ name: `${p.name} (${p.code})`, code: `${p.name} (${p.code})` }))}
                 selected={localPrefs.fieldOfStudy}
                 onSelect={val => updateField("fieldOfStudy", val)}
                 searchable
               />
             )}
 
-            {foundationSubjects.length > 0 && (
+            {orientations.length > 0 && (
               <PreferenceSection
-                title="Grundämnen"
-                options={mapSubjectsToOptions(foundationSubjects)}
-                selected={localPrefs.subjects}
-                onSelect={val => updateField("subjects", val)}
-                multiple
-              />
-            )}
-
-            {programmeSubjects.length > 0 && (
-              <PreferenceSection
-                title="Programgemensamma ämnen"
-                options={mapSubjectsToOptions(programmeSubjects)}
-                selected={localPrefs.subjects}
-                onSelect={val => updateField("subjects", val)}
-                multiple
-              />
-            )}
-
-            {specializationSubjectsFiltered.length > 0 && (
-              <PreferenceSection
-                title="Fördjupningar"
-                options={mapSubjectsToOptions(specializationSubjectsFiltered)}
-                selected={localPrefs.subjects}
-                onSelect={val => updateField("subjects", val)}
-                multiple
+                title="Inriktning"
+                options={orientations.map(o => ({ name: o.name, code: o.code }))}
+                selected={localPrefs.orientation}
+                onSelect={val => updateField("orientation", val)}
               />
             )}
 
             <PreferenceSection
-              title="Fokusdagar"
-              options={enums.focusDays.map(d => ({ name: d, code: d }))}
-              selected={localPrefs.focusDays}
-              onSelect={val => updateField("focusDays", val)}
-              multiple
-            />
-
-            <PreferenceSection
-              title="Dagligt mål"
-              options={enums.dailyGoals.map(g => ({ name: `${g} min`, code: `${g}` }))}
-              selected={localPrefs.dailyGoal ? `${localPrefs.dailyGoal} min` : null}
+              title="År"
+              options={enums.year.map((y, i) => ({ name: `${i + 1}`, code: `${i + 1}` }))}
+              selected={localPrefs.year ? `${localPrefs.year}` : null}
               onSelect={val =>
-                updateField(
-                  "dailyGoal",
-                  typeof val === "string"
-                    ? Number(val.split(" ")[0])
-                    : Number(val[0].split(" ")[0])
-                )
+                updateField("year", typeof val === "string" ? Number(val) : Number(val[0]))
               }
             />
 
-            <PreferenceSection
-              title="Vad vill du ha hjälp med?"
-              options={enums.helpRequests.map(h => ({ name: h, code: h }))}
-              selected={localPrefs.helpRequests}
-              onSelect={val => updateField("helpRequests", val)}
-              multiple
-            />
+            {combinedSubjects.length > 0 && (
+              <PreferenceSection
+                title="Ämnen"
+                options={mapSubjectsToOptions(combinedSubjects)}
+                selected={localPrefs.subjects}
+                onSelect={val => updateField("subjects", val)}
+                multiple
+              />
+            )}
           </>
         )}
 
-        <div className={styles.savePrefWrapper}>
+        <div className={styles.savePrefWrapper} style={{ position: "relative" }}>
           <button
-            className={styles.savePrefBtn}
             onClick={handleSave}
             disabled={saving}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: saving ? "default" : "pointer",
+              position: "absolute", 
+              top: -705,
+              right: -25,
+              zIndex: 10,
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+           
+            }}
           >
-            {buttonText}
+            <Save
+              size={28}
+              color={saving ? "#999" : "#888da8ff"}
+              
+             
+            />
           </button>
+
           <p>{hint}</p>
         </div>
       </div>

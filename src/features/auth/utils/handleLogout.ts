@@ -11,10 +11,8 @@ import { resetCalenderEnums } from "../../../redux/slices/calenderEnum";
  */
 export async function handleLogout(dispatch: AppDispatch): Promise<boolean> {
   try {
-    // Kör API-anrop först
     await logoutUser();
 
-    // Rensa Redux-state och persisted data
     dispatch(logout());
     dispatch(resetPreferences());
     dispatch(resetCalenderEnums());

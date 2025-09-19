@@ -25,7 +25,7 @@ export function RichTextEditor({ content = "", onChange }: RichTextEditorProps) 
     editorProps: {
       attributes: {
         class: "ProseMirror " + containerStyles.textarea,
-        style: "min-height: 100%; height: 100%; outline: none; box-shadow: none;",
+        style: "min-height: 500px; height: 500px; outline: none; box-shadow: none;",
       },
     },
   });
@@ -72,11 +72,12 @@ export function RichTextEditor({ content = "", onChange }: RichTextEditorProps) 
   }, [editor, onChange]);
 
   if (!editor) return null;
+  
 
   const buttonStyle = (active: boolean) => ({
-    backgroundColor: active ? "#51569bff" : "#1b2146",
+    backgroundColor: active ? "#2a2c50ff" : " #55769b",
     color: "#fff",
-    border: "1px solid #343155",
+  
     borderRadius: "3px",
     padding: "3px 6px",
     cursor: "pointer",

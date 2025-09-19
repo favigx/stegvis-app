@@ -4,6 +4,7 @@ import type { UserPreferenceEnums } from "../../features/onboarding/types/userPr
 const initialState: UserPreferenceEnums = {
   educationLevels: [],
   year: [],
+  grades: [],
   focusDays: [],
   dailyGoals: [],
   helpRequests: [],
@@ -15,6 +16,7 @@ export const enumsSlice = createSlice({
   reducers: {
    setEnums: (state, action: PayloadAction<UserPreferenceEnums>) => {
     state.educationLevels = action.payload.educationLevels;
+    state.grades = action.payload.grades;
     state.year = action.payload.year;
     state.focusDays = action.payload.focusDays;
     state.dailyGoals = action.payload.dailyGoals;

@@ -1,0 +1,12 @@
+.noteCard {
+ 
+  width: 720px;
+  height: 547px;
+  background-color: none;
+
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80px;
+}

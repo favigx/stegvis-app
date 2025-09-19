@@ -1,6 +1,8 @@
 import type { UserPreference } from "../../types/userPreferences/userPreferences";
 import type { UserPreferenceResponse } from "../../../auth/types/preferenceResponse";
 import type { UserPreferenceEnums } from "../../types/userPreferences/userPreferenceEnums";
+import type { AddUserPreferencesOnboardingDTO } from "../../types/userPreferences/addUserPreferencesOnboardingDTO";
+import type { AddUserPreferencesOnboardingResponse } from "../../types/userPreferences/addUserPreferencesOnboardingResponse";
 
 import { apiClient, type ApiError } from "../../../../api/apiClient";
 
@@ -16,27 +18,24 @@ function arrayToTitleCase(arr: (string | undefined)[] | null | undefined): strin
 
 const defaultUserPreference: UserPreference = {
   educationLevel: "",
-  year: null,
   fieldOfStudy: "",
+  orientation: "",
+  year: null,
+  grades: [],
   subjects: [],
   focusDays: [],
   dailyGoal: null,
   helpRequests: [],
 };
 
-export async function setUserPreferences(
-  userPreference: UserPreference
-): Promise<UserPreferenceResponse> {
+export async function setUserPreferences(addUserPreferencesOnboardingDTO: AddUserPreferencesOnboardingDTO): Promise<AddUserPreferencesOnboardingResponse> {
   const payload = {
-    ...userPreference,
-    educationLevel: userPreference.educationLevel?.toUpperCase() || null,
-    focusDays: userPreference.focusDays?.map(d => d.toUpperCase()) || [],
-    dailyGoal: userPreference.dailyGoal,
-    helpRequests: userPreference.helpRequests?.map(h => h.toUpperCase()) || [],
+    ...addUserPreferencesOnboardingDTO,
+    educationLevel: addUserPreferencesOnboardingDTO.educationLevel?.toUpperCase() || null,
   };
 
   try {
-    const response = await apiClient.put<UserPreferenceResponse>(
+    const response = await apiClient.put<AddUserPreferencesOnboardingResponse>(
       `/user/preferences`,
       payload
     );

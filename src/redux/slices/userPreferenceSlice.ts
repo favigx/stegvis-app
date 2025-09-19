@@ -3,8 +3,10 @@ import type { UserPreference } from "../../features/onboarding/types/userPrefere
 
 const initialState: UserPreference = {
   educationLevel: null,
-  year: null,
   fieldOfStudy: null,
+  orientation: null,
+  year: null,
+  grades: null,
   subjects: [],
   focusDays: [],
   dailyGoal: null,

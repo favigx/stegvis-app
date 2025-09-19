@@ -1,5 +1,6 @@
 import type { UserPreference } from "../types/userPreferences/userPreferences";
 import styles from './OnboardingSummarize.module.css';
+import styless from '../../../layout/Container.module.css'
 
 interface SummarizeProps {
   userPrefs: UserPreference;
@@ -7,35 +8,29 @@ interface SummarizeProps {
 
 export function Summarize({ userPrefs }: SummarizeProps) {
   return (
-    <div className={styles.summarizeContainer}>
-      <div className={styles.summarizeCard}>
-        <h4>Skolnivå</h4>
-        <p>{userPrefs.educationLevel || "—"}</p>
-      </div>
-      <div className={styles.summarizeCard}>
-        <h4>År</h4>
-        <p>{userPrefs.year || "—"}</p>
-      </div>
-      <div className={styles.summarizeCard}>
-        <h4>Program</h4>
-        <p>{userPrefs.fieldOfStudy || "—"}</p>
-      </div>
-      <div className={styles.summarizeCard}>
-        <h4>Ämnen</h4>
-        <p>{userPrefs.subjects?.length ? userPrefs.subjects.join(", ") : "—"}</p>
-      </div>
-      <div className={styles.summarizeCard}>
-        <h4>Fokusdagar</h4>
-        <p>{userPrefs.focusDays?.length ? userPrefs.focusDays.join(", ") : "—"}</p>
-      </div>
-      <div className={styles.summarizeCard}>
-        <h4>Dagligt mål</h4>
-        <p>{userPrefs.dailyGoal != null ? `${userPrefs.dailyGoal} minuter` : "—"}</p>
-      </div>
-      <div className={styles.summarizeCard}>
-        <h4>Hjälp med</h4>
-        <p>{userPrefs.helpRequests?.length ? userPrefs.helpRequests.join(", ") : "—"}</p>
-      </div>
+    <div className={styless.mainContainer2} style={{ paddingBottom: '2rem' }}>
+      <dl className={styles.summarizeList}>
+        <div className={styles.summarizeItem}>
+          <dt>Skolnivå</dt>
+          <dd>{userPrefs.educationLevel || "—"}</dd>
+        </div>
+        <div className={styles.summarizeItem}>
+          <dt>Program</dt>
+          <dd>{userPrefs.fieldOfStudy || "—"}</dd>
+        </div>
+        <div className={styles.summarizeItem}>
+          <dt>Inriktning</dt>
+          <dd>{userPrefs.orientation || "—"}</dd>
+        </div>
+        <div className={styles.summarizeItem}>
+          <dt>År</dt>
+          <dd>{userPrefs.year || "—"}</dd>
+        </div>
+        <div className={styles.summarizeItem}>
+          <dt>Ämnen</dt>
+          <dd>{userPrefs.subjects?.length ? userPrefs.subjects.join(", ") : "—"}</dd>
+        </div>
+      </dl>
     </div>
   );
 }

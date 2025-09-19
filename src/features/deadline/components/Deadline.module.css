@@ -1,17 +1,18 @@
 .containerWrapper {
-  width: 800px;
-  height: 600px;
-  margin: 3rem 0; 
-  padding: 1rem 1.5rem;
-  border: 1px solid #343155;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  background-color: #11162b;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+width: 800px;
+  max-width: 95%;
+  margin: 3rem auto; 
   
-  overflow: hidden;
-  box-sizing: border-box;
+  padding: 1rem 1.5rem;
+  
+  max-width: 800px;
+  flex: 1;
+  margin: 0;
+  padding: 1rem 1.5rem;
+  border-radius: 30px;
+  
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    background-color: #e4e6ec36;
+    border: 2px solid #eeeff1;
+  color: #f0f0f0;
 }

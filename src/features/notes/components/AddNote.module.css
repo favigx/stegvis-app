@@ -1,0 +1,16 @@
+.container {
+ display: flex;
+  flex-direction: column;
+
+  width: 800px;
+  min-width: 300px;
+  max-width: 900px;
+  height: 100vh;
+  padding:60px;
+  padding-bottom: 200px;
+  box-sizing: border-box;
+  background-color: #533c3c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  overflow-y: auto;
+}

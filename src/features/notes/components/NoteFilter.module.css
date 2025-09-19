@@ -1,0 +1,61 @@
+.filterWrapper {
+  position: absolute;
+  top: 40px;
+  left: 50px;
+  z-index: 11;
+  display: flex;
+  gap: 8px;
+}
+
+.searchInput {
+  width: 200px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.863);
+  background-color: rgba(164, 176, 199, 0.199);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 14px;
+  outline: none;
+  color: #000;
+}
+
+.filterIcon {
+  cursor: pointer;
+  color: #9eaec4;
+  transition: color 0.2s ease;
+}
+
+.filterIcon:hover {
+  color: #3a536e;
+}
+
+.dropdown {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 220px;
+  z-index: 12;
+}
+
+.dropdownItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dropdownItem select,
+.dropdownItem input {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}

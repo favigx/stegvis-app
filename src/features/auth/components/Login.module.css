@@ -1,44 +1,68 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .loginContainer {
-  max-width: 400px;
-  margin: 5rem auto;
-  padding: 2rem;
-  border: 1px solid #343155;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  background-color: #151a2f;
+    min-width: 310px;
+    margin: 5rem auto;
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    background-color: #e4e6ec36;
+    border: 2px solid #eeeff1;
+    height: 450px;
 }
 
 .loginContainer h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 
 .loginContainer form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-grow: 0;
+    padding-bottom: 0;
+}
+
+.loginContainer input,
+.loginContainer .forgotPassword,
+.loginContainer button {
+    margin-bottom: 10px;
 }
 
 .loginContainer input {
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #343155;
-  border-radius: 4px;
+  padding: 13px 15px;
+  font-size: 1.1rem;
+  border: 1px solid #f8f8f8;
+  border-radius: 6px;
+  font-weight:lighter;
+  background-color: #ffffffec;
+  color: #333333;
 }
-
 .loginContainer button {
-  padding: 0.75rem;
-  font-size: 1rem;
-  background-color: #225891;
+  padding: 12px;
+  font-size: 1.1rem;
+  background-color: #55769b;
   border: none;
-  border-radius: 25px;
+  border-radius: 6px;
   color: #eef1ff;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+
+}
+
+.loginContainer ::placeholder {
+  color:#dddfe2;
 }
 
 .loginContainer button:hover {
-  background-color: #007bff;
+  background-color: #3a536e;
 }
 
 .errorMessage {
@@ -47,28 +71,75 @@
   text-align: center;
 }
 
-.loginContainer p {
-    margin-top: 30px;
-    color: rgb(189, 188, 188);
+.loginContainer p.bottomText {
+    margin-top:110px;
     text-align: center;
-    margin-bottom: 1rem;
-    font-size: 16px;
+    color: rgb(80, 78, 78);
+    font-size: 15px;
 }
 
-.buttonLink {
-    margin-top: 10px;
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #053568;
-    color: white;
-    text-align: center;
-    border-radius: 25px;
-    text-decoration: none;
+.loginContainer .forgotPassword {
+    margin: 0px 0 0px 0;
+    font-size: 14px;
+    color: #39393a;
+    text-align: left;
+    cursor: pointer;
+}
+
+
+.registerLink {
+    color: rgb(77, 75, 75);
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline;
 }
 
-.buttonLink:hover {
-    color: white;
-  background-color: #0056b3;
+.registerLink:hover {
+    color: black;
+     text-decoration: underline;
+}
+
+
+
+.label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    text-align: left;
+    
+    margin-bottom: 6px;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-73%);
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s ease;
+}
+
+.togglePassword:hover {
+  color: #333;
+}
+
+.loginIcon {
+  position: absolute;
+  top: 70px;
+  left: 1325px;
+  color: #55769b;
+  cursor: default;
 }

@@ -1,13 +1,22 @@
-.mainContainer {
-  max-width: 800px;
-  flex: 1;
-  margin: 3rem 0; 
+.mainContainer2 {
+  position: fixed;
+  top: 80px;
+  left: 980px;
+  bottom: 0;
+  width: 700px;
   padding: 1rem 1.5rem;
-  border: 1px solid #343155;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  background-color: #11162b;
+  border-top-right-radius: 15px;
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  background-color: #8097b3;
+  
+
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 .buttonContainer {
   background-color: #1b2146;
   padding-bottom: 40px;
@@ -30,8 +39,10 @@
 
 .mainContainer h3 {
   text-align: left;
- font-size: 22px;
-  color: #fff; 
+  font-size: 17px;
+  color: #000000b2;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+font-weight: 600;
 }
 .mainWrapper {
   display: flex;
@@ -50,11 +61,11 @@
 }
 
 .textareaContainer {
-  background-color: #1a1c31;
+  background-color: #64759941;
   padding: 0;              
   border-radius: 20px;
   margin-bottom: 15px;
-  border: 1px solid #343155;
+ 
   height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -66,15 +77,19 @@
   width: 100%;
   padding: 16px;
   outline: none;
-  color: #fff;
+   font-size: 17px;
+  color: #000000b2;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+font-weight: 600;
   text-align: left;
-  background-color: #1a1c31;
+  background-color: #ffffff;
   line-height: 1.4;
   cursor: text;
   border-radius: 12px;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
+  
 }
 
 .textarea .ProseMirror {
@@ -91,6 +106,7 @@
 }
 .textarea p {
   margin: 0 0 8px 0;
+  
 }
 
 .textarea ul,
@@ -104,10 +120,35 @@
   line-height: 1.4;
 }
 
-.textarea .ProseMirror {
+.hologramIcon svg {
+  color: #64b0ff;
+  transform: translateZ(0);
+  transition: transform 0.3s ease, filter 0.3s ease, color 0.3s ease;
+}
+
+.hologramIcon svg:hover {
+  transform: translateY(-2.55px) scale(1.1) translateZ(0);
+  color: #ffffff;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  min-height: 100%;
-  padding: 16px;
-  outline: none;
-  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  width: 95%;
 }

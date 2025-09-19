@@ -1,30 +1,39 @@
-import { useNavigate } from "react-router-dom";
 import styles from './Header.module.css';
-import MyIcon from '././images/book-1157658_960_720.webp';
+import treestairs from '../features/landing/components/images/treestairs.png';
 import { HamburgerMenu } from "./HamburgerMenu";
+import { Menu } from "lucide-react";
+import { getHeaderTitle } from './utils/getHeaderTitle';
+import { useLocation } from 'react-router-dom';
 
-function Header() {
-  const navigate = useNavigate();
+interface HeaderProps {
+  collapsed: boolean;
+  setCollapsed: (value: boolean) => void;
+}
+
+function Header({ collapsed, setCollapsed }: HeaderProps) {
+  const location = useLocation();
+  const title = getHeaderTitle(location.pathname);
 
   return (
-<header className={styles.header}>
-  <img src={MyIcon} alt="Logo" className={styles.icon} />
-  <span className={styles.text}>Stegvis</span>
-  
-  <div className={styles.headerButtonWrapper} style={{ marginLeft: "auto" }}>
-     <button onClick={() => navigate("/notes")}>Anteckningar</button>
-      <button onClick={() => navigate("/goalplanner")}>Målplaneraren</button>
-      <button onClick={() => navigate("/studyplanner")}>Studieplaneraren</button>
-      <button onClick={() => navigate("/deadlines")}>Deadlines</button>
-       <button onClick={() => navigate("/minicourses")}>Minikurser</button>
-        <button onClick={() => navigate("/quiz")}>Quiz</button>
-         <button onClick={() => navigate("/flashcards")}>Flashcards</button>
-          <button onClick={() => navigate("/studytips")}>Studietips</button>
-           <button onClick={() => navigate("/reflection")}>Reflektion</button>
-            <button onClick={() => navigate("/myprogress")}>Mina framsteg</button>
-    <HamburgerMenu />
-  </div>
-</header>
+    <header className={styles.header}>
+      <button
+        className={styles.topHamburger}
+        onClick={() => setCollapsed(!collapsed)}
+      >
+        <Menu size={24} color="white" />
+      </button>
+
+      <div className={styles.logoWrapper}>
+        <img src={treestairs} alt="Logo" className={styles.icon} />
+        <div className={styles.text}>Stegvis</div>
+      </div>
+
+      <h2 className={styles.routeTitle}>{title}</h2>
+
+      <div className={styles.rightHamburgerWrapper}>
+        <HamburgerMenu />
+      </div>
+    </header>
   );
 }
 

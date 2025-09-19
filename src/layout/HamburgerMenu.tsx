@@ -49,7 +49,6 @@ export function HamburgerMenu() {
         </button>
       </nav>
 
-      {/* Overlay */}
       <StatusOverlay
         active={loggingOut}
         completed={loggedOut}

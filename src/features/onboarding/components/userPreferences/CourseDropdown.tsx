@@ -7,15 +7,6 @@ export function CourseDropdown({ option, isOpen, isSelected, onSelect }: CourseD
 
   return (
     <div className={styles.dropdown}>
-      {/* Main subject */}
-      <ChoiceButton
-        name={`${option.name} (${option.code}, ${option.points ?? 0} p)`}
-        selected={isSelected(option.name)}
-        onClick={() => onSelect(option.name)}
-        className={styles.courseButton}
-      />
-
-      {/* Courses for main subject */}
       {option.courses.map(course => (
         <ChoiceButton
           key={course.code}
