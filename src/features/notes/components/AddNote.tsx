@@ -1,79 +1,112 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { X } from "lucide-react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
-import { AddTaskButtons } from "../../deadline/components/add-task/AddTaskbuttons"; 
-import { useAddNote } from "../hooks/useAddNote"; 
-import type { AddNoteDTO } from "../types/addNoteDTO";
-import { RichTextEditor } from "./RichTextEditor"; 
-import { Save } from "lucide-react";  
-import styles from './AddNote.module.css';
-import styless from '../../../layout/Container.module.css'
+import { AddTaskButtons } from "../../deadline/components/add-task/AddTaskbuttons";
+import { RichTextEditor } from "./RichTextEditor";
+import { AddNoteToolbar } from "./AddNoteToolbar";
+import { AnimatedSaveButton } from "../../../layout/AnimatedSaveButton"; // ✅ Importera din knapp
+import styles from "./AddNote.module.css";
 
-export function AddNote({ onNoteAdded }: { onNoteAdded?: () => void }) {
+interface AddNoteProps {
+  onSave: (subject: string, note: string) => Promise<boolean> | boolean;
+  onClose?: () => void;
+  subject: string;
+  setSubject: React.Dispatch<React.SetStateAction<string>>;
+  noteContent: string;
+  setNoteContent: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export function AddNote({
+  onSave,
+  onClose,
+  subject,
+  setSubject,
+  noteContent,
+  setNoteContent,
+}: AddNoteProps) {
   const userPrefs = useSelector((state: RootState) => state.preferences);
   const subjects = userPrefs.subjects || [];
 
-  const [subject, setSubject] = useState<string>(subjects?.[0] || "");
-  const [noteContent, setNoteContent] = useState<string>("");
+  const subjectNames = Array.isArray(subjects)
+    ? subjects.map((s) => (typeof s === "string" ? s : s.courseName))
+    : [];
 
-  const addNoteMutation = useAddNote(); 
+  const [showList, setShowList] = useState(subject ? false : true);
 
-  const handleSave = () => {
-    if (!subject || !noteContent.trim()) return;
+  useEffect(() => {
+    setShowList(subject ? false : true);
+  }, [subject]);
 
-    const dto: AddNoteDTO = { subject, note: noteContent };
+  const handleClose = () => {
+    setSubject("");
+    setNoteContent("");
+    setShowList(true);
+    onClose?.();
+  };
 
-    addNoteMutation.mutate(dto, {
-      onSuccess: () => {
-        setNoteContent("");
-        if (onNoteAdded) onNoteAdded();
-      },
-      onError: (err: any) => {
-        console.error("Failed to save note:", err.message || err);
-      },
-    });
+  const handleSave = async () => {
+    const success = await onSave(subject, noteContent); // sparar
+    if (success) {
+      handleClose(); // stänger komponenten om sparning lyckas
+    }
+    return success;
   };
 
   return (
-    <div >
-      <div>
-        <AddTaskButtons
-          title="Ämne"
-          options={subjects}
-          selected={subject}
-          onSelect={setSubject}
+    <div className={styles.outerContainer}>
+      <div className={styles.innerContainer}>
+        <AddNoteToolbar
+          subject={subject}
+          note={noteContent}
+          onSave={onSave}
+          onClose={handleClose}
         />
-      </div>
-      <div>
+
+        <div className={styles.subjectSelection}>
+          {showList ? (
+            <div className={styles.subjectListWrapper}>
+              <AddTaskButtons
+                title=""
+                options={subjectNames}
+                selected={subject}
+                onSelect={(s) => {
+                  setSubject(s);
+                  setShowList(false);
+                }}
+                collapsed={false}
+              />
+            </div>
+          ) : (
+            <>
+              <AddTaskButtons
+                title=""
+                options={[]}
+                selected={subject}
+                onSelect={setSubject}
+                collapsed={true}
+              />
+              <button
+                className={styles.changeSubjectBtn}
+                onClick={() => setShowList(true)}
+              >
+                Ändra ämne
+              </button>
+              <div className={styles.saveButtonWrapper}>
+                <AnimatedSaveButton onSave={handleSave} />
+              </div>
+            </>
+          )}
+        </div>
+
+        <div
+          className={`${styles.horizontalDivider} ${
+            showList ? styles.expanded : styles.collapsed
+          }`}
+        />
+
         <RichTextEditor content={noteContent} onChange={setNoteContent} />
       </div>
-
-<button
-  onClick={handleSave}
-  disabled={addNoteMutation.isPending}
-  style={{
-    background: "transparent",
-    border: "none",
-    cursor: addNoteMutation.isPending ? "default" : "pointer",
-    position: "absolute",
-    top: -55,
-    right: 9,
-  }}
->
-  <span className={styless.hologramIcon}>
-    <Save
-      size={28}
-      color={addNoteMutation.isPending ? "#999" : "#ffffffff"}
-    />
-  </span>
-</button>
-
-
-      {addNoteMutation.isError && (
-        <p className={styles.error}>
-          {addNoteMutation.error?.message || "Ett fel inträffade"}
-        </p>
-      )}
     </div>
   );
 }

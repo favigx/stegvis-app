@@ -12,15 +12,15 @@ export default function PrivateRoute({ children }: PrivateRouteProps) {
   const path = window.location.pathname;
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/logga-in" replace />;
   }
 
-  if (!hasCompletedOnboarding && path !== "/onboarding") {
-    return <Navigate to="/onboarding" replace />;
+  if (!hasCompletedOnboarding && path !== "/kom-igang") {
+    return <Navigate to="/kom-igang" replace />;
   }
 
-if (hasCompletedOnboarding && path === "/onboarding") {
-  return <Navigate to="/home" replace />;
+if (hasCompletedOnboarding && path === "/kom-igang") {
+  return <Navigate to="/hem" replace />;
 }
 
   return children;

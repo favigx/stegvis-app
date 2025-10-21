@@ -1,16 +1,124 @@
-.container {
- display: flex;
-  flex-direction: column;
-
-  width: 800px;
-  min-width: 300px;
-  max-width: 900px;
-  height: 100vh;
-  padding:60px;
-  padding-bottom: 200px;
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
   box-sizing: border-box;
-  background-color: #533c3c;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
 
-  overflow-y: auto;
+/* Anteckningsyta */
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  height: calc(100vh - 70px);
+  box-sizing: border-box;
+  position: relative;
+  margin-right: 100px;
+  transition: width 0.4s ease, margin-right 0.4s ease;
+}
+
+.innerContainer.shrunk {
+  width: 500px;
+  margin-right: 200px;
+}
+
+/* Ämnesval */
+.subjectSelection {
+  display: flex;
+  flex-direction: column; /* vertikal layout */
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* Wrapper runt ämneslistan för scroll */
+.subjectListWrapper {
+  max-height: 180px;       /* maxhöjd innan scroll */
+  overflow-y: auto;        /* scrollar om det finns för många ämnen */
+  width: 100%;
+  padding-right: 4px;      /* för scrollbar */
+  margin-top: -8px;        /* flyttar upp listan */
+}
+
+/* Collapse-knapp / X-knapp */
+.collapseBtn {
+  background: white;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1e293b;
+  transition: background 0.2s ease, transform 0.3s ease;
+  margin-top: 4px;
+}
+
+.collapseBtn:hover {
+  background: #f8fafc;
+  border: none;
+}
+
+.collapseBtn.openBtn {
+  transform: rotate(180deg);
+}
+
+/* Ändra ämne-knapp */
+.changeSubjectBtn {
+  background-color: #f0f7fd;
+  border: 1px solid #c0cbd7;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  margin-top: -10px; /* flyttar upp knappen, justera efter behov */
+  align-self: flex-start; /* placera till vänster */
+  z-index: 100; /* högre än editor */
+}
+
+.changeSubjectBtn:hover {
+  background-color: #e0f0fd;
+}
+
+/* Divider */
+.horizontalDivider {
+  position: absolute;
+  left: 20px;
+  width: 95%;
+  height: 1px;
+  background-color: #7c7c78;
+  border-radius: 1px;
+  z-index: 10;
+  transition: top 0.3s ease;
+}
+
+.horizontalDivider.expanded {
+  top: 250px; /* när listan är öppen */
+}
+
+.horizontalDivider.collapsed {
+  top: 142px; /* när listan är stängd */
+}
+
+/* Markerat ämne */
+.selectedSubject {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.saveButtonWrapper {
+  position: absolute;
+  top: 20px; /* avstånd från botten */
+  right: 250px;  /* eller vänster: 20px, beroende på design */
+  z-index: 100; /* så den ligger över editor/ämneslista */
+  display: flex;
+  justify-content: flex-end;
 }

@@ -1,87 +1,99 @@
-.buttonContainer {
-  border-radius: 40px;
-  margin-bottom: 10px;
-  
-}
-
-.row {
+.wrapper {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+  padding-top: 0px;
+  
 }
 
 .title {
   min-width: 115px;
-  
-  text-align: left; 
-   font-size: 17px;
-  color: #ffffffbe;
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-font-weight: 600;
-
+  text-align: left;
+  font-size: 17px;
+  color: #000000be;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  justify-content: flex-end; 
+border-radius: 30px;
+gap: 15px;
+  justify-content: flex-start;
+
+  
+  padding: 20px;
+  position: relative; /* eller relative beroende på föräldern */
+  
+  left: 0;
+  right: 0;
 }
 
 .button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   letter-spacing: -0.3px;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 15px;
   cursor: pointer;
-  background: rgba(79, 87, 145, 0.3);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
+  background-color: rgba(212, 206, 206, 0.199);
+  backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-
+  font-weight: 600;
   transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .button:hover {
-
-  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
 }
 
 .button:active {
+  color: rgb(255, 255, 255);
   background: rgba(79, 87, 145, 0.7);
   transform: translateY(0);
 }
 
+/* --- Markerad knapp --- */
 .selected {
-  background-color: #55769b;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgb(253, 254, 255);
+  background-color: #1180e9;
 }
 
 .selected:hover {
-  
-  border-color: rgba(255, 255, 255, 0.6);
+  color: rgb(253, 254, 255);
+  background-color: #1180e9;
 }
 
+/* --- Avmarkerad knapp --- */
 .unselected {
-  background: rgba(175, 174, 189, 0.3);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgb(91, 103, 117);
+  background-color: rgba(212, 206, 206, 0.199);
+  border: 1px solid #ffffff;
 }
 
 .unselected:hover {
-  background: rgba(155, 151, 190, 0.5);
-  border-color: rgba(255, 255, 255, 0.4);
+  color: rgb(30, 63, 100);
+  background-color: rgba(212, 206, 206, 0.199);
+  border: 1px solid #ffffff;
+}
+
+.colorCircle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 
+
 .savePrefBtn {
-  display: block; 
+  display: block;
   margin: 20px 0 0 0;
   padding: 10px 20px;
   border-radius: 15px;

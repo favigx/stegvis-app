@@ -1,0 +1,58 @@
+/* UniversityCard.module.css */
+.card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.approvalIcon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.programName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.university {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.readMoreButton {
+  margin-top: auto;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.readMoreButton:hover {
+  background-color: #2563eb;
+}

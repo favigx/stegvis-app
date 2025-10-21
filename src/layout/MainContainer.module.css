@@ -1,45 +1,14 @@
 .mainContainer {
-  position: fixed;
-  top: 70px;
-  left: 220px;
+  position: absolute;
+  top:50px;
+  left: 60px;
   right: 0;
   bottom: 0;
-  background-color: #f7f7f7;
-  border-top-left-radius: 20px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
+  background-color: #fffffffd;
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 50;
-  transition: left 0.3s ease;
-}
-
-.sidebar.collapsed ~ .mainContainer {
-  left: 60px;
-}
-
-@media (max-width: 1200px) {
-  .mainContainer {
-    left: 60px;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .mainContainer {
-    left: 0;
-    top: 60px;
-    font-size: 0.9rem;
-    padding: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .mainContainer {
-    left: 0;
-    top: 50px;
-    font-size: 0.85rem;
-    padding: 0.25rem;
-  }
+  z-index: 1; /* Sidebar får högre z-index */
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 14px;
 }

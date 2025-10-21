@@ -1,19 +1,25 @@
+import { AxiosError } from "axios";
 import { apiClient } from "../../../../api/apiClient";
 import type { ProgramResponse } from "../../types/skolverket/programResponse";
 import type { SubjectResponse } from "../../types/skolverket/subjectResponse";
 
-export async function getSkolverketPrograms(): Promise<ProgramResponse> {
+export async function getSkolverketPrograms(): Promise<ProgramResponse[]> {
   try {
-    const response = await apiClient.get<ProgramResponse>("/skolverket/programs");
-    return response.data;
+    const response = await apiClient.get<{ programs: ProgramResponse[] }>("/skolverket/programs");
+    return response.data.programs; 
   } catch (error: unknown) {
-    if (error instanceof Error && "response" in error) {
-      const apiError = error as { response?: { data?: { message?: string } } };
-      throw new Error(apiError.response?.data?.message || "Kunde inte hämta program");
+    if (error instanceof AxiosError) {
+      const message =
+        error.response?.data?.message ||
+        error.message ||
+        "Kunde inte hämta program";
+      throw new Error(message);
     }
+
     throw new Error("Kunde inte nå servern");
   }
 }
+
 
 export async function getSkolverketSubjectsForProgram(code: string): Promise<SubjectResponse> {
   try {

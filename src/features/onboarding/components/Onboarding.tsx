@@ -1,246 +1,215 @@
-import { useState, useEffect } from "react";
+// Onboarding.tsx
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setPreferences } from "../../../redux/slices/userPreferenceSlice";
-import { setUserPreferences, getUserPreferences } from "../api/userPreferences/userPreferencesAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { ArrowBigRight, Eraser } from "lucide-react";
+
+import { useLoadPrograms } from "../hooks/useLoadPrograms";
+import { useLoadEnums } from "../hooks/useLoadEnums";
+import { useLoadUserPreferences } from "../hooks/useLoadUserPreferences";
+import { useSetUserPreference } from "../hooks/useSetUserPreference";
+
+import OnboardingSidebar from "./OnboardingSidebar";
+import { OnboardingPreferences } from "./OnboardingPreferences";
+import { useSelectionHandler } from "../hooks/useSelectionHandler";
 import { setHasCompletedOnboarding } from "../../../redux/slices/authSlice";
-import { PreferenceSection } from "./PreferenceSection";
-import { Summarize } from "./OnboardingSummarize";
-import { useLoadEnums } from "../hooks/useLoadEnums"; 
-import { useAppDispatch, useAppSelector, useLoadPrograms } from "../hooks/useLoadPrograms";
-import { fetchSubjectsForProgram, resetSubjects } from "../../../redux/slices/subject";
-import { mapSubjectsToOptions } from "../utils/mapSubjectsToOptions";
-import { StatusOverlay } from "../../../layout/StatusOverlay";
-import { Save } from "lucide-react";
-import styless from '../../../layout/Container.module.css';
+import { setPreferences } from "../../../redux/slices/userPreferenceSlice";
 
 import type { UserPreference } from "../types/userPreferences/userPreferences";
+import type { AddOnboardingPreferencesDTO } from "../types/userPreferences/addOnboardingPreferencesDTO";
+import type { RootState } from "../../../redux/store";
+
+import { StatusOverlay } from "../../../layout/StatusOverlay";
 import styles from "./Onboarding.module.css";
-import { useSelectionHandler } from "../hooks/useSelectionHandler";
-import type { AddUserPreferencesOnboardingDTO } from "../types/userPreferences/addUserPreferencesOnboardingDTO";
 
-export function Onboarding({ 
-  title = "Komma igång med Stegvis", 
-  buttonText = "Fortsätt", 
-  hint = "Du kan alltid ändra dina preferenser i inställningar",
-  hint2 = "Ställ in dina preferenser nedan för att få en anpassad upplevelse", 
-  redirectPath 
-}: any) {
+interface OnboardingProps {
+  title?: string;
+  hint?: string;
+  redirectPath?: string; // ⚡ Lägg till som optional
+}
 
-  const dispatch = useAppDispatch();
+export function Onboarding({
+  title = "Kom igång med Stegvis",
+  hint,
+  redirectPath,
+}: OnboardingProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useLoadEnums();
-  const { loading: programsLoading, error: programsError, data: programs } = useLoadPrograms();
+  const profile = useSelector((state: RootState) => state.profile.profile);
+  const persistedPrefs = useSelector((state: RootState) => state.preferences);
+  const firstName = profile?.firstname ?? "";
 
-  const enums = useAppSelector(state => state.enums);
-  const userPrefs = useAppSelector(state => state.preferences);
-  const subjectsState = useAppSelector(state => state.subjects);
-  const programDetails = subjectsState.data;
+  const { data: programs, isLoading: programsLoading, error: programsError } = useLoadPrograms();
+  const { data: enums, isLoading: enumsLoading, error: enumsError } = useLoadEnums();
+  const { data: userPrefData, isLoading: userPrefLoading, error: userPrefError } = useLoadUserPreferences();
+  const { mutate: savePreferences } = useSetUserPreference();
 
-  useEffect(() => {
-    console.log("Programdetails updated:", programDetails);
-  }, [programDetails]);
-
+  // 🔹 Lokal state som styr UI
   const [localPrefs, setLocalPrefs] = useState<UserPreference>({
-    ...userPrefs,
-    educationLevel: userPrefs.educationLevel || "Gymnasiet",
-    orientation: userPrefs.orientation || null
+    educationLevel: persistedPrefs.educationLevel || userPrefData?.userPreference?.educationLevel || "Gymnasiet",
+    program: persistedPrefs.program || userPrefData?.userPreference?.program || null,
+    orientation: persistedPrefs.orientation || userPrefData?.userPreference?.orientation || null,
+    year: persistedPrefs.year || userPrefData?.userPreference?.year || null,
   });
 
-  const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [status, setStatus] = useState({ saving: false, saved: false });
 
+  // 🔹 Synka initial state med API-data
   useEffect(() => {
-    const fetchPreferences = async () => {
-      try {
-        const resp = await getUserPreferences();
-        setLocalPrefs({
-          ...resp.userPreference,
-          educationLevel: resp.userPreference.educationLevel || "Gymnasiet",
-          orientation: resp.userPreference.orientation || null
-        });
-        dispatch(setPreferences(resp.userPreference));
-      } catch (err) {
-        console.error("Failed to fetch user preferences:", err);
-      }
-    };
-    fetchPreferences();
-  }, [dispatch]);
+    if (userPrefData?.userPreference) {
+      setLocalPrefs(prev => ({
+        educationLevel: prev.educationLevel || userPrefData.userPreference.educationLevel || "Gymnasiet",
+        program: prev.program || userPrefData.userPreference.program || null,
+        orientation: prev.orientation || userPrefData.userPreference.orientation || null,
+        year: prev.year || userPrefData.userPreference.year || 0,
+      }));
+    }
+  }, [userPrefData]);
 
+  // 🔹 Uppdatera lokal state
   const updateField = (field: keyof UserPreference, value: any) => {
-    setLocalPrefs(prev => ({ ...prev, [field]: value }));
-
-    if (field === "fieldOfStudy" && typeof value === "string") {
-      dispatch(resetSubjects());
-      const selectedProgram = programs.find(p => `${p.name} (${p.code})` === value);
-      if (selectedProgram) {
-        dispatch(fetchSubjectsForProgram(selectedProgram.code));
-        setLocalPrefs(prev => ({ ...prev, orientation: null }));
-      }
-    }
-
-    if (field === "orientation") {
-      setLocalPrefs(prev => ({ ...prev, subjects: [] }));
-    }
+    setLocalPrefs(prev => ({
+      ...prev,
+      [field]: value,
+      ...(field === "program" ? { orientation: null } : {}), // rensa orientation vid programbyte
+    }));
   };
 
-  const handleSave = async () => {
-    setSaving(true);
-    setSaved(false);
+  // 🔹 Orientations baserat på valt program
+  const orientations = useMemo(() => {
+    if (!localPrefs.program) return [];
+    const programObj = programs?.find(
+      p => `${p.name} (${p.code})` === `${localPrefs.program?.name} (${localPrefs.program?.code})`
+    );
+    if (!programObj?.orientations) return [];
 
-    try {
-      const payload: AddUserPreferencesOnboardingDTO = {
-        educationLevel: localPrefs.educationLevel || "Gymnasiet",
-        fieldOfStudy: localPrefs.fieldOfStudy || "",
-        orientation: localPrefs.orientation || "",
-        year: localPrefs.year || 1,
-        subjects: localPrefs.subjects || [],
-      };
+    return programObj.orientations.map(o => ({
+      name: o.name,
+      code: o.code,
+      points: Number(o.points),
+    }));
+  }, [programs, localPrefs.program]);
 
-      await setUserPreferences(payload);
+  const handleSelect = useSelectionHandler(
+    localPrefs.educationLevel,
+    (val: string | string[]) => updateField("educationLevel", Array.isArray(val) ? val[0] : val),
+    false
+  );
+
+  const isComplete = Boolean(
+    localPrefs.educationLevel &&
+    localPrefs.program &&
+    localPrefs.year &&
+    (orientations.length === 0 || !!localPrefs.orientation)
+  );
+
+  const handleSave = () => {
+  setStatus({ saving: true, saved: false });
+
+  // Rensa bort tunga / oönskade fält
+  const cleanedProgram = localPrefs.program
+    ? { code: localPrefs.program.code, name: localPrefs.program.name }
+    : null;
+
+  const cleanedOrientation = localPrefs.orientation
+    ? { code: localPrefs.orientation.code, name: localPrefs.orientation.name, points: localPrefs.orientation.points }
+    : null;
+
+  const payload: AddOnboardingPreferencesDTO = {
+    educationLevel: localPrefs.educationLevel,
+    program: cleanedProgram,
+    orientation: cleanedOrientation,
+    year: localPrefs.year,
+  };
+
+  savePreferences(payload, {
+    onSuccess: () => {
+      // Uppdatera redux
       dispatch(setPreferences(payload));
-      setSaved(true);
+      dispatch(setHasCompletedOnboarding(true));
+      setStatus({ saving: false, saved: true });
 
+      // 🔹 Dynamisk redirect baserat på year
+      let path = "";
+      if (payload.year === 1) {
+        path = "/studieplaneraren/amnen-kurser";
+      } else if (payload.year === 2 || payload.year === 3) {
+        path = "/studieplaneraren/avklarade-amnen-kurser";
+      } else {
+        path = redirectPath ?? "/hem"; // fallback
+      }
+
+      // Kort delay för att visa "Sparar..." overlay
       setTimeout(() => {
-        dispatch(setHasCompletedOnboarding(true));
-        setSaving(false);
-        if (redirectPath) navigate(redirectPath);
-      }, 2000);
-    } catch (err) {
-      console.error("Failed to save preferences:", err);
-      setSaving(false);
-    }
+        navigate(path);
+        setStatus({ saving: false, saved: false });
+      }, 1000);
+    },
+    onError: (error) => {
+      console.error("Failed to save user preferences:", error);
+      setStatus({ saving: false, saved: false });
+    },
+  });
+};
+
+
+  const handleReset = () => {
+    setLocalPrefs({
+      educationLevel: "Gymnasiet",
+      program: null,
+      orientation: null,
+      year: null,
+    });
   };
 
-  const combinedSubjects = (() => {
-    if (!programDetails) return [];
-
-    const subjectsMap: Record<string, any> = {};
-    const addSubjects = (list: any[]) => {
-      list.forEach(subj => {
-        const code = subj.code;
-        const courses = subj.courses ?? [];
-        if (subjectsMap[code]) {
-          const existingCodes = subjectsMap[code].courses.map((c: any) => c.code);
-          const newCourses = courses.filter((c: any) => !existingCodes.includes(c.code));
-          subjectsMap[code].courses.push(...newCourses);
-        } else {
-          subjectsMap[code] = { ...subj, courses: [...courses] };
-        }
-      });
-    };
-
-    addSubjects(programDetails.foundationSubjects?.subjects ?? []);
-    addSubjects(programDetails.programmeSpecificSubjects?.subjects ?? []);
-    if (localPrefs.orientation) {
-      const orientation = programDetails.orientations?.find(
-        o => o.code === localPrefs.orientation || o.name === localPrefs.orientation
-      );
-      if (orientation) addSubjects(orientation.subjects ?? []);
-    }
-
-    return Object.values(subjectsMap);
-  })();
-
-  const orientations = localPrefs.fieldOfStudy ? programDetails?.orientations ?? [] : [];
-  const handleSelect = useSelectionHandler(localPrefs.educationLevel, val => updateField("educationLevel", val), false);
+  if (userPrefLoading || programsLoading || enumsLoading) return <p>Laddar...</p>;
+  if (userPrefError || programsError || enumsError)
+    return <p>Ett fel inträffade: {String(userPrefError || programsError || enumsError)}</p>;
 
   return (
-    <div className={styless.mainWrapper} style={{ paddingBottom: '2rem' }}>
-      <div className={styless.mainContainer
-      }>
-        <h3 style={{ position: "absolute", top: -60, left: 0 }}>{title}</h3>
+    <div className={styles.wrapper}>
+      <OnboardingSidebar userPrefs={localPrefs} availableOrientations={orientations} />
 
-        {(!enums || programsLoading) && <p>Laddar...</p>}
-        {programsError && <p>Ett fel inträffade: {programsError}</p>}
+      <div className={styles.content}>
+        <div className={styles.onboardingContainer}>
+          <div className={styles.headerRow}>
+            <h1 className={styles.title}>{title}</h1>
+            <div
+              className={`${styles.continueAction} ${!isComplete ? styles.disabled : ""}`}
+              onClick={() => { if (isComplete) handleSave(); }}
+            >
+              <ArrowBigRight size={25} />
+              {redirectPath ? "Fortsätt" : "Spara ändringar"}
+            </div>
+          </div>
 
-        {enums && (
-          <>
-            <PreferenceSection
-              title="Skolnivå"
-              options={enums.educationLevels.map(e => ({ name: e, code: e }))}
-              selected={localPrefs.educationLevel}
-              onSelect={handleSelect}
+          <p className={styles.hint}>
+            {hint ?? `Hej ${firstName}! Låt oss anpassa din upplevelse.`}
+          </p>
+
+          <div style={{ width: "100%", textAlign: "left", marginTop: "12px", marginBottom: "5px" }}>
+            <button type="button" className={styles.resetAction} onClick={handleReset}>
+              <Eraser size={16} /> Rensa
+            </button>
+          </div>
+
+          {enums && (
+            <OnboardingPreferences
+              localPrefs={localPrefs}
+              enums={enums}
+              programs={programs ?? []}
+              orientations={orientations}
+              updateField={updateField}
+              handleSelect={handleSelect}
             />
-
-            {programs.length > 0 && (
-              <PreferenceSection
-                title="Program"
-                options={programs.map(p => ({ name: `${p.name} (${p.code})`, code: `${p.name} (${p.code})` }))}
-                selected={localPrefs.fieldOfStudy}
-                onSelect={val => updateField("fieldOfStudy", val)}
-                searchable
-              />
-            )}
-
-            {orientations.length > 0 && (
-              <PreferenceSection
-                title="Inriktning"
-                options={orientations.map(o => ({ name: o.name, code: o.code }))}
-                selected={localPrefs.orientation}
-                onSelect={val => updateField("orientation", val)}
-              />
-            )}
-
-            <PreferenceSection
-              title="År"
-              options={enums.year.map((y, i) => ({ name: `${i + 1}`, code: `${i + 1}` }))}
-              selected={localPrefs.year ? `${localPrefs.year}` : null}
-              onSelect={val =>
-                updateField("year", typeof val === "string" ? Number(val) : Number(val[0]))
-              }
-            />
-
-            {combinedSubjects.length > 0 && (
-              <PreferenceSection
-                title="Ämnen"
-                options={mapSubjectsToOptions(combinedSubjects)}
-                selected={localPrefs.subjects}
-                onSelect={val => updateField("subjects", val)}
-                multiple
-              />
-            )}
-          </>
-        )}
-
-        <div className={styles.savePrefWrapper} style={{ position: "relative" }}>
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: saving ? "default" : "pointer",
-              position: "absolute", 
-              top: -705,
-              right: -25,
-              zIndex: 10,
-              padding: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-           
-            }}
-          >
-            <Save
-              size={28}
-              color={saving ? "#999" : "#888da8ff"}
-              
-             
-            />
-          </button>
-
-          <p>{hint}</p>
+          )}
         </div>
       </div>
 
-      <div className={styles.summarizeContainer}>
-        <Summarize userPrefs={localPrefs} />
-      </div>
-
       <StatusOverlay
-        active={saving}
-        completed={saved}
+        active={status.saving || status.saved}
+        completed={status.saved}
         loadingText="Sparar preferenser..."
         doneText="Preferenser sparade!"
       />

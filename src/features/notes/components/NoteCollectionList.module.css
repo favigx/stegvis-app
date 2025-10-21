@@ -1,0 +1,39 @@
+.collectionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background-color: #eff0f1;
+  border-radius: 8px;
+  max-height: 400px; /* justera efter behov */
+  overflow-y: auto;
+}
+
+.collectionButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #eff0f1;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.collectionButton:hover {
+  background-color: #cee8ff;
+}
+
+.collectionButton.selected {
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px #2563eb inset;
+}
+
+.error {
+  color: #ef4444; /* röd för felmeddelanden */
+  font-size: 0.9rem;
+  padding: 8px;
+}

@@ -60,65 +60,6 @@ font-weight: 600;
   color: rgb(151, 154, 189);
 }
 
-.textareaContainer {
-  background-color: #64759941;
-  padding: 0;              
-  border-radius: 20px;
-  margin-bottom: 15px;
- 
-  height: 300px;
-  overflow-y: auto;
-  overflow-x: hidden;
-    padding: 0;
-}
-
-.textarea {
-  height: 100%;
-  width: 100%;
-  padding: 16px;
-  outline: none;
-   font-size: 17px;
-  color: #000000b2;
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-font-weight: 600;
-  text-align: left;
-  background-color: #ffffff;
-  line-height: 1.4;
-  cursor: text;
-  border-radius: 12px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
-  
-}
-
-.textarea .ProseMirror {
-  height: 100%;
-  min-height: 100%;
-  padding: 16px;
-  outline: none;
-  box-sizing: border-box;
-
-  white-space: pre-wrap;
-  word-wrap: break-word;
- overflow-wrap: break-word !important;
-  word-break: break-word;
-}
-.textarea p {
-  margin: 0 0 8px 0;
-  
-}
-
-.textarea ul,
-.textarea ol {
-  padding-left: 24px;
-  margin: 0 0 8px 0;
-}
-
-.textarea li {
-  margin: 0;
-  line-height: 1.4;
-}
 
 .hologramIcon svg {
   color: #64b0ff;
@@ -129,26 +70,4 @@ font-weight: 600;
 .hologramIcon svg:hover {
   transform: translateY(-2.55px) scale(1.1) translateZ(0);
   color: #ffffff;
-}
-
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modalContent {
-
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  max-width: 800px;
-  width: 95%;
 }

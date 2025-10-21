@@ -5,4 +5,5 @@ export interface SubjectInterface {
   name: string;
   points: string;
   courses: CourseInterface[];
+  color?: string;
 }

@@ -8,7 +8,7 @@ interface PublicRouteProps {
   redirectTo?: string;
 }
 
-export default function PublicRoute({ children, redirectTo = "/home" }: PublicRouteProps) {
+export default function PublicRoute({ children, redirectTo = "/hem" }: PublicRouteProps) {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
   return isLoggedIn ? <Navigate to={redirectTo} replace /> : children;
 }

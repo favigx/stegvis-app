@@ -1,17 +1,20 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { StatusOverlay } from "./StatusOverlay"; 
 import { LogOut } from "lucide-react";
 import { useLogout } from "../features/auth/hooks/useLogout"; 
 import styles from "./HamburgerMenu.module.css";
 import { useState, useRef, useEffect } from "react";
-import { Settings, Home, SlidersHorizontal, CircleX } from "lucide-react";
+import { UserRoundCog, Home, SlidersHorizontal, CircleX } from "lucide-react";
+import type { RootState } from "../redux/store";
 
 export function HamburgerMenu() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const hasCompletedOnboarding = useSelector((state: RootState) => state.auth.hasCompletedOnboarding);
 
   const { loggingOut, loggedOut, logout } = useLogout(dispatch, navigate);
 
@@ -34,16 +37,20 @@ export function HamburgerMenu() {
   return (
     <div className={styles.container} ref={menuRef}>
       <button className={styles.menuButton} onClick={() => setOpen(!open)}>
-        {open ? <CircleX size={20} /> : <Settings size={20} />}
+        {open ? <CircleX size={23} /> : <UserRoundCog size={23} />}
       </button>
 
       <nav className={`${styles.menu} ${open ? styles.open : ""}`}>
-        <button onClick={() => handleNavigate("/")} className={styles.menuItem}>
-          <Home className={styles.icon} /> Hem
+        {/* Inställningar - alltid disabled */}
+        <button
+          onClick={undefined} // ingen navigering
+          className={`${styles.menuItem} ${styles.disabledMenuItem}`}
+          disabled={true} // alltid disabled
+        >
+          <SlidersHorizontal className={styles.icon} /> Inställningar
         </button>
-        <button onClick={() => handleNavigate("/settings-preferences")} className={styles.menuItem}>
-          <SlidersHorizontal className={styles.icon} /> Ändra preferenser
-        </button>
+
+        {/* Logga ut - alltid klickbar */}
         <button onClick={logout} className={styles.menuItem}>
           <LogOut className={styles.icon} /> Logga ut
         </button>

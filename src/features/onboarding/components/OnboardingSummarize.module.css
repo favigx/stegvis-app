@@ -1,13 +1,23 @@
 .summarizeContainer {
-  width: 380px;
-  flex-shrink: 0;
-   margin: 0;
-  padding: 1rem 1.5rem;
-  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  min-width: 300px;
+  max-width: 900px;
+  height: calc(100vh - 80px);
   
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    background-color: #e4e6ec36;
-    border: 2px solid #eeeff1;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+
+  background-color: #f0f7fd;
+  color: #070707;
+  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  overflow-y: auto;
+  gap: 1rem;
+
+
 }
 
 .summarizeTitle {
@@ -30,7 +40,7 @@
   gap: 0.25rem;
   padding: 0.75rem 1rem;
  
-    background: rgba(148, 148, 161, 0.123);
+  background-color: #eff0f1;
 
   border-radius: 30px;
   margin-bottom: 10px;
@@ -40,13 +50,12 @@
 
 .summarizeItem:hover {
   transform: translateY(-2px);
-  background: rgba(0, 0, 0, 0.1);
 }
 
 .summarizeItem dt {
   font-weight: 700;
   font-size: 14px;
-  color: #0d0d11b2;
+  color: #1180e9;
   text-transform: uppercase;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
@@ -54,7 +63,7 @@
 
 .summarizeItem dd {
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   color: #0d0d11b2;
   word-wrap: break-word;

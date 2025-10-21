@@ -1,38 +1,54 @@
 import './App.css';
-import Sidebar from './layout/Sidebar';
 import Footer from './layout/Footer';
 import Header from './layout/Header';
 import MainContainer from './layout/MainContainer';
-import type { RootState } from './redux/store';
-import { useSelector } from 'react-redux';
+import AppRoutes from './routes/AppRoutes';
 import { BrowserRouter } from 'react-router-dom';
-import { useState } from 'react';
-import './api/interceptors.ts';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { fetchUserProfile } from './redux/slices/profileSlice';
+import { fetchUserPreferences } from './redux/slices/userPreferenceSlice';
+import type { RootState } from './redux/store';
+import { useAppDispatch } from './redux/hooks';
+import './api/interceptors';
+import Sidebar from './layout/Sidebar';
 
 function App() {
+  const dispatch = useAppDispatch();
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // State för kollaps
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(fetchUserProfile());
+      dispatch(fetchUserPreferences());
+    }
+  }, [isAuthenticated, dispatch]);
 
   return (
     <BrowserRouter>
       {isAuthenticated && (
-        <Header
-          collapsed={sidebarCollapsed}
-          setCollapsed={setSidebarCollapsed} // Header-knappen styr sidebar
-        />
+        <Header collapsed={sidebarOpen} setCollapsed={setSidebarOpen} />
       )}
 
-      {isAuthenticated && <Sidebar collapsed={sidebarCollapsed} />}
+      {isAuthenticated && (
+        <Sidebar collapsed={sidebarOpen} setCollapsed={setSidebarOpen} />
+      )}
 
       {isAuthenticated ? (
-        <MainContainer collapsed={sidebarCollapsed} /> 
+        <MainContainer />
       ) : (
-        <div style={{ paddingTop: '70px' }}>
-          <Footer />
-        </div>
+        <>
+          <AppRoutes />
+          <div style={{ paddingTop: "70px" }}>
+            <Footer />
+          </div>
+        </>
       )}
     </BrowserRouter>
   );
 }
+
 
 export default App;

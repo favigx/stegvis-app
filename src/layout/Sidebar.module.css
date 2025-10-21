@@ -1,106 +1,96 @@
+/* SIDEBAR */
 .sidebar {
   position: fixed;
-  top: 70px;
+  top: 0px; /* under header */
   left: 0;
   bottom: 0;
-  width: 220px;
-  background-color: #8093a5;
+  width: 60px; /* smal när stängd */
+  background-color: #f5faff;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
-  z-index: 10;
-}
-.sidebar.collapsed {
-  width: 60px;
+  align-items: center;
+  padding-top: 10px;
+  z-index: 200;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+
 }
 
-.mainContainer {
+.sidebar.open {
+  width: 220px; /* bred när öppen */
+  align-items: flex-start;
+}
+
+/* Överlagring */
+.overlay {
   position: fixed;
-  top: 0;
-  left: 220px;
+  top: 55px; /* under header */
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 300px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  background-color: #55769b9c;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: left 0.3s ease;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 150;
 }
 
-.sidebar.collapsed ~ .mainContainer {
-  left: 60px;
-}
-
-.topHamburger {
-  background: transparent;
+/* TOGGLE-KNAPP (hamburger/X) */
+.toggleButton {
+  background: none;
   border: none;
+  color: #333;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-right: 8px;
+  transition: color 0.2s ease;
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
 }
 
-.logoWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
+.toggleButton:hover {
+  color: #000;
 }
 
-.icon {
-  height: 45px;
-  width: 45px;
-  filter: brightness(0) invert(1);
-}
-
-.text {
-  font-size: 23px;
-  font-weight: 700;
-  color: #fff;
-}
-
+/* NAVIGATION */
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   width: 100%;
+  margin-top: 30px;
 }
 
 .navButton {
   display: flex;
   align-items: center;
   gap: 10px;
-  width: 80%;
-  padding: 10px 15px;
-  border-radius: 20px;
-  background-color: #8093a5;
-
-
-  color: #ffffff; 
+  width: 100%;
+  padding: 8px 13px;
+  border-radius: 10px;
+  background-color: #f0f7fd;
+  color: #292929;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
   text-align: left;
   transition: all 0.3s ease;
+  border: none;
 }
 
 .navButton:hover {
-  background-color: rgba(119, 114, 136, 0.5);
-  border: 1px solid rgba(173, 216, 230, 0.4);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background-color: #cee8ff;
+  color: rgb(73, 131, 197);
 }
 
 .activeNavButton {
-  background-color: rgba(173, 216, 230, 0.3);
-  border: 1px solid rgba(173, 216, 230, 0.6);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  color: rgb(73, 131, 197);
+  background-color: #cee8ff;
 }
 
+.disabledNavButton {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ICON & TEXT */
 .iconWrapper {
   display: flex;
   justify-content: center;
@@ -110,11 +100,20 @@
 
 .navText {
   white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
+/* visa texten när sidebar är öppen */
+.sidebar.open .navText {
+  opacity: 1;
+}
+
+/* valfri: justera knapp längst ned */
 .hamburgerWrapper {
   margin-top: auto;
   width: 100%;
   display: flex;
   justify-content: center;
+
 }

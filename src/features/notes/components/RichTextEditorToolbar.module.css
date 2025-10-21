@@ -1,0 +1,52 @@
+.toolbarContainer {
+  display: flex;
+  gap: 20px;
+  background-color: rgb(255, 255, 255);
+ 
+  border-radius: 50px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  max-width: fit-content;
+
+  top: 0px;
+  left: -20px;
+}
+
+.iconButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.iconButton:hover {
+  transform: scale(1.2);
+}
+
+.iconButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.iconButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.selected {
+  
+  color: #000000;
+ 
+  border-radius:50px;
+  background-color: rgba(135, 155, 173, 0.89);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+}

@@ -23,7 +23,7 @@ export function useLogout(dispatch: AppDispatch, navigate: (path: string) => voi
 
       setTimeout(() => {
         setLoggingOut(false);
-        navigate("/login");
+        navigate("/logga-in");
       }, remainingTime);
     } else {
       setLoggingOut(false);

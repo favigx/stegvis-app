@@ -1,0 +1,248 @@
+/* Sidebar container */
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background-color: #f0f7fd;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+/* Nav wrapper */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Rund ikon */
+.iconButton {
+  border: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: #777777; /* Default ikonfärg */
+}
+
+/* Wrapper för ikon + text */
+.iconTextButton {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background-color: #f0f7fd;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  margin-left: 7px;
+  margin-right: 15px;
+}
+
+/* Hover för alla top-level knappar */
+.iconTextButton:hover {
+  background-color: #cee8ff;
+}
+
+/* Selected state top-level */
+.selected {
+  background-color: #cee8ff;
+}
+
+.selected:hover {
+  background-color: #cee8ff;
+}
+
+.selected .navText {
+  color: rgb(73, 131, 197);
+}
+
+.selected .iconButton {
+  color: rgb(73, 131, 197);
+}
+
+/* Text i knapp */
+.navText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e6e6e;
+}
+
+/* Folder / mapp container */
+.folder {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: 0;
+}
+
+/* Folder header som kan klickas för att expandera/kollapsa */
+.folderHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #f0f7fd;
+  transition: background-color 0.2s ease;
+  margin-left: 7px;
+  margin-right: 15px;
+}
+
+.folderHeader:hover {
+  background-color: #cee8ff;
+}
+
+/* Chevron animation */
+.chevron {
+  transition: transform 0.2s ease;
+  color: #777777;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+  color: rgb(73, 131, 197);
+}
+
+/* Folder content (undermenyer) */
+.folderContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 15px;
+}
+
+/* Wrapper för subfolder */
+.subFolder {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Subfolder rubrik */
+/* Subfolder rubrik */
+.subFolderHeader {
+  font-size: 15px;           /* Större text */
+  font-weight: 600;          /* Fetare */
+  margin-left: 10px;
+  margin-bottom: 4px;
+  text-align: left;
+}
+/* Pågående - standard grå */
+.subFolderOngoing .subFolderHeader {
+  color: #6e6e6e;
+  transition: color 0.2s ease;
+}
+
+/* Pågående - blå när nested selected */
+.subFolderOngoing.active .subFolderHeader {
+  color: rgb(50, 100, 200);
+}
+
+/* Nested knappar i Pågående */
+.subFolderOngoing .nested {
+  margin-left: 15px;
+}
+
+.subFolderOngoing .nested:hover {
+  background-color: #cee8ff;
+}
+
+.subFolderOngoing .nested.selected {
+  background-color: #cee8ff;
+  color: rgb(73, 131, 197);
+}
+
+.subFolderOngoing .nested.selected .navText {
+  color: rgb(73, 131, 197);
+}
+
+/* Avklarade - standard neutral */
+.subFolderCompleted .subFolderHeader {
+  color: #6e6e6e;
+  transition: color 0.2s ease;
+}
+
+/* Avklarade - grön när nested selected */
+.subFolderCompleted.active .subFolderHeader {
+  color: rgb(0, 150, 0);
+}
+
+.subFolderCompleted .nested {
+  margin-left: 15px;
+}
+
+.subFolderCompleted .nested:hover {
+  background-color: rgb(197, 251, 198);
+}
+
+.subFolderCompleted .nested.selected {
+  background-color: rgb(197, 251, 198);
+  color: rgb(16, 175, 16);
+}
+
+.subFolderCompleted .nested.selected .navText {
+  color: rgb(31, 164, 31);
+}
+
+.subFolderCompleted .nested.selected .iconButton {
+  color: rgb(16, 175, 16);
+}
+
+/* Skapa quiz-knapp */
+.add {
+  background-color: #1180e9;
+  color: white;
+}
+
+.addText {
+  color: #1180e9; /* textfärg för "Skapa quiz" */
+}
+
+.subjectBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;           /* Matcha med header */
+  font-weight: 600;
+  color: #1E293B;
+}
+
+/* Gör cirkeln lite större för balans */
+.subjectCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.nested {
+  font-size: 13px;           /* Mindre text */
+  padding: 4px 8px;          /* Mindre padding */
+}
+
+.nested .navText {
+  font-size: 13px;
+  font-weight: 500;
+  color: #201f1f;
+}
+
+/* Behåll hover och selected som tidigare */
+.subFolderOngoing .nested:hover,
+.subFolderCompleted .nested:hover {
+  background-color: #cee8ff;
+}
+
+.disabledButton {
+  cursor: not-allowed;
+  opacity: 0.5; /* gör den halvtransparent för tydlig visuell feedback */
+  pointer-events: none; /* förhindrar klick */
+}

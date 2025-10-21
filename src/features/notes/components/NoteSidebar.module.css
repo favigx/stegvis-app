@@ -1,0 +1,170 @@
+/* Sidebar container */
+.sidebar {
+  width: 320px;
+  height: 100vh;
+  background-color: #f0f7fd;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Nav wrapper */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Rund ikon-knapp */
+.iconButton {
+  border: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* .iconButton:hover {
+  transform: scale(1.2);
+} */
+
+.iconButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Specifika färger för varje ikon */
+.add {
+  background-color: #1180e9;
+  color: white;
+}
+
+.searchIcon, .todayIcon, .filterIcon {
+  color: #777777;
+}
+
+/* Wrapper för ikon + text */
+.iconTextButton {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background-color: #f0f7fd;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  margin-right: 15px;
+  margin-left: 7px;
+}
+
+.iconTextButton:hover {
+  background-color: #cee8ff;
+}
+
+/* Selected state för vanliga knappar och sökfält */
+.selected {
+  background-color: #cee8ff;
+}
+
+.selected:hover {
+  background-color: #cee8ff;
+}
+
+.selected .navText {
+  color: rgb(73, 131, 197);
+}
+
+.selected .searchIcon,
+.selected .todayIcon,
+.selected .filterIcon {
+  color: rgb(73, 131, 197);
+}
+
+/* Inputfält */
+.searchInput {
+  all: unset;
+  font: inherit;            /* är bra men vi måste sätta mer */
+  font-size: 14px;          /* samma som navText */
+  font-weight: 600;         /* samma som navText */
+  color: #494949;
+  width: 100%;
+  cursor: text;
+  text-align: left;
+  line-height: 1.4;         /* matchar ikonernas höjd bättre */
+}
+
+/* Placeholder stil */
+.searchInput::placeholder {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e6e6e;           /* samma som .navText */
+}
+/* Text i knapp */
+.navText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e6e6e;
+}
+
+/* Clear (X) knapp i sökfältet */
+.clearButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: rgb(73, 131, 197);
+  transition: color 0.2s ease;
+}
+
+.clearButton:hover {
+  color: #0059ff;
+}
+
+/* Textfärg för Lägg till anteckning */
+.addText {
+  color: #1180e9; /* valfri färg */
+}
+
+
+/* Dropdown-stil så den ser ut som de andra knapparna */
+.dropdown {
+  all: unset;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e6e6e;
+  cursor: pointer;
+  flex: 1;
+  text-align: left;
+}
+
+.dropdown option {
+  all: unset;
+  background-color: #fff;
+  color: #494949;
+  font-size: 14px;
+}
+
+/* Sektionstitel */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 20px;      /* lite extra spacing */
+  margin-left: 7px;
+  margin-right: 15px;
+  padding: 6px 10px;
+  color: #1180e9;
+}
+
+.sectionText {
+  font-size: 16px;       /* lite större än navText */
+  font-weight: 600;
+  color: #1180e9;
+}

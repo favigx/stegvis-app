@@ -1,30 +1,17 @@
-import { useState, useEffect } from "react";
-import type { SubjectResponse } from "../types/skolverket/subjectResponse";
+import { useQuery } from "@tanstack/react-query";
 import { getSkolverketSubjectsForProgram } from "../api/skolverket/skolverketAPI";
+import type { SubjectResponse } from "../types/skolverket/subjectResponse"; 
 
-export function useSubjects(programCode: string | null) {
-  const [subjects, setSubjects] = useState<SubjectResponse>();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!programCode) return;
-
-    const fetchSubjects = async () => {
-      try {
-        setLoading(true);
-        const data: SubjectResponse = await getSkolverketSubjectsForProgram(programCode);
-        setSubjects(data);
-      } catch (err: any) {
-        console.error("Failed to load subjects:", err.message || err);
-        setError(err.message || "Kunde inte hämta ämnen");
-      } finally {
-        setLoading(false);
+export function useLoadSkolverketSubjectsForProgram(code: string | null) {
+  return useQuery<SubjectResponse, Error>({
+    queryKey: ["skolverketSubjects", code],
+    queryFn: () => {
+      if (!code) {
+        return Promise.reject(new Error("Ingen programkod angiven"));
       }
-    };
-
-    fetchSubjects();
-  }, [programCode]);
-
-  return { subjects, loading, error };
+      return getSkolverketSubjectsForProgram(code);
+    },
+    enabled: !!code,
+    staleTime: 1000 * 60 * 5,
+  });
 }

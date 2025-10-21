@@ -1,54 +1,37 @@
 .pageContainer {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  justify-content: center; /* centrera horisontellt */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
 
- background: url("../components/images/treestairs.png") no-repeat center center;
-  background-size: 34% auto;
-  background-attachment: fixed;
-}
-
-@media (max-width: 1200px) {
-  .pageContainer {
-    background-size: 80% auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .pageContainer {
-    background-size: 100% auto;
-  }
+ 
 }
 
 .landingContainer {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 2rem;
-  gap: 5rem;
+  align-items: flex-start;  /* top-justera alla barn */
+  width: 90%;               
+  max-width: 1400px;        
+  gap: 3rem;
   color: #000000b2;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 600;
-  flex: 1;
-  overflow: hidden;
+  margin-top: 200px;       /* alltid 100px från toppen */
 }
 
 .leftText {
-
   flex: 1;
   text-align: left;
-  margin-top: 100px;
+  margin-top:70px;
 }
 
 .rightLogin {
   flex: 1;
   display: flex;
   justify-content: flex-end;
-   z-index: 1;
+  z-index: 1;
 }
 
 .landingContainer h1 {

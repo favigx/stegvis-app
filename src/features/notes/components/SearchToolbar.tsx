@@ -1,5 +1,5 @@
 import { useState, type JSX } from "react";
-import { Filter, Plus } from "lucide-react"; // NotebookPlus som "Add Note"-ikon
+import { Filter, Plus } from "lucide-react";
 import styles from "./SearchToolbar.module.css";
 
 interface SearchToolbarProps {
@@ -21,8 +21,16 @@ export function SearchToolbar({ subjects, filter, onFilterChange, onAddNote }: S
     onFilterChange({ ...filter, [key]: value });
   };
 
-  const IconButton = ({ icon, onClick }: { icon: JSX.Element; onClick: () => void }) => (
-    <button className={styles.iconButton} onClick={onClick}>
+  const IconButton = ({
+    icon,
+    onClick,
+    className,
+  }: {
+    icon: JSX.Element;
+    onClick: () => void;
+    className?: string;
+  }) => (
+    <button className={`${styles.iconButton} ${className ?? ""}`} onClick={onClick}>
       {icon}
     </button>
   );
@@ -39,10 +47,18 @@ export function SearchToolbar({ subjects, filter, onFilterChange, onAddNote }: S
       />
 
       {/* Filterikon */}
-      <IconButton icon={<Filter size={19} color="#3a536e" />} onClick={() => setOpen(!open)} />
+      <IconButton
+        icon={<Filter size={19} />}
+        onClick={() => setOpen(!open)}
+        className={styles.filter}   // <-- viktig
+      />
 
       {/* Lägg till-knapp */}
-      <IconButton icon={<Plus size={19} color="#101620ff" />} onClick={onAddNote} />
+      <IconButton
+        icon={<Plus size={19} />}
+        onClick={onAddNote}
+        className={styles.add}      // <-- viktig
+      />
 
       {/* Dropdown för filter */}
       {open && (

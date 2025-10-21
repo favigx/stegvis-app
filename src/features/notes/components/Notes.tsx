@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { XCircle } from "lucide-react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../redux/store";
+import { useQueryClient } from "@tanstack/react-query";
+
 import GetNotes from "./GetNotes";
 import { AddNote } from "./AddNote";
 import { NoteByIdEditor } from "./NoteByIdEditor";
 import { NoteById } from "./NoteById";
-import { NoteToolbar } from "./NoteToolbar";
-import { SearchToolbar } from "./SearchToolbar";
-import containerStyles from "../../../layout/Container.module.css";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../../redux/store";
-import { useDeleteNote } from "../hooks/useDeleteNote";
-import { useNoteById } from "../hooks/useNoteById";
-import { useGetNotesCount } from "../hooks/useGetNotesCount";
-import { useQueryClient } from "@tanstack/react-query";
+import Notesidebar from "./NoteSidebar";
+
 import styles from "./NoteById.module.css";
 import notesStyles from "./Notes.module.css";
-import addNoteStyle from "./AddNote.module.css";
+
+import { useDeleteNote } from "../hooks/useDeleteNote";
+import { useNoteById } from "../hooks/useNoteById";
+import { useAddNote } from "../hooks/useAddNote";
 
 export default function Notes() {
   const userPrefs = useSelector((state: RootState) => state.preferences);
@@ -27,15 +26,43 @@ export default function Notes() {
   const [editing, setEditing] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
+  const [currentSubject, setCurrentSubject] = useState("");
+  const [currentNote, setCurrentNote] = useState("");
+
+  const [selectedCategory, setSelectedCategory] = useState("Alla");
+
+  const queryClient = useQueryClient();
+  const addNoteMutation = useAddNote();
   const deleteNoteMutation = useDeleteNote();
   const isDeleting = deleteNoteMutation.status === "pending";
-  const queryClient = useQueryClient();
 
-  const handleNoteAdded = () => {
-    setAddingNote(false);
-    queryClient.invalidateQueries({ queryKey: ["notesCount"] });
+  const { data: note, isLoading: noteLoading, error: noteError } = useNoteById(
+    selectedNoteId ?? undefined
+  );
+
+  
+
+  // 🔹 Spara ny anteckning
+  const handleAddNoteSave = async (subject: string, note: string): Promise<boolean> => {
+    if (!subject || !note.trim()) return false;
+
+    try {
+      const createdNote = await addNoteMutation.mutateAsync({ subject, note });
+
+      // uppdatera cache, men håll AddNote öppen
+      queryClient.invalidateQueries({ queryKey: ["notesCount"] });
+
+      // välj ny skapad anteckning, men stäng inte AddNote
+      setSelectedNoteId(createdNote.id);
+
+      return true;
+    } catch (error) {
+      console.error("Fel vid sparning av anteckning:", error);
+      return false;
+    }
   };
 
+  // 🔹 Radera anteckning
   const handleDelete = (noteId: string) => setDeleteConfirmId(noteId);
 
   const confirmDelete = () => {
@@ -54,84 +81,63 @@ export default function Notes() {
     });
   };
 
-  const {
-    data: note,
-    isLoading: noteLoading,
-    error: noteError,
-  } = useNoteById(selectedNoteId ?? undefined);
-
-  const {
-    data: notesCount,
-    isLoading: countLoading,
-    isError: countError,
-  } = useGetNotesCount();
-
   return (
     <div className={notesStyles.notesWrapper}>
-      <div className={notesStyles.topToolbar}>
-        <SearchToolbar
-          subjects={subjects}
-          filter={filter}
-          onFilterChange={setFilter}
-          onAddNote={() => setAddingNote(true)}
-        />
-      </div>
       <div className={notesStyles.contentWrapper}>
-        <div className={notesStyles.noteContainer}>
-          <GetNotes
-            filter={filter}
-            onSelectNote={(noteId: string) => {
-              setSelectedNoteId(noteId);
-              setEditing(false);
-            }}
-          />
+        <Notesidebar
+          onSelectCategory={(category) => setSelectedCategory(category)}
+          onAdd={() => setAddingNote(true)}
+        />
+        <div className={notesStyles.notesListContainer}>
+          <div className={notesStyles.notesContentWrapper}>
+            {addingNote ? (
+              <AddNote
+                onSave={handleAddNoteSave}
+                onClose={() => setAddingNote(false)}
+                subject={currentSubject}
+                setSubject={setCurrentSubject}
+                noteContent={currentNote}
+                setNoteContent={setCurrentNote}
+              />
+            ) : selectedNoteId ? (
+              <div className={`${styles.noteCard} ${editing ? styles.editMode : ""}`}>
+               
+                {noteLoading && <p>Laddar anteckning...</p>}
+                {noteError && <p>Fel: {noteError.message}</p>}
+         
 
-          <div className={notesStyles.noteCount}>
-            {countLoading
-              ? "Laddar antal..."
-              : countError
-              ? "Fel vid hämtning"
-              : `${notesCount} anteckningar`}
-          </div>
-        </div>
-        {selectedNoteId && (
-          <div className={styles.noteCard}>
-            <NoteToolbar
-              onDelete={() => handleDelete(selectedNoteId)}
-              onToggleEdit={() => setEditing(!editing)}
-              onClose={() => {
-                setSelectedNoteId(null);
-                setEditing(false);
-              }}
-              isEditing={editing}
-              isDeleting={isDeleting}
-            />
+                {note && editing && (
+                  <NoteByIdEditor
+                    noteId={selectedNoteId}
+                    initialSubject={note.subject}
+                    initialNote={note.note}
+                  />
+                )}
 
-            {noteLoading && <p>Laddar anteckning...</p>}
-            {noteError && <p>Fel: {noteError.message}</p>}
-            {note && editing && (
-              <NoteByIdEditor
-                noteId={selectedNoteId}
-                initialSubject={note.subject}
-                initialNote={note.note}
+              {note && !editing && (
+  <NoteById
+    noteId={selectedNoteId}
+   
+ 
+    onClose={() => setSelectedNoteId(null)}
+  />
+)}
+
+              </div>
+            ) : (
+              <GetNotes
+                filter={filter}
+                onSelectNote={setSelectedNoteId}
+                selectedCategory={selectedCategory}
               />
             )}
-            {note && !editing && <NoteById noteId={selectedNoteId} />}
           </div>
-        )}
-        {addingNote && (
-          <div className={addNoteStyle.container}>
-            <button onClick={() => setAddingNote(false)}>
-              <XCircle size={28} color="#ffffffff" />
-            </button>
-            <AddNote onNoteAdded={handleNoteAdded} />
-          </div>
-        )}
+        </div>
       </div>
       {deleteConfirmId && (
-        <div className={containerStyles.modalOverlay}>
-          <div className={containerStyles.modalContent}>
-            <p>Är du säker på att du vill ta bort anteckningen?</p>
+        <div className={notesStyles.modalOverlay}>
+          <div className={notesStyles.modalContent}>
+            <p>Vill du verkligen ta bort den här anteckningen?</p>
             <div
               style={{
                 display: "flex",

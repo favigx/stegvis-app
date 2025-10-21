@@ -1,0 +1,18 @@
+.subjectBanner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1E293B;
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.subjectCircle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}

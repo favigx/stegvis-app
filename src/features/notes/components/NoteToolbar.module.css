@@ -1,39 +1,118 @@
+/* Container */
 .toolbarContainer {
   display: flex;
-  gap: 20px;
-  background-color: rgba(212, 206, 206, 0.199);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 50px;
-  padding: 12px 24px;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  max-width: fit-content;
-  border: 1px solid #ffffff; 
-  position: absolute;
-    top: 10px;
-    left:1020px
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  background-color: rgba(59, 112, 112, 0.125); /* bättre bakgrund */
+  position: fixed;
+  top: 160px;
+  right: 0;
+  transform: translateY(-50%);
+  width: 55px; /* kompakt */
+  padding: 12px 10px;
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  overflow: visible;
+  transition: all 0.3s ease;
+  transform-origin: right center;
+  z-index: 1000;
 }
 
+/* Hover / expand */
+.toolbarContainer:hover {
+  width: 180px;
+}
+
+/* Knappar */
 .iconButton {
-  background: transparent;
-  border: none;
-  padding: 0;
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center; /* ikon centrerad i kompakt läge */
+  width: 100%;
+  height: 36px;
+  border-radius: 50px;
+  background-color: #fff;
+  color: #333;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  padding: 0 10px;
 }
 
+/* Hover layout inom knapp */
+.toolbarContainer:hover .iconButton {
+  justify-content: space-between; /* text vänster, ikon höger */
+  border: none;
+}
+
+/* Expandera aktiv knapp även utan hover */
+.iconButton.active {
+  justify-content: space-between;
+  border: none;
+}
+
+/* Ikonen alltid synlig och centrerad */
+.iconButton svg {
+  flex-shrink: 0;
+  min-width: 16px;
+  z-index: 2;
+}
+
+/* Textetikett */
+.iconLabel {
+  position: absolute;       /* gömd i kompakt läge */
+  left: 0;
+  opacity: 0;
+  white-space: nowrap;
+  transform: translateX(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Text syns vid hover eller om knapp är aktiv */
+.toolbarContainer:hover .iconLabel,
+.iconButton.active .iconLabel {
+  position: relative;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Hover-effekt på knapp */
 .iconButton:hover {
-
-  transform: scale(1.2);
+  transform: scale(1.05);
 }
 
+/* Disabled */
 .iconButton:disabled {
-  opacity: 0.4;
-  cursor: default;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Färgvarianter */
+.trash {
+  background-color: #ff0303;
+  color: white;
+}
+
+.edit {
+  background-color: #d4c705;
+  color: white;
+}
+
+.optimize {
+  background-color: #08adb3;
+  color: white;
+}
+
+.close {
+  background-color: #37373d;
+  color: white;
+}
+
+.generate {
+  background-color: #6f5af9;
+  color: white;
 }

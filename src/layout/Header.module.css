@@ -3,15 +3,25 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height:55px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #8093a5;
+  background-color: #f0f7fd;
+  border-bottom: 1px solid #d1e4f8;
+   
+    
 
   padding: 0 1rem;
   z-index: 100;
 }
+
+.disabledButton {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none; /* valfritt: helt blockera klick och hover */
+}
+
 .topHamburger {
   display: flex;
   align-items: center;
@@ -22,7 +32,7 @@
   
   position: absolute;
   top: 50%;
-  left: -3px;
+  left: 0px;
   transform: translateY(-50%);
 }
 
@@ -41,23 +51,30 @@
 }
 
 .text {
-  color: rgb(255, 255, 255);
+ color: rgb(29, 85, 131);
   font-size: 1.2rem;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 32px;
+  
 }
 
 .rightHamburgerWrapper {
   display: flex;
   align-items: center;
-  position: absolute;
-  left: 2500px
+  color:rgb(113, 120, 134);
+  /* ta bort absolute och left */
+  /* position: absolute;
+  left: 2550px; */
 }
 
+.rightHamburgerWrapper svg {
+  color: #2a68dd; /* Blå färg */
+}
 .routeTitle {
- color: rgb(223, 238, 248);
+ color: rgb(74, 110, 145);
 
   font-weight: bold;
-  font-size: 23px;
-  margin-left: 220px;
+  font-size: 0px;
+  margin-left: 200px;
+  margin-top:25px;
 }

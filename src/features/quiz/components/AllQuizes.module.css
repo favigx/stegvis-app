@@ -1,0 +1,20 @@
+.quizGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.statusText {
+  padding: 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.statusError {
+  padding: 20px;
+  text-align: center;
+  color: #ef4444;
+  font-weight: 500;
+}

@@ -32,5 +32,5 @@ export interface CourseDropdownProps {
   option: EnumButtonOption;
   isOpen: boolean;
   isSelected: (name: string) => boolean;
-  onSelect: (name: string) => void;
+  onSelect: (name: string, points: number) => void;
 }

@@ -1,0 +1,44 @@
+/* GoalPlanner.module.css */
+.plannerWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.plannerListContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 10px;
+  min-width: 0;
+}
+
+.plannerContentWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  gap: 20px;
+}
+
+.goalEditor {
+  background-color: #f0f4ff;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.goalList {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 10px;
+}

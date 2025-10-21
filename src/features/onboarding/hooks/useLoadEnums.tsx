@@ -1,22 +1,11 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 import { getUserPreferenceEnums } from "../api/userPreferences/userPreferencesAPI"; 
-import { setEnums } from "../../../redux/slices/enumSlice";
-import type { ApiError } from "../../../api/apiClient";
+import type { UserPreferenceEnums } from "../types/userPreferences/userPreferenceEnums";
 
 export function useLoadEnums() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchEnums = async () => {
-      try {
-        const data = await getUserPreferenceEnums();
-        dispatch(setEnums(data));
-      } catch (err) {
-        console.error("Failed to load enums:", (err as ApiError).message);
-      }
-    };
-
-    fetchEnums();
-  }, [dispatch]);
+  return useQuery<UserPreferenceEnums, Error>({
+    queryKey: ["userPreferenceEnums"],
+    queryFn: getUserPreferenceEnums,
+    staleTime: 1000 * 60 * 5,
+  });
 }

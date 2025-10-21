@@ -1,0 +1,31 @@
+/* GoalPlannerSidebar.module.css */
+.sidebar {
+  width: 320px;
+  height: 100vh;
+  background-color: #eff0f1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.header {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1180e9;
+  margin-bottom: 0.5rem;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4d5055;
+}

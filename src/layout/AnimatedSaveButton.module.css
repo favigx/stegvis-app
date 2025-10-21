@@ -1,0 +1,126 @@
+.wrapper {
+  display: inline-block;
+  width: 240px;
+  height: 40px;
+  text-align: center;
+}
+
+.button {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  
+  background: rgb(36, 104, 160);
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.33s ease-in-out;
+  outline: none;
+}
+
+.button:hover {
+  background: rgb(49, 105, 225);
+}
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #fff;
+  transition: inherit;
+}
+
+/* === Pending / Success / Fail states === */
+.pending,
+.success,
+.fail {
+  width: 40px;
+  pointer-events: none;
+}
+
+.pending .text,
+.success .text,
+.fail .text {
+  opacity: 0;
+}
+
+/* === Spinner (pending) === */
+.pending::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 28px;
+  width: 28px;
+  border: 3px solid rgba(255, 255, 255, 0.33);
+  border-top-color: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotation 0.66s linear infinite;
+}
+
+/* === Success checkmark === */
+.success {
+  background: #8bc34a;
+}
+.success::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 25%;
+  width: 50%;
+  border: 3px solid #fff;
+  border-top-width: 0;
+  border-right-width: 0;
+  transform: translate(-50%, -75%) rotate(-45deg);
+  animation: fade-in 0.6s ease;
+}
+
+/* === Fail cross === */
+.fail {
+  background: #ff5722;
+}
+.fail::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 26px;
+  width: 26px;
+  background: linear-gradient(
+      to bottom,
+      transparent 44%,
+      #fff 44%,
+      #fff 56%,
+      transparent 56%
+    ),
+    linear-gradient(to right, transparent 44%, #fff 44%, #fff 56%, transparent 56%);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  animation: fade-in 0.6s ease;
+}
+
+/* === Animations === */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

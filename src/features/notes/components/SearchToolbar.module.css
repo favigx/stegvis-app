@@ -1,24 +1,27 @@
 .toolbarContainer {
   display: flex;
-  gap: 12px;
-  background-color: rgba(212, 206, 206, 0.199);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(10px);
+  gap: 17px;
+background-color: #0636e200;
+
+   box-shadow: 
+  0 6px 20px rgba(0, 0, 0, 0.1),  /* starkare botten-skugga */
+  0 2px 4px rgba(0, 0, 0, 0.1);   /* mjukare allmän skugga */
+
+
   border-radius: 50px;
-  padding: 6px 16px;
+  padding: 4px 16px;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 13px;
-  left: 25px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   max-width: fit-content;
-  border: 1px solid #ffffff;
+  top: 3px;
+  left: 20px;
+ 
   z-index: 11;
 }
 
 .searchInput {
-  width: 200px;
+  width: 170px;
   padding: 8px 16px;
   
   background: transparent;
@@ -33,14 +36,23 @@
 }
 
 .iconButton {
-  background: transparent;
   border: none;
+  width: 27px;
+  height: 27px;
   padding: 0;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  overflow: hidden; /* tvingar rund form */
+}
+
+
+/* Alla ikoner får ärva färg från knappen */
+.iconButton svg {
+  color: inherit;
 }
 
 .iconButton:hover {
@@ -52,12 +64,24 @@
   cursor: default;
 }
 
+/* Variantfärger */
+.filter {
+  background-color: #020929; /* mörk cirkel */
+  color: white;
+}
+
+.add {
+  background-color: #1839ca; /* mörk cirkel */
+  color: white;
+}
+
+
 .dropdown {
   position: absolute;
   top: 120%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #fff;
+  background-color: #0642c5;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
   padding: 12px;
@@ -65,7 +89,7 @@
   flex-direction: column;
   gap: 10px;
   min-width: 220px;
-  z-index: 12;
+ 
 }
 
 .dropdownItem {

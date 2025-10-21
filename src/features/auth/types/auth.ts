@@ -3,4 +3,4 @@ export interface AuthState {
     user: string | null;
     isAuthenticated: boolean;
     hasCompletedOnboarding: boolean | null;
-}
+} 

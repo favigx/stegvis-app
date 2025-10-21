@@ -1,151 +1,329 @@
+/* --- Huvudcontainer för sektion --- */
 .buttonContainer {
-    background: rgb(161, 174, 189);
-
+  background-color: #f0f7fd;
   border-radius: 30px;
   margin-bottom: 10px;
- 
-
+  width: 100%;
+  max-width: 700px;
+  flex-shrink: 0;
+  border: 2px solid rgb(90, 123, 161);
+  box-sizing: border-box;
 }
 
+/* --- Rad med titel, sökfält och knappar --- */
 .row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   padding: 1rem;
-  
+  position: relative;
 }
 
+/* --- Titel på sektionen --- */
 .title {
   min-width: 115px;
-  color: #ebebeb;
-  text-align: left; 
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-font-weight: 600;
-  margin-left: 0; 
-
+  color: rgb(40, 41, 41);
+  text-align: left;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
+  margin-left: 0;
 }
 
+/* --- Container för alla knappar --- */
 .container {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: flex-end; 
+  justify-content: flex-end;
 }
 
+/* --- Vanlig knapp --- */
 .button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   letter-spacing: -0.3px;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 15px;
   cursor: pointer;
-
-  background: rgba(79, 87, 145, 0.3);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
-
+  background-color: rgba(212, 206, 206, 0.199);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(10px);
+  font-weight: 600;
   transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .button:hover {
-
-  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
 }
 
 .button:active {
+  color: white;
   background: rgba(79, 87, 145, 0.7);
   transform: translateY(0);
 }
 
+/* --- Markerad knapp --- */
 .selected {
-  background-color: #55769b;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgb(253, 254, 255);
+  background-color: #1180e9;
 }
 
 .selected:hover {
-  
-  border-color: rgba(255, 255, 255, 0.6);
+  color: rgb(253, 254, 255);
+  background-color: #1180e9;
 }
 
+/* --- Avmarkerad knapp --- */
 .unselected {
-  background: rgba(175, 174, 189, 0.3);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgb(91, 103, 117);
+  background-color: rgba(212, 206, 206, 0.199);
+  border: 1px solid #ffffff;
 }
 
 .unselected:hover {
-  background: rgba(155, 151, 190, 0.5);
-  border-color: rgba(255, 255, 255, 0.4);
+  color: rgb(30, 63, 100);
+  background-color: rgba(212, 206, 206, 0.199);
+  border: 1px solid #ffffff;
 }
 
+/* --- Nuvarande betyg: ändra knappens egen border till blå --- */
+.current {
+  border: 2px solid rgb(46, 116, 247) !important;
+}
+
+/* --- Scrollbar-container --- */
 .scrollable {
-  max-height: 120px;
-  min-height: 120px;
+  max-height: 90px;
+  min-height: 90px;
   overflow-y: auto;
-}
-
-.searchInput {
-  width: 200px;
-  min-width: 100px;
-  max-width: 300px;
-  height: 40px;
-  min-height: 40px;
-  max-height: 40px;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 10px;
- 
-  background-color: #8e8f96;
-  color: #fff;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-.optionWrapper {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.scrollable:empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Endast för program-knappar */
+.programContainer {
+  margin-right: 10px;
+}
+
+/* --- Sökfält --- */
+.searchWrapper {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  width: 150px;
+  border-radius: 20px;
+  padding: 4px 8px;
 }
 
+.searchSelected {
+  border: 1px solid rgb(61, 155, 243);
+}
 
+/* --- Inputfält --- */
+.searchInput {
+  all: unset;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #494949;
+  width: 100%;
+  cursor: text;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.searchInput::placeholder {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e6e6e;
+}
+
+/* --- Clear-knapp --- */
+.clearButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: rgb(73, 131, 197);
+  transition: color 0.2s ease;
+}
+
+.clearButton:hover {
+  color: #0059ff;
+}
+
+/* --- Dropdown-stil --- */
 .dropdown {
-  position: absolute;  
-  top: 100%;            
-  left: 0;              
-
+  position: absolute;
   border-radius: 12px;
-;
   padding: 4px 0;
-  max-height: 200px;   
+  max-height: 200px;
   overflow-y: auto;
-  z-index: 1000;       
-  min-width: 180px;    
-
-
+  z-index: 1000;
+  min-width: 180px;
 }
 
+/* --- Specifika kursknappar i dropdown --- */
+/* --- Specifika kursknappar i dropdown --- */
 .courseButton {
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.20);
+  background-color: rgb(213, 214, 216);
   margin: 4px 8px;
   padding: 6px 12px;
   cursor: pointer;
   border-radius: 12px;
   text-align: left;
-  color: #f0f0f0;
+  color: #464444;
   transition: all 0.25s ease;
-  backdrop-filter: blur(20px) saturate(150%);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.courseButton:hover {
-  background-color: rgba(88, 103, 168, 0.6);
+/* --- Hover för avmarkerad --- */
+.courseButton.unselected:hover {
+  background-color: rgb(213, 214, 216);
 }
 
-.courseButton.selected {
-  background-color: rgba(88, 103, 168, 0.9);
-  border-color: #4842a5;
+/* --- Användarvald kurs --- */
+.courseButton.userSelected {
+  background-color: #1180e9;
   color: #fff;
+}
+
+.courseButton.userSelected:hover {
+  background-color: #1180e9;
+  color: #fff;
+}
+
+/* --- Inre knapp i wrapper --- */
+.courseInnerButton {
+  all: unset;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.courseLabel {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.courseCheck {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d6a2d;
+}
+
+/* --- Redan graderad kurs --- */
+.disabledCourse {
+  background-color: #c6f7c6;
+  color: #2d6a2d;
+  cursor: not-allowed;
+  pointer-events: none;
+  border: 1px solid #9ed89e;
+}
+
+.allGraded {
+  background-color: #b6f5b6 !important;
+  color: #1e641e !important;
+  border: 1px solid #7cd67c !important;
+  
+  position: relative;
+}
+
+/* Liten grön bock till höger på knappen */
+.allGraded::after {
+  content: "✓";
+  font-weight: 700;
+  color: #1e641e;
+  margin-left: 8px;
+}
+
+.allGradedGreen {
+  background-color: #b6f5b6 !important;
+  color: #1e641e !important;
+  border: 1px solid #7cd67c !important;
+}
+
+.allGradedGreen:hover {
+  background-color: #a9f0a9 !important;
+}
+
+.buttonContainer.green {
+ 
+  border: 2px solid #82bd82; /* grön kant istället för blå */
+}
+
+
+/* --- Markerad knapp (variant: green) --- */
+.selectedGreen {
+  color: #fff !important;
+  background-color: #11a504 !important;
+}
+
+.selectedGreen:hover {
+  background-color: #618a5d !important;
+    border: 1px solid #c4ebc4; /* grön kant istället för blå */
+
+}
+
+/* --- Avmarkerad knapp (variant: green) --- */
+.unselectedGreen {
+  color: #3b663b !important;
+  border-color: #b6e8b6 !important;
+}
+
+
+.unselectedGreen:hover {
+  color: #2d5d2d !important;
+  border-color: #b6e8b6 !important;
+}
+
+/* --- Om alla kurser är betygsatta (grön variant) --- */
+
+.allGradedGreen:hover {
+  background-color: #a3f0a3 !important;
+}
+
+/* --- Delvis betygsatta ämnen --- */
+.partiallyGraded {
+  background-color: #f0fbd0 !important; /* ljusgrön */
+  color: #4a8c2a !important;
+  border: 1px solid #9ed89e !important;
+  position: relative;
+}
+
+.allGradedGreen {
+  background-color: #b6f5b6 !important;
+  color: #1e641e !important;
+  border: 1px solid #7cd67c !important;
+  position: relative; /* viktigt för ::after */
+  padding-right: 32px !important; /* säkerställ plats för bocken */
+}
+
+.allGradedGreen::after {
+  content: "✓";
+  font-weight: 700;
+  color: #1e641e;
+  position: absolute;
+  right: 12px; /* flytta bocken mot högerkant */
+  top: 50%; 
+  transform: translateY(-50%); /* vertikal centering */
+  font-size: 16px; /* justera storlek på bocken */
+  pointer-events: none; /* så att bocken inte stör klick */
 }

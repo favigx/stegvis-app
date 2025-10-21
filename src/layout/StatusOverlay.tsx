@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styles from './StatusOverlay.module.css';
 
 interface StatusOverlayProps {
@@ -6,6 +7,7 @@ interface StatusOverlayProps {
   loadingText?: string;
   doneText?: string;
   icon?: React.ReactNode;
+  onComplete?: () => void; // Ny prop för callback
 }
 
 export const StatusOverlay = ({
@@ -13,9 +15,22 @@ export const StatusOverlay = ({
   completed,
   loadingText = "Laddar...",
   doneText = "Klart!",
-  icon
+  icon,
+  onComplete,
 }: StatusOverlayProps) => {
-  if (!active) return null;
+
+  // Kör callback när completed är true
+  useEffect(() => {
+    if (completed && onComplete) {
+      const timer = setTimeout(() => {
+        onComplete();
+      }, 2000); // Visa "done" i 2 sek
+      return () => clearTimeout(timer);
+    }
+  }, [completed, onComplete]);
+
+  // Om inte aktiv eller completed, rendera ingenting
+  if (!active && !completed) return null;
 
   return (
     <div className={styles.statusOverlay}>

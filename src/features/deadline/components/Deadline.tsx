@@ -3,7 +3,7 @@ import { SimpleCalender } from "./calendar/SimpleCalendar";
 import { getTasks } from "../api/taskAPI"; 
 import type { TaskDTO } from "../types/taskDTO"; 
 import styles from './Deadline.module.css';
-import { AddTask } from "./add-task/AddTask";
+
 import { mapTaskDTOsToEvents } from "../utils/mapTaskDTOsToEvents"; 
 import type { TaskEvent } from "../types/taskEvent"; 
 
@@ -29,7 +29,7 @@ export function Deadline() {
     <div className={styles.containerWrapper}>
       <SimpleCalender events={events} />
       <div>
-        <AddTask onTaskAdded={fetchTasks} />
+      
       </div>
     </div>
   );

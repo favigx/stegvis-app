@@ -5,37 +5,30 @@ export function sanitizeAndTrimNote(html: string): string {
   const doc = parser.parseFromString(html, "text/html");
 
   const body = doc.body;
-  const resultFragments: string[] = [];
+  const fragments: string[] = [];
 
   body.childNodes.forEach((node) => {
     if (node.nodeType === Node.ELEMENT_NODE) {
       const el = node as HTMLElement;
 
-      // Om elementet är rubrik (h1–h6)
+      // Rubrik H1–H6
       if (/H[1-6]/.test(el.tagName)) {
         const text: string = el.textContent?.trim() || "";
-        if (text) {
-          resultFragments.push(`<strong>${text}</strong>`);
-        }
+        if (text) fragments.push(`<strong>${text}</strong>`);
       } else {
-        // Vanligt stycke eller annat element
         const text: string = el.textContent?.trim() || "";
-        if (text) {
-          resultFragments.push(`<p>${text}</p>`);
-        }
+        if (text) fragments.push(text);
       }
     } else if (node.nodeType === Node.TEXT_NODE) {
       const text: string = node.textContent?.trim() || "";
-      if (text) {
-        resultFragments.push(`<p>${text}</p>`);
-      }
+      if (text) fragments.push(text);
     }
   });
 
-  // Trunca totalt till max 10 ord
-  const allText = resultFragments.join(" ");
+  // All text på samma rad, trunca till max 10 ord
+  const allText = fragments.join(" "); // inga <p> eller radbrytningar
   const words = allText.split(/\s+/);
-  const truncated = words.length > 10 ? words.slice(0, 10).join(" ") + "…" : allText;
+  const truncated = words.length > 10 ? words.slice(0, 6).join(" ") + "…" : allText;
 
   return truncated;
 }
