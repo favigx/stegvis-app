@@ -8,8 +8,6 @@ import {
   BookOpen,
   GraduationCap,
   Zap,
-  Lightbulb,
-  Edit,
   BarChart2,
   Gem,
 } from "lucide-react";

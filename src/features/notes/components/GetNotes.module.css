@@ -1,7 +1,6 @@
 .buttonContainer {
-
   display: grid;
-  grid-template-columns: 40px 1fr auto; /* checkbox | content | subject */
+  grid-template-columns: 40px 1fr auto;
   align-items: center;
   position: relative;
   width: 750px;
@@ -21,12 +20,10 @@
   background-color: #d6e9fc;
 }
 
-/* Markerad rad */
 .selected {
-  background-color: #d6e9fc; /* ljusblå bakgrund */
+  background-color: #d6e9fc;
 }
 
-/* Rund checkbox med modern animation */
 .roundCheckbox {
   appearance: none;
   width: 17px;
@@ -46,7 +43,6 @@
   border-color: #2563eb;
 }
 
-/* Pricken inuti */
 .roundCheckbox::after {
   content: '';
   position: absolute;
@@ -64,7 +60,6 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Fyll cirkeln när markerad */
 .roundCheckbox:checked {
   background-color: #3b82f6;
   border-color: #3b82f6;
@@ -92,7 +87,6 @@
 .notePreview {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-weight: 400;
   font-size: 16px;
@@ -126,7 +120,7 @@
 
 .buttonContainer > div:first-child {
   display: flex;
-  align-items: center;  /* vertikal centrering */
+  align-items: center;
   justify-content: center;
   height: 100%;
 }
@@ -148,7 +142,7 @@
 .notesListWrapper {
   width: 750px;
   max-width: 100%;
-  margin: 0 auto; /* centrerar hela listan inklusive rubriken */
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }

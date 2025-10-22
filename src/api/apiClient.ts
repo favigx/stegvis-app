@@ -5,7 +5,7 @@ export interface ApiError {
   status?: number;
 }
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL as string;
+const baseUrl = import.meta.env.VITE_API_BASE_URL_PROD as string;
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: baseUrl,

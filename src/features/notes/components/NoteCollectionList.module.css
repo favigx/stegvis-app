@@ -5,7 +5,7 @@
   padding: 8px;
   background-color: #eff0f1;
   border-radius: 8px;
-  max-height: 400px; /* justera efter behov */
+  max-height: 400px;
   overflow-y: auto;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .error {
-  color: #ef4444; /* röd för felmeddelanden */
+  color: #ef4444;
   font-size: 0.9rem;
   padding: 8px;
 }

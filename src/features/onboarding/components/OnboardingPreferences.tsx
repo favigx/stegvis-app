@@ -39,7 +39,6 @@ export function OnboardingPreferences({
 
   return (
     <>
-      {/* Skolnivå */}
       <PreferenceSection
         title="Skolnivå"
         options={enums.educationLevels.map((e: string) => ({ name: e, code: e }))}
@@ -47,7 +46,6 @@ export function OnboardingPreferences({
         onSelect={handleSelect}
       />
 
-      {/* Program */}
       {programs.length > 0 && (
         <PreferenceSection
           title="Program"
@@ -63,7 +61,6 @@ export function OnboardingPreferences({
         />
       )}
 
-      {/* Inriktning */}
       {orientations.length > 0 && (
        <PreferenceSection
   title="Inriktning"
@@ -71,16 +68,15 @@ export function OnboardingPreferences({
   selected={localPrefs.orientation?.code ?? null}
   onSelect={(code) => {
     const selectedOrientation = orientations.find(o => o.code === code);
-    updateField("orientation", selectedOrientation ?? null); // ✅ här sparas bara vald
+    updateField("orientation", selectedOrientation ?? null);
   }}
 />
 
       )}
 
-      {/* År */}
       <PreferenceSection
         title="År"
-        options={enums.year.map((y: any, i: number) => ({ name: `${i + 1}`, code: `${i + 1}` }))}
+        options={enums.year.map((_y: any, i: number) => ({ name: `${i + 1}`, code: `${i + 1}` }))}
         selected={localPrefs.year ? `${localPrefs.year}` : null}
         onSelect={(val) =>
           updateField("year", typeof val === "string" ? Number(val) : Number(val[0]))

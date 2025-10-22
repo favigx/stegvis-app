@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
 import { AddTaskButtons } from "../../deadline/components/add-task/AddTaskbuttons";
@@ -39,7 +39,6 @@ export function NoteByIdEditor({
     editNote(noteId, { subject, note: noteContent } as EditNoteDTO);
   }, [subject, noteContent, noteId]);
 
-  // Collapse-logik
   useEffect(() => {
     setCollapsed(!!subject);
   }, [subject]);
@@ -50,7 +49,6 @@ export function NoteByIdEditor({
 
   return (
     <div className={styles.outerContainer}>
-      {/* Sidopanel */}
       <div className={`${styles.headerBox} ${!collapsed ? styles.open : ""}`}>
         {!collapsed && (
           <AddTaskButtons
@@ -61,8 +59,6 @@ export function NoteByIdEditor({
           />
         )}
       </div>
-
-      {/* Collapse-knapp */}
       <div className={styles.collapseWrapper}>
         <button
           className={styles.collapseBtn}
@@ -71,8 +67,6 @@ export function NoteByIdEditor({
           {collapsed ? "Välj ämne" : <X size={20} />}
         </button>
       </div>
-
-      {/* Editor + Toolbar */}
       <div
         className={`${styles.innerContainer} ${
           !collapsed ? styles.shrunk : ""

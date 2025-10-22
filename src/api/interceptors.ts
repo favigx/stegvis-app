@@ -5,7 +5,7 @@ import { apiClient, type ApiError } from "./apiClient";
 
 // 🔹 Separat instans för refresh, för att undvika interceptor-loop
 const refreshClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL_PROD,
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
 });

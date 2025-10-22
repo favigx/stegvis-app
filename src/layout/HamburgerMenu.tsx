@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { StatusOverlay } from "./StatusOverlay"; 
 import { LogOut } from "lucide-react";
 import { useLogout } from "../features/auth/hooks/useLogout"; 
 import styles from "./HamburgerMenu.module.css";
 import { useState, useRef, useEffect } from "react";
-import { UserRoundCog, Home, SlidersHorizontal, CircleX } from "lucide-react";
-import type { RootState } from "../redux/store";
+import { UserRoundCog, SlidersHorizontal, CircleX } from "lucide-react";
+// import type { RootState } from "../redux/store";
 
 export function HamburgerMenu() {
   const [open, setOpen] = useState(false);
@@ -14,14 +14,14 @@ export function HamburgerMenu() {
   const dispatch = useDispatch();
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const hasCompletedOnboarding = useSelector((state: RootState) => state.auth.hasCompletedOnboarding);
+  // const hasCompletedOnboarding = useSelector((state: RootState) => state.auth.hasCompletedOnboarding);
 
   const { loggingOut, loggedOut, logout } = useLogout(dispatch, navigate);
 
-  const handleNavigate = (path: string) => {
-    navigate(path);
-    setOpen(false);
-  };
+  // const handleNavigate = (path: string) => {
+  //   navigate(path);
+  //   setOpen(false);
+  // };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -41,16 +41,12 @@ export function HamburgerMenu() {
       </button>
 
       <nav className={`${styles.menu} ${open ? styles.open : ""}`}>
-        {/* Inställningar - alltid disabled */}
         <button
-          onClick={undefined} // ingen navigering
+          onClick={undefined}
           className={`${styles.menuItem} ${styles.disabledMenuItem}`}
-          disabled={true} // alltid disabled
         >
           <SlidersHorizontal className={styles.icon} /> Inställningar
         </button>
-
-        {/* Logga ut - alltid klickbar */}
         <button onClick={logout} className={styles.menuItem}>
           <LogOut className={styles.icon} /> Logga ut
         </button>

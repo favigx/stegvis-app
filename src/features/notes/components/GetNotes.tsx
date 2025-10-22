@@ -53,12 +53,9 @@ function GetNotes({ filter, selectedCategory, onSelectNote }: GetNotesProps) {
 
   return (
     <div className={styles.notesListWrapper}>
-      {/* Rubrik */}
       <h2 className={styles.headerTitle}>{headerTitle}</h2>
 
-      {/* Lista med anteckningar */}
       <div className={styles.notesList}>
-        {/* Markera alla */}
 {notes && notes.length > 0 && (
   <div className={`${styles.buttonContainer} ${styles.selectAllRow}`}>
     <div>

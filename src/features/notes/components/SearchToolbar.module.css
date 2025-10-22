@@ -4,8 +4,8 @@
 background-color: #0636e200;
 
    box-shadow: 
-  0 6px 20px rgba(0, 0, 0, 0.1),  /* starkare botten-skugga */
-  0 2px 4px rgba(0, 0, 0, 0.1);   /* mjukare allmän skugga */
+  0 6px 20px rgba(0, 0, 0, 0.1),
+  0 2px 4px rgba(0, 0, 0, 0.1);
 
 
   border-radius: 50px;
@@ -46,11 +46,9 @@ background-color: #0636e200;
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
-  overflow: hidden; /* tvingar rund form */
+  overflow: hidden;
 }
 
-
-/* Alla ikoner får ärva färg från knappen */
 .iconButton svg {
   color: inherit;
 }
@@ -64,17 +62,15 @@ background-color: #0636e200;
   cursor: default;
 }
 
-/* Variantfärger */
 .filter {
-  background-color: #020929; /* mörk cirkel */
+  background-color: #020929;
   color: white;
 }
 
 .add {
-  background-color: #1839ca; /* mörk cirkel */
+  background-color: #1839ca;
   color: white;
 }
-
 
 .dropdown {
   position: absolute;

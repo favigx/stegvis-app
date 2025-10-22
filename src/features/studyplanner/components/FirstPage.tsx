@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { UserSubjects } from './UserSubjects';
 function FirstPage() {
 
   return (

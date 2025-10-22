@@ -1,15 +1,14 @@
-/* Container */
 .toolbarContainer {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
-  background-color: rgba(59, 112, 112, 0.125); /* bättre bakgrund */
+  background-color: rgba(59, 112, 112, 0.125);
   position: fixed;
   top: 160px;
   right: 0;
   transform: translateY(-50%);
-  width: 55px; /* kompakt */
+  width: 55px;
   padding: 12px 10px;
   border-top-left-radius: 14px;
   border-bottom-left-radius: 14px;
@@ -19,17 +18,15 @@
   z-index: 1000;
 }
 
-/* Hover / expand */
 .toolbarContainer:hover {
   width: 180px;
 }
 
-/* Knappar */
 .iconButton {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center; /* ikon centrerad i kompakt läge */
+  justify-content: center;
   width: 100%;
   height: 36px;
   border-radius: 50px;
@@ -43,28 +40,24 @@
   padding: 0 10px;
 }
 
-/* Hover layout inom knapp */
 .toolbarContainer:hover .iconButton {
-  justify-content: space-between; /* text vänster, ikon höger */
+  justify-content: space-between;
   border: none;
 }
 
-/* Expandera aktiv knapp även utan hover */
 .iconButton.active {
   justify-content: space-between;
   border: none;
 }
 
-/* Ikonen alltid synlig och centrerad */
 .iconButton svg {
   flex-shrink: 0;
   min-width: 16px;
   z-index: 2;
 }
 
-/* Textetikett */
 .iconLabel {
-  position: absolute;       /* gömd i kompakt läge */
+  position: absolute;
   left: 0;
   opacity: 0;
   white-space: nowrap;
@@ -72,7 +65,6 @@
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Text syns vid hover eller om knapp är aktiv */
 .toolbarContainer:hover .iconLabel,
 .iconButton.active .iconLabel {
   position: relative;
@@ -80,18 +72,15 @@
   transform: translateX(0);
 }
 
-/* Hover-effekt på knapp */
 .iconButton:hover {
   transform: scale(1.05);
 }
 
-/* Disabled */
 .iconButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Färgvarianter */
 .trash {
   background-color: #ff0303;
   color: white;

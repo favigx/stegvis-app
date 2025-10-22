@@ -1,4 +1,3 @@
-import React from "react";
 import type { NoteQuizResponse } from "../types/noteQuizResponse";
 import { Play } from "lucide-react";
 import styles from "./QuizCard.module.css";

@@ -1,14 +1,14 @@
 .textareaContainer {
-  flex: 1; /* fyller kvarvarande utrymme i parent */
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
-  overflow: hidden; /* stoppar overflow */
+  overflow: hidden;
 }
 
 .textarea {
-  flex: 1; /* fyller hela textareaContainer */
+  flex: 1;
   outline: none;
   font-size: 16px;
   color: #030303;
@@ -19,28 +19,28 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* scrollar internt */
+  overflow-y: auto;
   height: 500px;
   min-height: 1px;
 }
 
 .ProseMirror .placeholder {
   font-style: italic;
-  color: #535c68; /* valfri färg, t.ex. gråblå */
+  color: #535c68;
 }
 
 .textarea .ProseMirror {
-  flex: 1; /* fyller hela textarea */
+  flex: 1;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* startar alltid från toppen */
+  justify-content: flex-start;
   box-sizing: border-box;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word !important;
   word-break: break-word;
-  overflow-y: auto; /* scrollar internt */
+  overflow-y: auto;
 }
 
 .textarea p,
@@ -57,12 +57,12 @@
 .editorWrapper {
   display: flex;
   flex-direction: column;
-  flex: 1; /* fyller hela parent */
+  flex: 1;
   height: 100%;
 }
 
 .textareaContainer {
-  flex: 1; /* fyller kvarvarande utrymme */
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: rgb(255, 255, 255);

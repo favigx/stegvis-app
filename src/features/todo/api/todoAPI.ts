@@ -3,7 +3,7 @@ import type { AddTodoResponse } from "../types/addTodoResponse";
 import type { TodoResponse } from "../types/TodoResponse";
 import type { DeleteTodoResponse } from "../types/DeleteTodoResponse";
 
-import { apiClient, type ApiError } from "../../../api/apiClient";
+import { apiClient } from "../../../api/apiClient";
 
 const TODO_API_BASE = "/todo"
 

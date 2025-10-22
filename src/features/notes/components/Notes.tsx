@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../../redux/store";
 import { useQueryClient } from "@tanstack/react-query";
 
 import GetNotes from "./GetNotes";
@@ -17,10 +15,8 @@ import { useNoteById } from "../hooks/useNoteById";
 import { useAddNote } from "../hooks/useAddNote";
 
 export default function Notes() {
-  const userPrefs = useSelector((state: RootState) => state.preferences);
-  const subjects = userPrefs.subjects || [];
 
-  const [filter, setFilter] = useState({});
+  const [filter] = useState({});
   const [addingNote, setAddingNote] = useState(false);
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
@@ -34,25 +30,19 @@ export default function Notes() {
   const queryClient = useQueryClient();
   const addNoteMutation = useAddNote();
   const deleteNoteMutation = useDeleteNote();
-  const isDeleting = deleteNoteMutation.status === "pending";
 
   const { data: note, isLoading: noteLoading, error: noteError } = useNoteById(
     selectedNoteId ?? undefined
   );
 
-  
-
-  // 🔹 Spara ny anteckning
   const handleAddNoteSave = async (subject: string, note: string): Promise<boolean> => {
     if (!subject || !note.trim()) return false;
 
     try {
       const createdNote = await addNoteMutation.mutateAsync({ subject, note });
 
-      // uppdatera cache, men håll AddNote öppen
       queryClient.invalidateQueries({ queryKey: ["notesCount"] });
 
-      // välj ny skapad anteckning, men stäng inte AddNote
       setSelectedNoteId(createdNote.id);
 
       return true;
@@ -61,9 +51,6 @@ export default function Notes() {
       return false;
     }
   };
-
-  // 🔹 Radera anteckning
-  const handleDelete = (noteId: string) => setDeleteConfirmId(noteId);
 
   const confirmDelete = () => {
     if (!deleteConfirmId) return;

@@ -1,20 +1,17 @@
-/* UserSettings.module.css */
-
 .wrapper {
-  display: flex;            /* sidebar + content bredvid varandra */
-  height: 100vh;            /* tar hela höjden på viewport */
+  display: flex;
+  height: 100vh;
   width: 100%;
-  background-color: #f8f9fa; /* valfri bakgrund för innehåll */
+  background-color: #f8f9fa;
 }
 
 .content {
-  flex: 1;                  /* tar upp resterande plats bredvid sidebar */
+  flex: 1;
   padding: 20px;
-  overflow-y: auto;         /* scroll om innehållet är längre än viewport */
+  overflow-y: auto;
   background-color: #ffffff;
 }
 
-/* Extra styling för headers */
 .content h1 {
   font-size: 28px;
   font-weight: 700;

@@ -8,12 +8,10 @@ function Quiz() {
 
   return (
     <div className={styles.wrapper}>
-      {/* Sidebar */}
       <div className={styles.sidebarWrapper}>
         <QuizSidebar onSelectCategory={setSelectedCategory} />
       </div>
 
-      {/* Content */}
       <div className={styles.content}>
         {selectedCategory === "all" && <AllQuizes />}
         {selectedCategory === "item2" && <h2>Content 2</h2>}

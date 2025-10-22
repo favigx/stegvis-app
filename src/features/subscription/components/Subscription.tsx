@@ -1,6 +1,6 @@
-import React from 'react';
+
 import styles from './Subscription.module.css';
-import { CreditCard } from 'lucide-react';
+
 
 const Subscription = () => {
     const handleSubscribe = () => {

@@ -6,7 +6,7 @@ import type { AddGradeGoalDTO } from "../types/addGradeGoalDTO";
 import type { AddGradeGoalResponse } from "../types/addGradeGoalResponse";
 import type { AddGradedSubjectsDTO } from "../types/addGradedSubjectsDTO";
 import type { AddGradedSubjectsResponse } from "../types/addGradedSubjectsResponse";
-import { apiClient, type ApiError } from "../../../api/apiClient";
+import { apiClient } from "../../../api/apiClient";
 import type { AddGradeForCurrentDTO } from "../types/addGradeForCurrentDTO";
 import type { AddGradeForCurrentResponse } from "../types/addGradeForCurrentResponse";
 

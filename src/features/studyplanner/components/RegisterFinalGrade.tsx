@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PreferenceSection } from "../../onboarding/components/PreferenceSection";
 import { useGetAllEnums } from "../../goalplanner/hooks/useGetAllEnums";
@@ -9,7 +9,6 @@ import type { RootState } from "../../../redux/store";
 import type { SubjectPreference } from "../../onboarding/types/userPreferences/subjectPreference";
 import type { GradedSubject } from "../../onboarding/types/userPreferences/gradedSubject";
 import type { AddGradeForCurrentDTO } from "../types/addGradeForCurrentDTO";
-import type { AddGradeForCurrentResponse } from "../types/addGradeForCurrentResponse";
 
 import RegisterFinalGradeSummaryBox from "./RegisterFinalGradeSummaryBox";
 import styles from './UserGrades.module.css';
@@ -56,7 +55,7 @@ export function RegisterFinalGrade() {
     try {
       await new Promise<void>((resolve, reject) => {
         mutate(payload, {
-          onSuccess: (response: AddGradeForCurrentResponse) => {
+          onSuccess: () => {
             const updatedSubjects: SubjectPreference[] = (persistedPrefs.subjects ?? []).map(subj => ({
               ...subj,
               grade: selectedGrades[subj.courseCode] ?? subj.grade ?? null,
@@ -102,7 +101,6 @@ export function RegisterFinalGrade() {
 
   return (
     <div className={styles.container}>
-      {/* 🧭 Vänsterkolumn */}
       <div className={styles.main}>
         <div className={styles.mainText}>Registrera slutbetyg</div> 
         <div className={styles.infoText}>
@@ -129,8 +127,6 @@ export function RegisterFinalGrade() {
           </div>
         ))}
       </div>
-
-      {/* 🧭 Höger-sidebar */}
       <aside className={styles.summarySidebar}>
         <div className={styles.summaryContainer}>
           <RegisterFinalGradeSummaryBox

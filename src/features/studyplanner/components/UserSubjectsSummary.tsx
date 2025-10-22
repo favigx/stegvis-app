@@ -1,4 +1,3 @@
-import React from "react";
 import { getUniqueSubjectColor } from "../../notes/utils/getSubjectColor";
 import styles from "./UserSubjects.module.css";
 import type { SubjectPreference } from "../../onboarding/types/userPreferences/subjectPreference";

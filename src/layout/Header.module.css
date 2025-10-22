@@ -19,7 +19,7 @@
 .disabledButton {
   cursor: not-allowed;
   opacity: 0.5;
-  pointer-events: none; /* valfritt: helt blockera klick och hover */
+  pointer-events: none;
 }
 
 .topHamburger {
@@ -62,13 +62,10 @@
   display: flex;
   align-items: center;
   color:rgb(113, 120, 134);
-  /* ta bort absolute och left */
-  /* position: absolute;
-  left: 2550px; */
 }
 
 .rightHamburgerWrapper svg {
-  color: #2a68dd; /* Blå färg */
+  color: #2a68dd;
 }
 .routeTitle {
  color: rgb(74, 110, 145);

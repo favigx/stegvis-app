@@ -2,7 +2,6 @@ import { GraduationCap, BookOpen, Layers, Calendar, UserRoundPen } from "lucide-
 import { useState, type JSX } from "react";
 import type { UserPreference } from "../types/userPreferences/userPreferences"; 
 import type { OrientationPreference } from "../types/userPreferences/orientationPreference";
-import type { ProgramPreference } from "../types/userPreferences/programPreference";
 import styles from "./OnboardingSidebar.module.css";
 
 interface OnboardingSidebarProps {
@@ -47,7 +46,6 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.nav}>
-        {/* Redigera utbildning */}
         <IconTextButton
           icon={<UserRoundPen size={20} />}
           text="Min utbildning"
@@ -57,16 +55,12 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
           textColorClass={styles.addText}
           onClick={onEdit}
         />
-
-        {/* Skolnivå */}
         <IconTextButton
           icon={<GraduationCap size={20} />}
           text={userPrefs.educationLevel || "—"}
           iconClass={styles.educationLevelIcon}
           disableSelect={true}
         />
-
-        {/* Program */}
         <IconTextButton
           icon={<BookOpen size={20} />}
           text={
@@ -78,7 +72,6 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
           disableSelect={true}
         />
 
-        {/* Orientering */}
         {availableOrientations && availableOrientations.length > 0 && (
           <IconTextButton
             icon={<Layers size={20} />}
@@ -92,7 +85,6 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
           />
         )}
 
-        {/* År */}
         <IconTextButton
           icon={<Calendar size={20} />}
           text={userPrefs.year?.toString() || "—"}

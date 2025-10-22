@@ -60,14 +60,13 @@ function Notesidebar({ onAdd, onSearch, onToday, onSelectCategory }: Notesidebar
 
   const isSearchSelected = isSearchFocused || query !== "";
 
-  function onSelectCollection(collectionId: string): void {
+  function onSelectCollection(_collectionId: string): void {
     throw new Error("Function not implemented.");
   }
 
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.nav}>
-        {/* Lägg till anteckning */}
         <IconTextButton
           icon={<Plus size={20} />}
           text="Lägg till anteckning"
@@ -77,8 +76,6 @@ function Notesidebar({ onAdd, onSearch, onToday, onSelectCategory }: Notesidebar
           textColorClass={styles.addText}
           onClick={onAdd}
         />
-
-        {/* Sökfält */}
         <div
           className={`${styles.iconTextButton} ${
             isSearchSelected ? styles.selected : ""
@@ -107,8 +104,6 @@ function Notesidebar({ onAdd, onSearch, onToday, onSelectCategory }: Notesidebar
             </span>
           )}
         </div>
-
-        {/* Kategori-knappar */}
         <IconTextButton
           icon={<LayoutGrid size={20} />}
           text="Alla"
@@ -144,8 +139,6 @@ function Notesidebar({ onAdd, onSearch, onToday, onSelectCategory }: Notesidebar
           iconClass={styles.todayIcon}
           id="older"
         />
-
-        {/* --- Rubrik: Collections --- */}
         <div className={styles.sectionHeader}>
           <span className={`${styles.iconButton}`}>
             <Folder size={22} />

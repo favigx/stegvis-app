@@ -1,13 +1,11 @@
-/* Wrapper – layout med fast sidebar */
 .wrapper {
   display: flex;
-  height: 100vh; /* hela viewporten */
+  height: 100vh;
   width: 100%;
   background-color: #f8f9fa;
-  overflow: hidden; /* hindrar dubbla scrolls */
+  overflow: hidden;
 }
 
-/* Sidebar – ligger fast till vänster */
 .sidebarWrapper {
   width: 280px;
   flex-shrink: 0;
@@ -15,19 +13,16 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden; /* hindra intern scroll */
+  overflow: hidden;
 }
 
-/* Content – den del som scrollas */
 .content {
   flex: 1;
   padding: 20px;
   background-color: #ffffff;
-  overflow-y: auto; /* ⬅️ nu scrollar bara innehållet */
+  overflow-y: auto;
 }
 
-
-/* Extra styling för headers */
 .content h1 {
   font-size: 28px;
   font-weight: 700;

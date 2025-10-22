@@ -4,7 +4,7 @@ import type { AddNoteToCollectionDTO } from "../types/noteCollections/addNoteToC
 import type { AddNoteToCollectionResponse } from "../types/noteCollections/addNoteToCollectionResponse";
 import type { NoteCollectionDTO } from "../types/noteCollections/noteCollectionDTO"; 
 import { apiClient } from "../../../api/apiClient";
-import { useQuery } from "@tanstack/react-query";
+
 
 const NOTE_COLLECTION_API_BASE = "/notes/notecollection";
 

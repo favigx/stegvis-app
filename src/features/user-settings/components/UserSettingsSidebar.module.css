@@ -1,4 +1,3 @@
-/* Sidebar container */
 .sidebar {
   width: 320px;
   height: 100vh;
@@ -9,14 +8,12 @@
   gap: 12px;
 }
 
-/* Nav wrapper */
 .nav {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* Rund ikon */
 .iconButton {
   border: none;
   width: 24px;
@@ -28,10 +25,9 @@
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease;
-  color: #777777; /* Default ikonfärg */
+  color: #777777;
 }
 
-/* Wrapper för ikon + text */
 .iconTextButton {
   display: flex;
   align-items: center;
@@ -50,7 +46,6 @@
   background-color: #cee8ff;
 }
 
-/* Selected state */
 .selected {
   background-color: #cee8ff;
 }
@@ -64,10 +59,9 @@
 }
 
 .selected .iconButton {
-  color: rgb(73, 131, 197); /* Färg på ikonen när vald */
+  color: rgb(73, 131, 197);
 }
 
-/* Text i knapp */
 .navText {
   font-size: 14px;
   font-weight: 600;

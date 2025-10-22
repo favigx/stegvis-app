@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { X } from "lucide-react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
 import { AddTaskButtons } from "../../deadline/components/add-task/AddTaskbuttons";
 import { RichTextEditor } from "./RichTextEditor";
 import { AddNoteToolbar } from "./AddNoteToolbar";
-import { AnimatedSaveButton } from "../../../layout/AnimatedSaveButton"; // ✅ Importera din knapp
+import { AnimatedSaveButton } from "../../../layout/AnimatedSaveButton";
 import styles from "./AddNote.module.css";
 
 interface AddNoteProps {
@@ -46,9 +45,9 @@ export function AddNote({
   };
 
   const handleSave = async () => {
-    const success = await onSave(subject, noteContent); // sparar
+    const success = await onSave(subject, noteContent);
     if (success) {
-      handleClose(); // stänger komponenten om sparning lyckas
+      handleClose();
     }
     return success;
   };

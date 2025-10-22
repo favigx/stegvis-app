@@ -1,5 +1,4 @@
 a.footer {
-  /* Ta bort position: fixed och bottom */
   width: 100%;
   background-color: #f8f8f8;
   padding: 3rem 2rem;
@@ -7,8 +6,8 @@ a.footer {
   font-size: 16px;
   color: #555555;
   border-top: 1px solid #ddd;
-  z-index: 1; /* valfritt */
-  box-shadow: none; /* ta bort om du hade skugga tidigare */
+  z-index: 1;
+  box-shadow: none;
 }
 
 .footerLinks {

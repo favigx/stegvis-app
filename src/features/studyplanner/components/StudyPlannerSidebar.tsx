@@ -63,7 +63,6 @@ function StudyPlannerSidebar({ selectedCategory, onSelectCategory }: StudyPlanne
 
           {expandedFolders["amnen-kurser"] && (
             <div className={styles.folderContent}>
-              {/* Pågående */}
               <div className={`${styles.subFolder} ${styles.subFolderOngoing} ${isSubfolderActive(["amnen-kurser","mal","slutbetyg"]) ? styles.active : ""}`}>
                 <div className={styles.subFolderHeader}>Pågående</div>
                 <IconTextButton icon={<List size={20} />} text="Ämnen och kurser" id="amnen-kurser" nested />
@@ -71,7 +70,6 @@ function StudyPlannerSidebar({ selectedCategory, onSelectCategory }: StudyPlanne
                 <IconTextButton icon={<MdFormatListBulletedAdd size={23} />} text="Registrera slutbetyg" id="slutbetyg" nested />
               </div>
 
-              {/* Avklarade */}
               <div className={`${styles.subFolder} ${styles.subFolderCompleted} ${isSubfolderActive(["betyg-meritvarde", "avklarade-amnen-kurser"]) ? styles.active : ""}`}>
                 <div className={styles.subFolderHeader}>Avklarade</div>
                 <IconTextButton icon={<ListChecks size={16} />} text="Ämnen och kurser" id="avklarade-amnen-kurser" nested />

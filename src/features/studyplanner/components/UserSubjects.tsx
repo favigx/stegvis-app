@@ -74,7 +74,7 @@ export function UserSubjects() {
   }));
 
   // --- Hantera kursval ---
-  const handleCourseSelect = (courseCode: string, points: number) => {
+  const handleCourseSelect = (courseCode: string, _points: number) => {
     const newSelected = [...selectedSubjects];
     const existsIndex = newSelected.findIndex(s => s.courseCode === courseCode);
 
@@ -139,7 +139,6 @@ export function UserSubjects() {
 
   return (
     <div className={styles.container}>
-      {/* 🧭 Vänstra delen */}
       <div className={styles.main}>
         <div className={styles.mainText}>Pågående kurser</div>
         <div className={styles.infoText}>
@@ -155,7 +154,6 @@ export function UserSubjects() {
         />
       </div>
 
-      {/* 🧭 Höger-sidebar */}
       <aside className={styles.summarySidebar}>
         <div className={styles.summaryContainer}>
           <UserSubjectsSummary selectedSubjects={selectedSubjects} />

@@ -8,7 +8,6 @@
   z-index: 1000;
 }
 
-/* Anteckningsyta */
 .innerContainer {
   display: flex;
   flex-direction: column;
@@ -29,24 +28,21 @@
   margin-right: 200px;
 }
 
-/* Ämnesval */
 .subjectSelection {
   display: flex;
-  flex-direction: column; /* vertikal layout */
+  flex-direction: column;
   gap: 8px;
   margin-bottom: 12px;
 }
 
-/* Wrapper runt ämneslistan för scroll */
 .subjectListWrapper {
-  max-height: 180px;       /* maxhöjd innan scroll */
-  overflow-y: auto;        /* scrollar om det finns för många ämnen */
+  max-height: 180px;
+  overflow-y: auto;
   width: 100%;
-  padding-right: 4px;      /* för scrollbar */
-  margin-top: -8px;        /* flyttar upp listan */
+  padding-right: 4px;
+  margin-top: -8px;
 }
 
-/* Collapse-knapp / X-knapp */
 .collapseBtn {
   background: white;
   border-radius: 50%;
@@ -67,7 +63,6 @@
   transform: rotate(180deg);
 }
 
-/* Ändra ämne-knapp */
 .changeSubjectBtn {
   background-color: #f0f7fd;
   border: 1px solid #c0cbd7;
@@ -78,16 +73,15 @@
   color: #1e293b;
   font-size: 14px;
   transition: background 0.2s ease;
-  margin-top: -10px; /* flyttar upp knappen, justera efter behov */
-  align-self: flex-start; /* placera till vänster */
-  z-index: 100; /* högre än editor */
+  margin-top: -10px;
+  align-self: flex-start;
+  z-index: 100;
 }
 
 .changeSubjectBtn:hover {
   background-color: #e0f0fd;
 }
 
-/* Divider */
 .horizontalDivider {
   position: absolute;
   left: 20px;
@@ -100,14 +94,13 @@
 }
 
 .horizontalDivider.expanded {
-  top: 250px; /* när listan är öppen */
+  top: 250px;
 }
 
 .horizontalDivider.collapsed {
-  top: 142px; /* när listan är stängd */
+  top: 142px;
 }
 
-/* Markerat ämne */
 .selectedSubject {
   font-size: 16px;
   font-weight: 600;
@@ -116,9 +109,9 @@
 
 .saveButtonWrapper {
   position: absolute;
-  top: 20px; /* avstånd från botten */
-  right: 250px;  /* eller vänster: 20px, beroende på design */
-  z-index: 100; /* så den ligger över editor/ämneslista */
+  top: 20px;
+  right: 250px;
+  z-index: 100;
   display: flex;
   justify-content: flex-end;
 }

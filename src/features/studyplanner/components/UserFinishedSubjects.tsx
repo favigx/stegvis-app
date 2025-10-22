@@ -24,7 +24,7 @@ export function UserFinishedSubjects() {
   const { data: subjectResponse, isLoading, error } =
     useLoadSkolverketSubjectsForProgram(programCode);
   const { mutate } = useSetUserGradedSubjects();
-  const [saved, setSaved] = useState(false);
+  const [_saved, setSaved] = useState(false);
 
   const [selectedSubjects, setSelectedSubjects] = useState<GradedSubject[]>(
     persistedPrefs.subjects || []
@@ -133,7 +133,6 @@ export function UserFinishedSubjects() {
 
   return (
     <div className={styles.container}>
-      {/* 🧭 Vänsterkolumn */}
       <div className={styles.main}>
         <div className={styles.mainText}>Avklarade kurser</div>
         <div className={styles.infoText}>
@@ -153,7 +152,6 @@ export function UserFinishedSubjects() {
        
       </div>
 
-      {/* 🧭 Höger-sidebar */}
       <aside className={styles.summarySidebar}>
         <div className={styles.summaryContainer}>
           <UserFinishedSubjectsSummarize selectedSubjects={selectedSubjects} />

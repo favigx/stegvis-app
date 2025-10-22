@@ -37,7 +37,6 @@ export function SearchToolbar({ subjects, filter, onFilterChange, onAddNote }: S
 
   return (
     <div className={styles.toolbarContainer}>
-      {/* Sökfält */}
       <input
         type="text"
         placeholder="Sök"
@@ -46,21 +45,17 @@ export function SearchToolbar({ subjects, filter, onFilterChange, onAddNote }: S
         onChange={(e) => handleChange("search", e.target.value)}
       />
 
-      {/* Filterikon */}
       <IconButton
         icon={<Filter size={19} />}
         onClick={() => setOpen(!open)}
-        className={styles.filter}   // <-- viktig
+        className={styles.filter} 
       />
-
-      {/* Lägg till-knapp */}
       <IconButton
         icon={<Plus size={19} />}
         onClick={onAddNote}
-        className={styles.add}      // <-- viktig
+        className={styles.add} 
       />
 
-      {/* Dropdown för filter */}
       {open && (
         <div className={styles.dropdown}>
           <div className={styles.dropdownItem}>

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./SubjectLabel.module.css";
 import { getUniqueSubjectColor } from "../features/notes/utils/getSubjectColor"; // flytta din funktion hit
 

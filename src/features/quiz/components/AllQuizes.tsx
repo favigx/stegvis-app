@@ -1,4 +1,3 @@
-import React from "react";
 import { useAllUserNoteQuizzes } from "../hooks/userGetAllUserNoteQuizzes"; 
 import QuizCard from "./QuizCard";
 import styles from "./AllQuizes.module.css";

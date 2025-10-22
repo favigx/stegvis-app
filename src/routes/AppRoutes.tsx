@@ -15,7 +15,6 @@ import UserSettings from "../features/user-settings/components/UserSettings";
 import StudyPlanner from "../features/studyplanner/components/StudyPlanner";
 import OAuth2Success from "../features/auth/components/Oauth2Success";
 
-// Quiz components
 import Quiz from "../features/quiz/components/Quiz";
 import NoteQuizPlayer from "../features/quiz/components/NoteQuizPlayer";
 
@@ -24,18 +23,15 @@ const Home = () => <div>Home Page</div>;
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public routes */}
       <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
       <Route path="/logga-in" element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/registrera-dig" element={<PublicRoute><Register /></PublicRoute>} />
       <Route path="/oauth2/success" element={<PublicRoute><OAuth2Success /></PublicRoute>} />
 
-      {/* Private routes */}
       <Route path="/hem" element={<PrivateRoute><Home /></PrivateRoute>} />
       <Route path="/kom-igang" element={<PrivateRoute><Onboarding redirectPath="/hem" /></PrivateRoute>} />
       <Route path="/studieplaneraren/*" element={<PrivateRoute><StudyPlanner /></PrivateRoute>} />
 
-      {/* Quiz routes */}
       <Route path="/quiz" element={<PrivateRoute><Quiz /></PrivateRoute>} />
       <Route path="/quiz/:quizId" element={<PrivateRoute><NoteQuizPlayerWrapper /></PrivateRoute>} />
 
@@ -49,7 +45,6 @@ export default function AppRoutes() {
   );
 }
 
-// Wrapper för NoteQuizPlayer som hämtar quizId från URL
 import { useParams } from "react-router-dom";
 
 function NoteQuizPlayerWrapper() {

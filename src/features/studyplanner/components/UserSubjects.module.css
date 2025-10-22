@@ -1,7 +1,6 @@
-/* 🎯 ===== Layoutstruktur ===== */
 .container {
   display: flex;
-  justify-content: flex-start; /* main till vänster */
+  justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
   max-width: 1200px;
@@ -11,17 +10,15 @@
   gap: 40px;
 }
 
-/* ===== Vänster kolumn (huvudinnehåll) ===== */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   min-width: 0;
-  margin-right: 260px; /* reserverar utrymme för fixed sidebar */
+  margin-right: 260px;
 }
 
-/* ===== Höger fast sidebar ===== */
 .summarySidebar {
   position: fixed;
   top: 0;
@@ -38,7 +35,6 @@
 }
 
 
-/* ===== Rubriker & texter ===== */
 .mainText {
   font-size: 25px;
   text-align: left;
@@ -56,9 +52,7 @@
   margin-bottom: 20px;
 }
 
-/* ===== Spara-knapp ===== */
 
-/* ===== Sammanfattningsruta (sidebar-innehåll) ===== */
 .summaryContainer {
   display: flex;
   flex-direction: column;
@@ -87,7 +81,6 @@
   margin-top:20px;
 }
 
-/* ===== Lista med ämnen ===== */
 .subjectList {
   display: flex;
   flex-direction: column;
@@ -116,14 +109,12 @@
   border-radius: 50%;
 }
 
-/* ===== Info-text när inga ämnen valda ===== */
 .infoTextSummary {
   font-size: 14px;
   color: #475569;
   margin-top: 0.5rem;
 }
 
-/* ===== Responsivitet ===== */
 @media (max-width: 1024px) {
   .container {
     flex-direction: column;
@@ -147,18 +138,16 @@
   }
 
   .gradeButton {
-    align-self: center; /* centrera knappen på mobil */
+    align-self: center;
   }
 }
 
-/* Wrapper för spara-knappen i sidebar */
 .saveButtonWrapper {
  
   display: flex;
-  justify-content: center; /* centrera knappen horisontellt */
+  justify-content: center;
 }
 
-/* Knappen själv */
 .gradeButton {
   padding: 0.6rem 1.4rem;
   cursor: pointer;

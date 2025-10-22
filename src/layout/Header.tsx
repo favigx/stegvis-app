@@ -1,10 +1,7 @@
 import styles from './Header.module.css';
 import { HamburgerMenu } from "./HamburgerMenu";
-import { Menu } from "lucide-react";
 import { getHeaderTitle } from './utils/getHeaderTitle';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../redux/store';
 
 function Header() {
   const location = useLocation();

@@ -67,7 +67,6 @@ export function RichTextEditorToolbar({ editor }: RichTextEditorToolbarProps) {
 
   return (
     <div className={styles.toolbarContainer}>
-      {/* Text formatting */}
       <IconButton onClick={() => toggleMark("bold")} selected={boldActive}>
         <Bold size={16} />
       </IconButton>
@@ -78,7 +77,6 @@ export function RichTextEditorToolbar({ editor }: RichTextEditorToolbarProps) {
         <UnderlineIcon size={16} />
       </IconButton>
 
-      {/* Lists */}
       <IconButton onClick={() => editor?.chain().focus().toggleBulletList().run()} selected={editor?.isActive("bulletList")}>
         <List size={16} />
       </IconButton>
@@ -86,7 +84,6 @@ export function RichTextEditorToolbar({ editor }: RichTextEditorToolbarProps) {
         <ListOrdered size={16} />
       </IconButton>
 
-      {/* H2 only as Header */}
       <IconButton
         onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
         selected={editor?.isActive("heading", { level: 2 })}

@@ -26,8 +26,8 @@
 .notesContentWrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;         /* gör att den fyller ut sin container */
-  max-width: 900px;    /* begränsar maxbredd på stora skärmar */
+  width: 100%;
+  max-width: 900px;
   gap: 20px;
 }
 .noteContainer h3 {
@@ -99,7 +99,7 @@
   background-color: #899fc09a;
   border: 1px solid #ffffff;  
   font-weight: 600;
-  min-width: 120px; /* alla knappar får minst samma bredd */
+  min-width: 120px;
   text-align: center;
 }
 .modalContent button:hover {
@@ -108,13 +108,13 @@
   background-color: #4670b4a8;
   border: 1px solid #ffffff;  
   font-weight: 600;
-  min-width: 120px; /* alla knappar får minst samma bredd */
+  min-width: 120px;
   text-align: center;
 }
 
 .editMode {
-  background-color: black; /* när man redigerar */
-  box-shadow: none; /* ev. ta bort skuggan också */
+  background-color: black;
+  box-shadow: none;
 }
 
 .noteContentWrapper {
@@ -123,10 +123,5 @@
   flex-direction: column;
   overflow-y: auto;
   padding: 10px;
-  min-width: 0; /* viktigt för flexlayout */
+  min-width: 0;
 }
-
-
-
-
-

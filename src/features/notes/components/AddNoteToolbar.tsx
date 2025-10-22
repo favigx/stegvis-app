@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import { Save, X } from "lucide-react";
+import { X } from "lucide-react";
 import styles from "./AddNoteToolbar.module.css";
 
 interface AddNoteToolbarProps {
@@ -11,11 +11,7 @@ interface AddNoteToolbarProps {
 }
 
 export function AddNoteToolbar({
-  subject,
-  note,
-  onSave,
   onClose,
-  isSaving = false,
 }: AddNoteToolbarProps) {
   const IconButton = ({
     icon,

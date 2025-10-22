@@ -62,7 +62,6 @@ input[type="email"]:focus {
   box-shadow: 0 0 5px rgba(17, 128, 233, 0.3);
 }
 
-/* Flex-container för knappar */
 .buttonRow {
   display: flex;
 
@@ -70,7 +69,6 @@ input[type="email"]:focus {
   margin-top: 1rem;
 }
 
-/* Moderna Spara-knapp */
 .submitBtn {
   display: flex;
   align-items: center;
@@ -90,7 +88,6 @@ input[type="email"]:focus {
   background-color: #0e6ac8;
 }
 
-/* Moderna Avbryt-knapp */
 .cancelBtn {
   display: flex;
   align-items: center;

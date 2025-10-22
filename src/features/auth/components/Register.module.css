@@ -175,12 +175,11 @@ body, html {
   flex-direction: column;
 }
 
-/* Alla input-fält ser exakt likadana ut */
 .registerContainer input {
   width: 100%;
   padding: 13px 15px;
   font-size: 1rem;
-  border: 1px solid #8b8989; /* samma som lösenord */
+  border: 1px solid #8b8989;
   border-radius: 6px;
   font-weight: lighter;
   background-color: #ffffffec;

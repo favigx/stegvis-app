@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
 import { Editor } from "@tiptap/react";
@@ -173,7 +173,6 @@ export function NoteById({ noteId, noteContent = "", onClose }: NoteByIdProps) {
           {optimizing && <p>Optimerar anteckning...</p>}
           {generating && <p>Genererar quiz...</p>}
 
-          {/* 🔹 RichTextEditor-style view */}
           {editor && (
             <div className={styles.textareaContainer}>
               <div className={styles.textarea}>

@@ -1,5 +1,5 @@
 import type { NoteQuizResponse } from "../types/noteQuizResponse";
-import { apiClient, type ApiError } from "../../../api/apiClient";
+import { apiClient  } from "../../../api/apiClient";
 
 
 const PREFERENCE_API_BASE = "/quiz/note";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PreferenceSection } from "../../onboarding/components/PreferenceSection";
 import { useGetAllEnums } from "../../goalplanner/hooks/useGetAllEnums";
@@ -92,7 +92,6 @@ export function GradeGoal() {
 
   return (
     <div className={styles.container}>
-      {/* 🧭 Vänsterkolumn */}
       <div className={styles.main}>
         <div className={styles.mainText}>Uppdatera dina betygsmål</div>
         <div className={styles.infoText}>
@@ -115,7 +114,6 @@ export function GradeGoal() {
         ))}
       </div>
 
-      {/* 🧭 Höger-sidebar */}
       <aside className={styles.summarySidebar}>
         <div className={styles.summaryContainer}>
           <GradeGoalSummaryBox

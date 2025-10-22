@@ -1,4 +1,3 @@
-/* ==== Outer container ==== */
 .outerContainer {
   display: flex;
   justify-content: center;
@@ -9,7 +8,6 @@
   z-index: 1000;
 }
 
-/* ==== Inner container (anteckningsyta) ==== */
 .innerContainer {
   display: flex;
   flex-direction: column;
@@ -23,10 +21,9 @@
   position: relative;
   margin: 30px 0;
   transition: width 0.4s ease, margin-right 0.4s ease;
-  flex: 1; /* fyller kvarvarande utrymme */
+  flex: 1;
 }
 
-/* ==== Ämnesval ==== */
 .subjectSelection {
   display: flex;
   flex-direction: column;
@@ -34,16 +31,14 @@
   margin-bottom: 12px;
 }
 
-/* Wrapper runt ämneslistan för scroll (edit mode) */
 .subjectListWrapper {
-  max-height: 180px;       /* maxhöjd innan scroll */
-  overflow-y: auto;        /* scrollar om det finns för många ämnen */
+  max-height: 180px;
+  overflow-y: auto;
   width: 100%;
-  padding-right: 4px;      /* för scrollbar */
-  margin-top: -8px;        /* flyttar upp listan */
+  padding-right: 4px;
+  margin-top: -8px;
 }
 
-/* Ändra ämne-knapp */
 .changeSubjectBtn {
   background-color: #f0f7fd;
   border: 1px solid #c0cbd7;
@@ -54,16 +49,15 @@
   color: #1e293b;
   font-size: 14px;
   transition: background 0.2s ease;
-  margin-top: -10px; /* flyttar upp knappen */
-  align-self: flex-start; /* placera till vänster */
-  z-index: 100; /* högre än editor */
+  margin-top: -10px;
+  align-self: flex-start;
+  z-index: 100;
 }
 
 .changeSubjectBtn:hover {
   background-color: #e0f0fd;
 }
 
-/* Collapse-knapp / X-knapp */
 .collapseBtn {
   background: white;
   border-radius: 50%;
@@ -84,7 +78,6 @@
   transform: rotate(180deg);
 }
 
-/* ==== Divider som flyttas beroende på expanded/collapsed ==== */
 .horizontalDivider {
   width: 100%;
   height: 1px;
@@ -95,25 +88,23 @@
 }
 
 .horizontalDivider.expanded {
-  margin-top: 1px; /* när ämneslistan visas */
+  margin-top: 1px;
 }
 
 .horizontalDivider.collapsed {
-  margin-top: 0px; /* när ämneslistan är stängd */
+  margin-top: 0px;
 }
 
-/* ==== RichTextEditor / anteckningsinnehåll ==== */
 .noteContent {
   color: #070707;
   font-size: 16px;
   line-height: 1.6;
   text-align: left;
   word-wrap: break-word;
-  flex: 1; /* fyller kvarvarande utrymme */
-  overflow-y: auto; /* scroll om innehållet är långt */
+  flex: 1;
+  overflow-y: auto;
 }
 
-/* Rubriker och paragrafer */
 .noteContent h1,
 .noteContent h2,
 .noteContent h3,
@@ -130,7 +121,6 @@
   text-align: left;
 }
 
-/* ==== Save / X-knappar ==== */
 .toolbarContainer {
   display: flex;
   gap: 12px;
@@ -167,7 +157,6 @@
   cursor: default;
 }
 
-/* ==== Markerat ämne när ej edit mode ==== */
 .selectedSubject {
   font-size: 16px;
   font-weight: 600;
@@ -177,16 +166,16 @@
 
 
 .textareaContainer {
-  flex: 1; /* fyller kvarvarande utrymme i parent */
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
-  overflow: hidden; /* stoppar overflow */
+  overflow: hidden;
 }
 
 .textarea {
-  flex: 1; /* fyller hela textareaContainer */
+  flex: 1;
   outline: none;
   font-size: 16px;
   color: #030303;
@@ -197,28 +186,28 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* scrollar internt */
+  overflow-y: auto;
   height: 500px;
   min-height: 1px;
 }
 
 .ProseMirror .placeholder {
   font-style: italic;
-  color: #535c68; /* valfri färg, t.ex. gråblå */
+  color: #535c68;
 }
 
 .textarea .ProseMirror {
-  flex: 1; /* fyller hela textarea */
+  flex: 1;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* startar alltid från toppen */
+  justify-content: flex-start;
   box-sizing: border-box;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word !important;
   word-break: break-word;
-  overflow-y: auto; /* scrollar internt */
+  overflow-y: auto;
 }
 
 .textarea p,
@@ -235,12 +224,12 @@
 .editorWrapper {
   display: flex;
   flex-direction: column;
-  flex: 1; /* fyller hela parent */
+  flex: 1;
   height: 100%;
 }
 
 .textareaContainer {
-  flex: 1; /* fyller kvarvarande utrymme */
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: rgb(255, 255, 255);

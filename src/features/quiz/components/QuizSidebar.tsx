@@ -1,5 +1,5 @@
 import { useState, type JSX } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { ChevronDown, LayoutGrid, Plus } from "lucide-react";
 import styles from './QuizSidebar.module.css';
 import type { RootState } from "../../../redux/store";
@@ -12,7 +12,6 @@ interface QuizSidebarProps {
 }
 
 function QuizSidebar({ onSelectCategory, onAdd }: QuizSidebarProps) {
-  const dispatch = useDispatch();
   const persistedPrefs = useSelector((state: RootState) => state.preferences);
   const subjects: SubjectPreference[] = persistedPrefs.subjects ?? [];
 
@@ -64,7 +63,6 @@ function QuizSidebar({ onSelectCategory, onAdd }: QuizSidebarProps) {
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.nav}>
-        {/* Skapa quiz */}
         <IconTextButton
           icon={<Plus size={20} />}
           text="Skapa quiz"
@@ -75,7 +73,6 @@ function QuizSidebar({ onSelectCategory, onAdd }: QuizSidebarProps) {
           onClick={onAdd}
         />
 
-        {/* Alla */}
         <IconTextButton
           icon={<LayoutGrid size={20} />}
           text="Alla"
@@ -83,7 +80,6 @@ function QuizSidebar({ onSelectCategory, onAdd }: QuizSidebarProps) {
           id="all"
         />
 
-        {/* Ämnen */}
         <div className={styles.folder}>
           <div
             className={styles.folderHeader}

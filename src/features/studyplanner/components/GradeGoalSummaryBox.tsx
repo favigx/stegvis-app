@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./UserGrades.module.css";
 
 interface GradeGoalSummaryBoxProps {

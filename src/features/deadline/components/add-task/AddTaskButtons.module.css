@@ -26,7 +26,7 @@ gap: 15px;
 
   
   padding: 20px;
-  position: relative; /* eller relative beroende på föräldern */
+  position: relative;
   
   left: 0;
   right: 0;
@@ -59,7 +59,6 @@ gap: 15px;
   transform: translateY(0);
 }
 
-/* --- Markerad knapp --- */
 .selected {
   color: rgb(253, 254, 255);
   background-color: #1180e9;
@@ -70,7 +69,6 @@ gap: 15px;
   background-color: #1180e9;
 }
 
-/* --- Avmarkerad knapp --- */
 .unselected {
   color: rgb(91, 103, 117);
   background-color: rgba(212, 206, 206, 0.199);
@@ -89,8 +87,6 @@ gap: 15px;
   border-radius: 50%;
   flex-shrink: 0;
 }
-
-
 
 .savePrefBtn {
   display: block;
