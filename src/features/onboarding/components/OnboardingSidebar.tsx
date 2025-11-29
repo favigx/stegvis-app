@@ -1,17 +1,49 @@
-import { GraduationCap, BookOpen, Layers, Calendar, UserRoundPen } from "lucide-react";
+import {
+  GraduationCap,
+  BookOpen,
+  Layers,
+  Calendar,
+  UserRoundPen,
+} from "lucide-react";
+
 import { useState, type JSX } from "react";
-import type { UserPreference } from "../types/userPreferences/userPreferences"; 
+import type { UserPreference } from "../types/userPreferences/userPreferences";
 import type { OrientationPreference } from "../types/userPreferences/orientationPreference";
+import type { GradedSubject } from "../../onboarding/types/userPreferences/gradedSubject";
+import type { SubjectPreference } from "../types/userPreferences/subjectPreference";
+import { getUniqueSubjectColor } from "../../notes/utils/getSubjectColor";
+
 import styles from "./OnboardingSidebar.module.css";
 
 interface OnboardingSidebarProps {
   onEdit?: () => void;
   userPrefs: UserPreference;
-  availableOrientations?: OrientationPreference[]; // objekt-array
+  availableOrientations?: OrientationPreference[];
+  currentStep: number;
 }
 
-function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: OnboardingSidebarProps) {
+export default function OnboardingSidebar({
+  onEdit,
+  userPrefs,
+  availableOrientations,
+  currentStep,
+}: OnboardingSidebarProps) {
   const [selected, setSelected] = useState<string | null>(null);
+
+  const gradedSubjects: GradedSubject[] = userPrefs.gradedSubjects ?? [];
+  const currentSubjects: SubjectPreference[] = userPrefs.subjects ?? [];
+  const meritValue = userPrefs.meritValue ?? null;
+
+  const hasGradedSubjects = gradedSubjects.length > 0;
+  const hasCurrentSubjects = currentSubjects.length > 0;
+
+  const showGradedSubjectsSection =
+    (currentStep >= 2 && (userPrefs.year === 2 || userPrefs.year === 3)) || hasGradedSubjects;
+  const showCurrentSubjectsSection = currentStep >= 4 || hasCurrentSubjects;
+
+  function toggle(id: string) {
+    setSelected(prev => (prev === id ? null : id));
+  }
 
   const IconTextButton = ({
     icon,
@@ -33,7 +65,7 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
     <button
       className={`${styles.iconTextButton} ${!disableSelect && selected === id ? styles.selected : ""}`}
       onClick={() => {
-        if (!disableSelect) setSelected(id ?? null);
+        if (!disableSelect && id) toggle(id);
         onClick?.();
       }}
       disabled={disableSelect}
@@ -43,12 +75,95 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
     </button>
   );
 
+  const renderSubjects = (
+    subjects: {
+      courseName: string;
+      courseCode: string;
+      grade?: string;
+      gradeGoal?: string;
+      coursePoints?: number;
+    }[]
+  ) =>
+    subjects.length === 0 ? (
+      <div style={{ paddingLeft: "17px", fontSize: "13px", color: "#6e6e6e" }}>
+        Inga ämnen valda ännu
+      </div>
+    ) : (
+      <nav className={styles.nav}>
+        {subjects.map(subject => {
+          const color = getUniqueSubjectColor(subject.courseName);
+
+          return (
+            <div
+              key={subject.courseCode}
+              className={styles.iconTextButton}
+              style={{
+                cursor: "default",
+                backgroundColor: "#f0f7fd",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  width: "12px",
+                  height: "12px",
+                  borderRadius: "50%",
+                  backgroundColor: color,
+                  marginLeft: "4px",
+                }}
+              />
+              <span className={styles.navText} style={{ marginLeft: "8px" }}>
+                {subject.courseName}
+              </span>
+              {subject.grade && (
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "10px",
+                    fontWeight: 600,
+                    color: "#3b3b3b",
+                  }}
+                >
+                  {subject.grade}
+                </span>
+              )}
+              {subject.gradeGoal && (
+                <span
+                  style={{
+                    marginLeft: subject.grade ? "10px" : "auto",
+                    marginRight: "10px",
+                    fontWeight: 500,
+                    color: "#1a73e8",
+                  }}
+                >
+                  {subject.gradeGoal} 🎯
+                </span>
+              )}
+              {subject.coursePoints != null && (
+                <span
+                  style={{
+                    marginLeft: "10px",
+                    fontWeight: 500,
+                    color: "#555",
+                    fontSize: "12px",
+                  }}
+                >
+                  {subject.coursePoints}p
+                </span>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+    );
+
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.nav}>
         <IconTextButton
           icon={<UserRoundPen size={20} />}
-          text="Min utbildning"
+          text="Studieprofil"
           iconClass={styles.add}
           id="edit"
           disableSelect={true}
@@ -57,34 +172,24 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
         />
         <IconTextButton
           icon={<GraduationCap size={20} />}
-          text={userPrefs.educationLevel || "—"}
+          text={userPrefs.educationLevel || "Gymnasiet"}
           iconClass={styles.educationLevelIcon}
           disableSelect={true}
         />
         <IconTextButton
           icon={<BookOpen size={20} />}
-          text={
-            userPrefs.program
-              ? `${userPrefs.program.name} (${userPrefs.program.code})`
-              : "—"
-          }
+          text={userPrefs.program ? `${userPrefs.program.name} (${userPrefs.program.code})` : "—"}
           iconClass={styles.fieldOfStudyIcon}
           disableSelect={true}
         />
-
         {availableOrientations && availableOrientations.length > 0 && (
           <IconTextButton
             icon={<Layers size={20} />}
-            text={
-              userPrefs.orientation
-                ? `${userPrefs.orientation.name} (${userPrefs.orientation.code})`
-                : "—"
-            }
+            text={userPrefs.orientation ? `${userPrefs.orientation.name} (${userPrefs.orientation.code})` : "—"}
             iconClass={styles.orientationIcon}
             disableSelect={true}
           />
         )}
-
         <IconTextButton
           icon={<Calendar size={20} />}
           text={userPrefs.year?.toString() || "—"}
@@ -92,8 +197,65 @@ function OnboardingSidebar({ onEdit, userPrefs, availableOrientations }: Onboard
           disableSelect={true}
         />
       </nav>
+
+      {showGradedSubjectsSection && (
+        <>
+          <div
+            style={{
+              marginTop: "10px",
+              marginLeft: "7px",
+              marginRight: "7px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#6e6e6e",
+            }}
+          >
+            <span>Avklarade ämnen</span>
+            {meritValue != null && <span>Jämförelsetal: {meritValue.toFixed(2)}</span>}
+          </div>
+
+          {renderSubjects(
+            gradedSubjects.map(s => ({
+              courseName: s.courseName,
+              courseCode: s.courseCode,
+              grade: s.grade ?? undefined,
+              coursePoints: s.coursePoints,
+            }))
+          )}
+        </>
+      )}
+
+      {showCurrentSubjectsSection && (
+        <>
+          <div
+            style={{
+              marginTop: "10px",
+              marginLeft: "7px",
+              marginRight: "7px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#6e6e6e",
+            }}
+          >
+            <span>Pågående kurser</span>
+          </div>
+
+          {renderSubjects(
+            currentSubjects.map(s => ({
+              courseName: s.courseName,
+              courseCode: s.courseCode,
+              gradeGoal: s.gradeGoal,
+              coursePoints: s.coursePoints,
+            }))
+          )}
+        </>
+      )}
     </aside>
   );
 }
-
-export default OnboardingSidebar;

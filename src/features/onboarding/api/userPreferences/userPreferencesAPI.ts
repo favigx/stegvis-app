@@ -77,3 +77,12 @@ export async function getUserPreferenceEnums(): Promise<UserPreferenceEnums> {
     throw new Error("Kunde inte nå servern");
   }
 }
+
+export async function markOnboardingComplete(): Promise<void> {
+  try {
+    await apiClient.put("/user/preferences/onboarding-complete");
+  } catch (error: any) {
+    const apiError: ApiError = error;
+    throw apiError;
+  }
+}

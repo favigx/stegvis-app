@@ -81,9 +81,9 @@ export function UserGrades() {
   return (
     <div className={styles.container}>
       <div className={styles.main}>
-        <div className={styles.mainText}>Uppdatera dina nuvarande betyg</div>
+        <div className={styles.mainText}>Uppdatera betyg för avklarade kurser</div>
         <div className={styles.infoText}>
-          När du har sparat dina betyg kommer du att kunna se ditt meritvärde till höger.
+          Nu kan du uppdatera dina betyg för de kurser du . Detta hjälper oss att
         </div>
 
         {subjects.map((subj) => (

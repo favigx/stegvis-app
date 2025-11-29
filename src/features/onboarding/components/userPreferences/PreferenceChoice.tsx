@@ -26,7 +26,7 @@ export function PreferenceChoice({
   searchValue,
   onSearchChange,
   currentGrade = null,
-  variant = "default", // 💚 standard är "default"
+  variant = "default", 
 }: PreferenceChoiceProps) {
   const [internalSearch, setInternalSearch] = useState("");
   const search = searchValue ?? internalSearch;
@@ -84,7 +84,7 @@ export function PreferenceChoice({
             </span>
             <input
               ref={inputRef}
-              placeholder="Sök"
+              placeholder="Sök program"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className={styles.searchInput}

@@ -115,10 +115,12 @@
   width: 150px;
   border-radius: 20px;
   padding: 4px 8px;
+    border: 1px solid rgb(33, 107, 175);
+
 }
 
 .searchSelected {
-  border: 1px solid rgb(61, 155, 243);
+  border: 1px  solid rgb(33, 107, 175);
 }
 
 .searchInput {
@@ -131,6 +133,7 @@
   cursor: text;
   text-align: left;
   line-height: 1.4;
+  
 }
 
 .searchInput::placeholder {
@@ -250,8 +253,8 @@
 
 
 .selectedGreen {
-  color: #fff !important;
-  background-color: #11a504 !important;
+  color: #ffffff !important;
+  background-color: #389e24 !important;
 }
 
 .selectedGreen:hover {
@@ -270,6 +273,7 @@
   color: #2d5d2d !important;
   border-color: #b6e8b6 !important;
 }
+
 
 
 .allGradedGreen:hover {

@@ -13,7 +13,7 @@ interface PreferenceSectionProps {
   searchValue?: string;
   onSearchChange?: (val: string) => void;
   currentGrade?: string | null;
-  variant?: "default" | "green"; // 💚 lägg till denna rad
+  variant?: "default" | "green";
 }
 
 export function PreferenceSection({
@@ -27,7 +27,7 @@ export function PreferenceSection({
   onSearchChange,
   currentGrade,
   multiple,
-  variant = "default", // 💚 standardvärde
+  variant = "default",
 }: PreferenceSectionProps) {
   return (
     <PreferenceChoice
@@ -41,7 +41,7 @@ export function PreferenceSection({
       onSearchChange={onSearchChange}
       currentGrade={currentGrade}
       multiple={multiple}
-      variant={variant} // 💚 skicka vidare
+      variant={variant}
     />
   );
 }

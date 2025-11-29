@@ -3,7 +3,6 @@ import { store } from "../redux/store";
 import { logout } from "../redux/slices/authSlice";
 import { apiClient, type ApiError } from "./apiClient";
 
-// 🔹 Separat instans för refresh, för att undvika interceptor-loop
 const refreshClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL_PROD,
   withCredentials: true,
@@ -26,7 +25,6 @@ interface AxiosRequestConfigWithRetry extends AxiosRequestConfig {
   _retry?: boolean;
 }
 
-// Helper: Kontrollera om det är login/refresh request
 const isAuthRequest = (url?: string) => {
   if (!url) return false;
   return url.includes("/auth/login") || url.includes("/auth/refresh");
@@ -40,26 +38,23 @@ apiClient.interceptors.response.use(
 
     if (!originalRequest) return Promise.reject(error);
 
-    // 🔹 Hantera 401 och inte redan retry:ad
     if (status === 401 && !originalRequest._retry && !isAuthRequest(originalRequest.url)) {
       originalRequest._retry = true;
 
       if (!isRefreshing) {
         isRefreshing = true;
         try {
-          // Refresh-anropet returnerar ny HttpOnly-cookie
           await refreshClient.post("/auth/refresh", null, { withCredentials: true });
-          onRefreshed(true); // alla väntande requests fortsätter
+          onRefreshed(true);
         } catch (refreshError) {
-          onRefreshed(false); // alla väntande requests misslyckas
-          store.dispatch(logout()); // logga ut användaren
+          onRefreshed(false);
+          store.dispatch(logout());
           return Promise.reject(refreshError);
         } finally {
           isRefreshing = false;
         }
       }
 
-      // Vänta tills refresh är klar, kör sedan om originalRequest
       return new Promise((resolve, reject) => {
         subscribeTokenRefresh((success) => {
           if (success) {

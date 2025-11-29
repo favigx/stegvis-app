@@ -1,4 +1,3 @@
-// GoalPlannerSidebar.tsx
 import styles from "./GoalPlannerSidebar.module.css";
 
 function GoalPlannerSidebar() {
