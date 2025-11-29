@@ -5,6 +5,7 @@ import { useLoadSkolverketSubjectsForProgram } from "../../onboarding/hooks/useL
 import { useSetUserGradedSubjects } from "../hooks/useSetUserGradedSubjects";
 import { setPreferences } from "../../../redux/slices/userPreferenceSlice";
 import { AnimatedSaveButton } from "../../../layout/AnimatedSaveButton";
+import { ArrowBigRight } from "lucide-react";
 import type { RootState } from "../../../redux/store";
 import type { EnumButtonOption } from "../../onboarding/types/props/props";
 import UserFinishedSubjectsSummarize from "./UserFinishedSubjectsSummarize";
@@ -19,21 +20,18 @@ export function UserFinishedSubjects() {
   const program = persistedPrefs.program;
   const orientation = persistedPrefs.orientation;
   const programCode = program?.code ?? null;
-  const gradedSubjects = persistedPrefs?.gradedSubjects ?? [];
 
   const { data: subjectResponse, isLoading, error } =
     useLoadSkolverketSubjectsForProgram(programCode);
   const { mutate } = useSetUserGradedSubjects();
-  const [_saved, setSaved] = useState(false);
 
-  const [selectedSubjects, setSelectedSubjects] = useState<GradedSubject[]>(
-    persistedPrefs.subjects || []
-  );
+  const [selectedSubjects, setSelectedSubjects] = useState<GradedSubject[]>([]);
+  const [coursesSaved, setCoursesSaved] = useState(false);
 
+  // Reset goal state every time component mounts
   useEffect(() => {
-    if (persistedPrefs.gradedSubjects?.length) {
-      setSelectedSubjects(persistedPrefs.gradedSubjects);
-    }
+    setSelectedSubjects(persistedPrefs.gradedSubjects || []);
+    setCoursesSaved(false); // Mål text resetas vid varje inladdning
   }, [persistedPrefs.gradedSubjects]);
 
   if (!programCode) return <p>Program ej valt.</p>;
@@ -48,7 +46,7 @@ export function UserFinishedSubjects() {
   const programSpecificSubjects = subjectResponse.program.programmeSpecificSubjects?.subjects ?? [];
   const allSubjects = [...foundationSubjects, ...orientationSubjects, ...programSpecificSubjects];
 
-  // --- Slå ihop dubbletter på code och kurser ---
+  // --- Slå ihop dubbletter ---
   const subjectMap: Record<string, typeof allSubjects[0]> = {};
   allSubjects.forEach(subject => {
     if (!subjectMap[subject.code]) {
@@ -60,7 +58,6 @@ export function UserFinishedSubjects() {
       subjectMap[subject.code].courses = [...existingCourses, ...newCourses];
     }
   });
-
   const uniqueSubjects = Object.values(subjectMap);
 
   const subjectOptions: EnumButtonOption[] = uniqueSubjects.map(subject => ({
@@ -75,27 +72,24 @@ export function UserFinishedSubjects() {
 
   // --- Hantera val av kurs ---
   const handleCourseSelect = (courseCode: string) => {
-    if (gradedSubjects.some(g => g.courseCode === courseCode)) return;
+    const existsIndex = selectedSubjects.findIndex(s => s.courseCode === courseCode);
+    const course = uniqueSubjects.flatMap(s => s.courses ?? []).find(c => c.code === courseCode);
+    if (!course) return;
 
     const newSelected = [...selectedSubjects];
-    const existsIndex = newSelected.findIndex(s => s.courseCode === courseCode);
-
     if (existsIndex >= 0) {
       newSelected.splice(existsIndex, 1);
     } else {
-      const course = uniqueSubjects.flatMap(s => s.courses ?? []).find(c => c.code === courseCode);
-      if (!course) return;
-
       newSelected.push({
         courseName: course.name,
         courseCode: course.code,
         coursePoints: Number(course.points ?? 0),
       });
     }
-
     setSelectedSubjects(newSelected);
   };
 
+  // --- Spara ---
   const handleSave = async (): Promise<boolean> => {
     if (selectedSubjects.length === 0) return false;
 
@@ -109,15 +103,11 @@ export function UserFinishedSubjects() {
       await new Promise<void>((resolve, reject) => {
         mutate(payload, {
           onSuccess: () => {
-            setSaved(true);
-            setTimeout(() => setSaved(false), 2000);
-
+            setCoursesSaved(true); // ✅ markerar målet som slutfört
             dispatch(setPreferences({
               ...persistedPrefs,
               gradedSubjects: selectedSubjects,
             }));
-
-            setSelectedSubjects([...selectedSubjects]);
             resolve();
           },
           onError: reject,
@@ -136,8 +126,45 @@ export function UserFinishedSubjects() {
       <div className={styles.main}>
         <div className={styles.mainText}>Avklarade kurser</div>
         <div className={styles.infoText}>
-          Lägg in de kurser du redan har betyg i och uppdatera betygen i betyg och meritvärde.
+          Som elev i årskurs {persistedPrefs.year} har du redan avslutade kurser. Fyll i dessa kurser nedan för att få en korrekt översikt över dina studier.
         </div>
+
+        {/* Måltext */}
+        <p
+          style={{
+            textDecoration: coursesSaved ? "line-through" : "none",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            marginBottom: "8px",
+          }}
+        >
+          {coursesSaved ? "✅" : "🎯"} Spara dina avklarade kurser
+        </p>
+
+        {/* Info om nästa steg */}
+        {coursesSaved && (
+          <p style={{ marginBottom: "8px" }}>
+            I nästa steg kommer vi att be dig fylla i de betyg du har för dessa kurser
+          </p>
+        )}
+
+        {/* Fortsätt-knapp */}
+        {coursesSaved && (
+          <div
+            className={styles.continueAction}
+            onClick={() => window.location.href = "/studieplaneraren/betyg-meritvarde"}
+            style={{
+              marginBottom: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              cursor: "pointer",
+            }}
+          >
+            <ArrowBigRight size={25} /> Fortsätt till Betyg & Meritvärde
+          </div>
+        )}
 
         <PreferenceSection
           title="Ämnen och kurser"
@@ -147,9 +174,6 @@ export function UserFinishedSubjects() {
           multiple
           variant="green"
         />
-
-       
-       
       </div>
 
       <aside className={styles.summarySidebar}>

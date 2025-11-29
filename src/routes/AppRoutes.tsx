@@ -5,7 +5,6 @@ import PublicRoute from "./PublicRoutes";
 import Login from "../features/auth/components/Login";
 import Register from "../features/auth/components/Register";
 import LandingPage from "../features/landing/components/Landing";
-import { Onboarding } from "../features/onboarding/components/Onboarding";
 import { Deadline } from "../features/deadline/components/Deadline";
 import EditPreferences from "../features/user-settings/components/EditPreferences";
 import Notes from "../features/notes/components/Notes";
@@ -17,6 +16,7 @@ import OAuth2Success from "../features/auth/components/Oauth2Success";
 
 import Quiz from "../features/quiz/components/Quiz";
 import NoteQuizPlayer from "../features/quiz/components/NoteQuizPlayer";
+import { OnboardingMain } from "../features/onboarding/components/OnboardingMain";
 
 const Home = () => <div>Home Page</div>;
 
@@ -29,7 +29,7 @@ export default function AppRoutes() {
       <Route path="/oauth2/success" element={<PublicRoute><OAuth2Success /></PublicRoute>} />
 
       <Route path="/hem" element={<PrivateRoute><Home /></PrivateRoute>} />
-      <Route path="/kom-igang" element={<PrivateRoute><Onboarding redirectPath="/hem" /></PrivateRoute>} />
+      <Route path="/kom-igang" element={<PrivateRoute><OnboardingMain/></PrivateRoute>} />
       <Route path="/studieplaneraren/*" element={<PrivateRoute><StudyPlanner /></PrivateRoute>} />
 
       <Route path="/quiz" element={<PrivateRoute><Quiz /></PrivateRoute>} />

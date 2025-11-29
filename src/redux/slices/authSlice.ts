@@ -18,7 +18,6 @@ const initialState: AuthState = {
   hasCompletedOnboarding: false,
 };
 
-// 🔄 Async thunk – kolla auth-status
 export const checkAuth = createAsyncThunk<UserAuthResponse, void, { rejectValue: string }>(
   "auth/checkAuth",
   async (_, { rejectWithValue }) => {

@@ -1,16 +1,12 @@
-.wrapper {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
+
 
 .content {
   flex: 1;
   display: flex;
   justify-content: center;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 20px;
+  
 }
 
 .onboardingContainer {
@@ -39,7 +35,16 @@
   color: #376e7c;
   font-weight: 600;
   font-size: 14px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+   margin-top: 30px;
+}
+
+.hintExtra {
+  text-align: left;
+  color: #376e7c;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 30px;
 }
 
 .headerRow {
@@ -80,7 +85,8 @@
   gap: 6px;
   font-weight: 600;
   cursor: pointer;
-  color: #3f78f1;
+   color: #2475a3;
+
   transition: color 0.2s ease;
   margin-right: 10px;
   margin-top: 12px;
@@ -250,3 +256,5 @@
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(1.05); }
 }
+
+

@@ -17,7 +17,6 @@ export function AnimatedSaveButton({ onSave }: AnimatedSaveButtonProps) {
       setState("fail");
     }
 
-    // Gå tillbaka till normal knapp efter en stund
     setTimeout(() => setState("idle"), 2000);
   };
 

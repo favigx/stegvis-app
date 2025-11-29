@@ -3,14 +3,13 @@ import { getUniqueSubjectColor } from '../../../notes/utils/getSubjectColor';
 
 interface AddTaskButtonsProps {
   title: string;
-  options: string[] | null;  // <-- tillåter null
+  options: string[] | null;
   selected: string;
   onSelect: (value: string) => void;
-  collapsed?: boolean;       // valfritt, om vi vill visa collapsed
+  collapsed?: boolean;
 }
 
 export function AddTaskButtons({ title, options, selected, onSelect, collapsed = false }: AddTaskButtonsProps) {
-  // Om collapsed, visa bara selected i en “pseudo-option”
   const renderOptions = collapsed ? (selected ? [selected] : []) : options || [];
 
   return (

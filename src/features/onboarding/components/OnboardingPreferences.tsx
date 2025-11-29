@@ -74,14 +74,17 @@ export function OnboardingPreferences({
 
       )}
 
-      <PreferenceSection
-        title="År"
-        options={enums.year.map((_y: any, i: number) => ({ name: `${i + 1}`, code: `${i + 1}` }))}
-        selected={localPrefs.year ? `${localPrefs.year}` : null}
-        onSelect={(val) =>
-          updateField("year", typeof val === "string" ? Number(val) : Number(val[0]))
-        }
-      />
+     {localPrefs.program && (!orientations.length || localPrefs.orientation) && (
+  <PreferenceSection
+    title="År"
+    options={enums.year.map((_y: any, i: number) => ({ name: `${i + 1}`, code: `${i + 1}` }))}
+    selected={localPrefs.year ? `${localPrefs.year}` : null}
+    onSelect={(val) =>
+      updateField("year", typeof val === "string" ? Number(val) : Number(val[0]))
+    }
+  />
+)}
+
 
       
 

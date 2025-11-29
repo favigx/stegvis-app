@@ -5,7 +5,7 @@ function EditPreferences() {
     <>
    <div>
       <Onboarding 
-        title="" 
+       
         // buttonText="Spara ändringar" 
         hint=""
       />
