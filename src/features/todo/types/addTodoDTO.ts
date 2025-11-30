@@ -1,3 +1,4 @@
 export interface AddTodoDTO {
-    todo: string;
+    description: string;
+    subject: string;
 }

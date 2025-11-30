@@ -41,3 +41,25 @@ export async function deleteTodoById(todoId: string): Promise<DeleteTodoResponse
         }
     } throw new Error("Kunde inte nå servern");
 }
+
+export async function markTodoOngoing(todoId: string): Promise<void> {
+    try {
+        await apiClient.put(`${TODO_API_BASE}/${todoId}/ongoing`);
+    } catch (error: any) {
+        if (error.response) {
+            throw new Error(error.response.data?.message || "Kunde inte markera todo som ongoing");
+        }
+        throw new Error("Kunde inte nå servern");
+    }
+}
+
+export async function markTodoCompleted(todoId: string): Promise<void> {
+    try {
+        await apiClient.put(`${TODO_API_BASE}/${todoId}/completed`);
+    } catch (error: any) {
+        if (error.response) {
+            throw new Error(error.response.data?.message || "Kunde inte markera todo som completed");
+        }
+        throw new Error("Kunde inte nå servern");
+    }
+}

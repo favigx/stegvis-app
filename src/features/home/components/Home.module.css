@@ -1,0 +1,39 @@
+.homeContainer {
+  background-color: #ffffff;
+  padding: 32px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  overflow: auto;
+  justify-content: flex-start;
+}
+
+.BoardContainer {
+  background: linear-gradient(145deg, #eef8ff, #f0f7ff);
+  padding: 20px;
+  border-radius: 16px;
+  width: auto;
+  height: auto;
+  color: rgb(57, 78, 153);
+  text-align: left;
+  border: 2px solid #cfdce6;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+
+.sectionHeader {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #1f2a56;
+  border-bottom: 2px solid #d0dbe8;
+  padding-bottom: 8px;
+}
+
+.pinfo {
+    font-size: 14px;
+    font-weight: 600;
+    color:#1f2a56;
+}
