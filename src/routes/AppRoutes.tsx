@@ -17,8 +17,9 @@ import OAuth2Success from "../features/auth/components/Oauth2Success";
 import Quiz from "../features/quiz/components/Quiz";
 import NoteQuizPlayer from "../features/quiz/components/NoteQuizPlayer";
 import { OnboardingMain } from "../features/onboarding/components/OnboardingMain";
+import { Home } from "../features/home/components/Home";
 
-const Home = () => <div>Home Page</div>;
+
 
 export default function AppRoutes() {
   return (

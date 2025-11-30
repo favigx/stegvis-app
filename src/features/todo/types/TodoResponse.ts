@@ -1,5 +1,8 @@
 export interface TodoResponse {
     id: string;
-    todo: string;
+    description: string;
+    subject: string;
+    status: string;
     dateTimeCreated: string;
+    dateTimeCompleted?: string;
 }
