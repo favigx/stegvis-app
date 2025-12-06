@@ -4,6 +4,8 @@ import type { TodoResponse } from "../types/TodoResponse";
 import type { DeleteTodoResponse } from "../types/DeleteTodoResponse";
 
 import { apiClient } from "../../../api/apiClient";
+import type { UploadFileResponse } from "../types/uploadFileResponse";
+import type { TodoFileResponse } from "../types/todoFileResponse";
 
 const TODO_API_BASE = "/todo"
 
@@ -59,6 +61,76 @@ export async function markTodoCompleted(todoId: string): Promise<void> {
     } catch (error: any) {
         if (error.response) {
             throw new Error(error.response.data?.message || "Kunde inte markera todo som completed");
+        }
+        throw new Error("Kunde inte nå servern");
+    }
+}
+
+export async function markTodoNotStarted(todoId: string): Promise<void> {
+    try {
+        await apiClient.put(`${TODO_API_BASE}/${todoId}/notstarted`);
+    } catch (error: any) {
+        if (error.response) {
+            throw new Error(error.response.data?.message || "Kunde inte markera todo som completed");
+        }
+        throw new Error("Kunde inte nå servern");
+    }
+}
+
+export async function uploadFile(todoId: string, file: File): Promise<UploadFileResponse> {
+    try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await apiClient.post<UploadFileResponse>(
+            `${TODO_API_BASE}/${todoId}/upload`,
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw new Error(error.response.data?.message || "Kunde inte ladda upp filen");
+        }
+        throw new Error("Kunde inte nå servern");
+    }
+}
+
+export async function getFilesForTodo(todoId: string): Promise<TodoFileResponse[]> {
+    try {
+        const response = await apiClient.get<TodoFileResponse[]>(`${TODO_API_BASE}/${todoId}/files`);
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw new Error(error.response.data?.message || "Kunde inte hämta filer för todo");
+        }
+        throw new Error("Kunde inte nå servern");
+    }
+}
+
+export async function getFileUrl(todoFileId: string): Promise<string> {
+    try {
+        const response = await apiClient.get<string>(`${TODO_API_BASE}/${todoFileId}/download`);
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw new Error(error.response.data?.message || "Kunde inte hämta filens URL");
+        }
+        throw new Error("Kunde inte nå servern");
+    }
+}
+
+export async function deleteTodoFile(todoFileId: string): Promise<void> {
+    try {
+        await apiClient.delete(`${TODO_API_BASE}/file/${todoFileId}`);
+    } catch (error: any) {
+        if (error.response) {
+            throw new Error(error.response.data?.message || "Kunde inte radera filen");
         }
         throw new Error("Kunde inte nå servern");
     }

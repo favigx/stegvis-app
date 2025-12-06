@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 20px 0;
+  line-height: 1;
+  color: #2475a3;
+}
+
+.onboardingWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Staplar komponenterna vertikalt */
+  gap: 20px; /* Litet mellanrum mellan sektionerna */
+  align-items: center; /* Centrera innehållet horisontellt */
+}
+
+.hint {
+  text-align: center;
+  color: #376e7c;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Ta bort tab-logik helt, inga tabbar behövs längre */
+.tabsContainer,
+.tab,
+.activeTab {
+  display: none;
+}

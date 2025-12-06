@@ -1,51 +1,92 @@
+.todoBoardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.mainTitle {
+ font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #2a3d5c;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+ margin-bottom: 12px;
+  margin-left: 16px;
+}
+.mainTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+
+.mainP {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  margin-left: 16px;
+  text-align: left;
+  color: #2a3d5c;
+}
+
 .boardContainer {
   display: flex;
-  gap: 12px;          
-  padding: 8px;  
-  width: 610px;     
-  max-width: 700px;
+  gap: 12px;
+  padding: 8px;
+  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
   border-radius: 8px;
-  flex-direction: row;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 .column {
-  width: 300px; 
-  background-color: #ffffff;
+  width: 300px;
+  background-color: #ffffff; /* vit bakgrund för hela kolumnen */
   border-radius: 6px;
-  padding: 8px;       
+  padding: 16px 8px 8px 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  text-align: left;
-  color: rgb(8, 48, 95);
   display: flex;
   flex-direction: column;
+  position: relative;
   box-sizing: border-box;
+  color: #000000;
 }
+
+/* Lägg till detta i din TodoBoard.module.css */
+
+.statusCircle {
+  width: 12px;        /* storlek på cirkeln */
+  height: 12px;
+  border-radius: 50%; /* gör den rund */
+  display: inline-block;
+  margin-right: 8px;  /* lite avstånd till texten */
+}
+
+.red { background-color: #f70a0a; }
+.yellow { background-color: #ffce09; }
+.green { background-color: #1db618; }
+
+
+/* Ta bort dessa om de finns */
+
+
 
 .columnHeaderWrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 16px; /* så rubriken inte överlappar halvmånen */
 }
 
 .columnHeader {
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
+  color: #000000; /* svart rubrik */
 }
-
-.statusCircle {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-
-.red { background-color: #ef4444; }
-.yellow { background-color: #facc15; }
-.green { background-color: #22c55e; }
 
 .addButton {
   background-color: #2563eb;
@@ -67,11 +108,10 @@
   border-color: #1d4ed8;
 }
 
-/* Todos container */
 .todosContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px; 
+  gap: 12px;
   box-sizing: border-box;
 }
 
@@ -80,6 +120,7 @@
   border-radius: 10px;
   transition: transform 0.2s ease;
   box-sizing: border-box;
+  color: #000000; /* svart text i todo */
 }
 
 .todoCard:hover {
@@ -90,31 +131,18 @@
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 6px;
+  color: #000000; /* svart */
 }
-
 
 .todoDate {
   font-size: 12px;
   margin: 2px 0;
+  color: #000000;
 }
 
-.todoRed {
-  background-color: #e7bbbb; 
-  color: rgb(0,0,0);
-   margin-top: 10px;
-}
-
-.todoYellow {
-  background-color: #fae697; 
-  color: rgb(0,0,0);
-  margin-top: 10px;
-}
-
-.todoGreen {
-  background-color: #c6fcc4; 
-  color: rgb(0,0,0);
-   margin-top: 10px;
-}
+.todoRed { background-color: #ffc8c8b6; margin-top: 10px; }
+.todoYellow { background-color: #fae697; margin-top: 10px; }
+.todoGreen { background-color: #c6fcc4; margin-top: 10px; }
 
 .newTodoContainer {
   display: flex;
@@ -123,34 +151,19 @@
   margin-bottom: 8px;
 }
 
-.newTodoDropdown {
+.newTodoDropdown, .newTodoInput {
   width: 100%;
-  padding: 6px 10px;
+  padding: 8px 10px;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   font-size: 14px;
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color: #000000; /* svart text */
 }
 
-.newTodoDropdown:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-}
-
-.newTodoInput {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #cbd5e1; 
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.newTodoInput:focus {
+.newTodoDropdown:focus, .newTodoInput:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
@@ -169,35 +182,26 @@
   padding: 6px 12px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s ease;
 }
 
-.addTodoButton:hover {
-  background-color: #1d4ed8;
-}
+.addTodoButton:hover { background-color: #1d4ed8; }
 
 .cancelTodoButton {
-  background-color: #e5e7eb; 
-  color: #1f2937; 
+  background-color: #e5e7eb;
+  color: #1f2937;
   border: none;
   border-radius: 6px;
   padding: 6px 12px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s ease;
 }
 
-.cancelTodoButton:hover {
-  background-color: #d1d5db;
-}
-
+.cancelTodoButton:hover { background-color: #d1d5db; }
 
 .customDropdown {
   position: relative;
   cursor: pointer;
-    width: 158px;
-    
-
+  width: 158px;
 }
 
 .dropdownSelected {
@@ -209,6 +213,7 @@
   background-color: white;
   display: flex;
   align-items: center;
+  color: #000000; /* svart text */
 }
 
 .dropdownList {
@@ -224,8 +229,8 @@
   margin-top: 2px;
   z-index: 10;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 0;
   list-style: none;
+  padding: 0;
 }
 
 .dropdownItem {
@@ -234,15 +239,53 @@
   align-items: center;
   gap: 6px;
   font-size: 14px;
+  color: #000000; /* svart */
 }
 
-.dropdownItem:hover {
-  background-color: #e5e7eb;
-}
+.dropdownItem:hover { background-color: #e5e7eb; }
 
 .dropdownCircle {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   display: inline-block;
+}
+
+.todoFileLink, .todoLink {
+  color: #000000; /* svart text */
+  text-decoration: underline;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.todoFileLink:hover, .todoLink:hover {
+  color: #1d4ed8; /* hover blå */
+  text-decoration: none;
+}
+
+.todoCardContent a {
+  display: inline-block; /* säkerställer vänsterjustering */
+}
+
+.todoFileList {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.todoFileItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px 0;
+}
+
+
+.todoCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* vänsterjustering */
+  gap: 6px; /* mellan innehållselement */
+  padding-left: 4px; /* gemensam vänstermarginal för allt innehåll */
 }

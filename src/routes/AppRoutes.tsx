@@ -6,7 +6,6 @@ import Login from "../features/auth/components/Login";
 import Register from "../features/auth/components/Register";
 import LandingPage from "../features/landing/components/Landing";
 import { Deadline } from "../features/deadline/components/Deadline";
-import EditPreferences from "../features/user-settings/components/EditPreferences";
 import Notes from "../features/notes/components/Notes";
 import Subscription from "../features/subscription/components/Subscription";
 import GoalPlanner from "../features/goalplanner/components/GoalPlanner";
@@ -18,6 +17,7 @@ import Quiz from "../features/quiz/components/Quiz";
 import NoteQuizPlayer from "../features/quiz/components/NoteQuizPlayer";
 import { OnboardingMain } from "../features/onboarding/components/OnboardingMain";
 import { Home } from "../features/home/components/Home";
+import { EditStudyProfileMain } from "../features/user-settings/components/EditStudyProfileMain";
 
 
 
@@ -37,7 +37,7 @@ export default function AppRoutes() {
       <Route path="/quiz/:quizId" element={<PrivateRoute><NoteQuizPlayerWrapper /></PrivateRoute>} />
 
       <Route path="/deadlines" element={<PrivateRoute><Deadline /></PrivateRoute>} />
-      <Route path="/min-utbildning" element={<PrivateRoute><EditPreferences /></PrivateRoute>} />
+      <Route path="/studieprofil" element={<PrivateRoute><EditStudyProfileMain /></PrivateRoute>} />
       <Route path="/anteckningar" element={<PrivateRoute><Notes /></PrivateRoute>} />
       <Route path="/abonnemang" element={<PrivateRoute><Subscription /></PrivateRoute>} />
       <Route path="/malplaneraren" element={<PrivateRoute><GoalPlanner /></PrivateRoute>} />

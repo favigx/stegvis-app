@@ -1,80 +1,87 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import {
-  X,
-  Menu,
   Home,
   FileText,
   BookOpen,
   GraduationCap,
   Zap,
-  BarChart2,
-  Gem,
+  Settings
 } from "lucide-react";
-import { useSelector } from "react-redux";
-import type { RootState } from "../redux/store";
-import { useState } from "react";
+// import { useSelector } from "react-redux";
+// import type { RootState } from "../redux/store";
+
+// Importera bilden
+import TreeStairsImg from "../layout/images/treestairs.png";
+import { LogoutButton } from "../features/auth/components/Logout";
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const hasCompletedOnboarding = useSelector(
-    (state: RootState) => state.auth.hasCompletedOnboarding
-  );
+  // const hasCompletedOnboarding = useSelector(
+  //   (state: RootState) => state.auth.hasCompletedOnboarding
+  // );
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
     { name: "Hem", path: "/hem", icon: <Home size={18} /> },
-    { name: "Min utbildning", path: "/min-utbildning", icon: <GraduationCap size={18} /> },
+    { name: "Studieprofil", path: "/studieprofil", icon: <GraduationCap size={18} /> },
     { name: "Studieplaneraren", path: "/studieplaneraren", icon: <BookOpen size={18} /> },
     { name: "Anteckningar", path: "/anteckningar", icon: <FileText size={18} /> },
     { name: "Studera", path: "/quiz", icon: <Zap size={18} /> },
-  { name: "Minikurser", path: "/minikurser", icon: <GraduationCap size={18} />, disabledItem: true },
-    { name: "Mina framsteg", path: "/mina-framsteg", icon: <BarChart2 size={18} />, disabledItem: true },
-    { name: "Abonnemang", path: "/abonnemang", icon: <Gem size={18} />, disabledItem: true },
+    { name: "Inställningar", path: "/installningar", icon: <Settings size={18} /> },
   ];
 
   return (
-    <>
-      {isOpen && <div className={styles.overlay} onClick={() => setIsOpen(false)} />}
+    <aside className={styles.sidebar}>
+      {/* Header med bild */}
+      <div className={styles.sidebarHeader}>
+        <img src={TreeStairsImg} alt="Treestairs" className={styles.logo} />
+        <span>Stegvis</span>
+      </div>
 
-      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-        <button
-          className={styles.toggleButton}
-          onClick={() => setIsOpen(!isOpen)}
-          disabled={!hasCompletedOnboarding}
-        >
-          {isOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-
+      {/* Meny centrerad lodrätt */}
+      <div className={styles.navWrapper}>
         <nav className={styles.nav}>
           {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
-            const isDisabled = !hasCompletedOnboarding || item.disabledItem;
-            const handleClick = isDisabled
-              ? undefined
-              : () => {
-                  navigate(item.path);
-                  setIsOpen(false);
-                };
-
             return (
-              <button
+              <div
                 key={item.path}
-                onClick={handleClick}
-                className={`${styles.navButton} ${
-                  isActive ? styles.activeNavButton : ""
-                } ${isDisabled ? styles.disabledNavButton : ""}`}
-                disabled={isDisabled}
+                className={`${styles.navItem} ${isActive ? styles.activeNavItem : ""}`}
+                onClick={() => navigate(item.path)}
+                style={{ cursor: "pointer" }}
               >
                 <span className={styles.iconWrapper}>{item.icon}</span>
-                {isOpen && <span className={styles.navText}>{item.name}</span>}
-              </button>
+                <span className={styles.navText}>{item.name}</span>
+              </div>
             );
           })}
         </nav>
-      </aside>
-    </>
+      </div>
+
+      {/* Logout-knappen längst ner */}
+  <div className={styles.logoutWrapper}>
+  {/* Logout-knappen */}
+  <LogoutButton />
+
+  {/* Vågmönster under knappen */}
+  <svg className={styles.waveDecoration} viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path
+      d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"
+      fill="url(#gradientWave)"
+    ></path>
+    <defs>
+      <linearGradient id="gradientWave" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#285986" />
+        <stop offset="50%" stopColor="#47c6ec" />
+        <stop offset="100%" stopColor="#fd7c25" />
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+
+
+    </aside>
   );
 }
 
