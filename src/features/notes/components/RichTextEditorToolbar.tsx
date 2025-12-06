@@ -88,7 +88,7 @@ export function RichTextEditorToolbar({ editor }: RichTextEditorToolbarProps) {
         onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
         selected={editor?.isActive("heading", { level: 2 })}
       >
-        Header
+        Rubrik
       </IconButton>
     </div>
   );

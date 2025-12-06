@@ -1,39 +1,114 @@
 .homeContainer {
-  background-color: #ffffff;
-  padding: 32px;
   display: flex;
   flex-direction: row;
   gap: 16px;
   flex-wrap: wrap;
-  align-items: flex-start;
-  overflow: auto;
+  padding: 32px;
   justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .BoardContainer {
-  background: linear-gradient(145deg, #eef8ff, #f0f7ff);
-  padding: 20px;
+  flex: 1;             /* Låt rutorna växa lika mycket */
+  min-width: 280px;    /* Minimal bredd */
+  height: 300px;       /* Stor höjd */
   border-radius: 16px;
-  width: auto;
-  height: auto;
-  color: rgb(57, 78, 153);
+  padding: 20px;
+  color: #fff;
   text-align: left;
-  border: 2px solid #cfdce6;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
+/* Tre olika färger */
+.redBox {
+  background-color: #571b69;
+}
+
+.greenBox {
+  background-color: #fd5f25d6;
+}
+
+.blueBox {
+  background-color: #6eb8c4;
+}
 
 .sectionHeader {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 16px;
-  color: #1f2a56;
-  border-bottom: 2px solid #d0dbe8;
   padding-bottom: 8px;
 }
 
+.h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #2a3d5c;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.pnotes {
+  font-size: 15px;
+  font-weight: 600;
+  
+}
+
 .pinfo {
-    font-size: 14px;
-    font-weight: 600;
-    color:#1f2a56;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.topBoxes {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.todoBoardWrapper {
+  display: flex;
+  justify-content: flex-start; /* vänsterjustering */
+  width: auto;                 /* låt den vara så bred som TodoBoard kräver */
+  margin-top: 0px;            /* avstånd från boxarna ovan */
+}
+
+
+.clickableBox {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none; /* ta bort understrykning */
+  cursor: pointer;       /* visa pointer vid hover */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color:#fff;
+}
+
+.clickableBox:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+.clickableBox {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none; /* ta bort understrykning */
+  cursor: pointer;       /* visa pointer vid hover */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: inherit;        /* behåll textfärgen */
+}
+
+.clickableBox:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  color: white;        /* behåll textfärgen även vid hover */
+}
+
+.clickableBox:visited {
+  color: white;        /* besökta länkar behåller färg */
+}
+
+.clickableBox:active {
+  color: white;        /* aktiv länk behåller färg */
 }

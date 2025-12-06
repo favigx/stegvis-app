@@ -1,6 +1,5 @@
 import './App.css';
 import Footer from './layout/Footer';
-import Header from './layout/Header';
 import MainContainer from './layout/MainContainer';
 import AppRoutes from './routes/AppRoutes';
 import { BrowserRouter } from 'react-router-dom';
@@ -27,9 +26,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isAuthenticated && (
-        <Header />
-      )}
+    
 
       {isAuthenticated && (
         <Sidebar />

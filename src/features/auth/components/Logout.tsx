@@ -12,7 +12,12 @@ export function LogoutButton() {
 
   return (
     <>
-      <button onClick={logout}>Logga ut</button>
+      <button
+        onClick={logout}
+        className={styles.logoutButton} // <-- ny klass för styling
+      >
+        <LogOut className={styles.iconWrapper} /> Logga ut
+      </button>
 
       <StatusOverlay
         active={loggingOut}

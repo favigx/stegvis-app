@@ -1,112 +1,114 @@
 .sidebar {
   position: fixed;
-  top: 0px;
+  top: 0;
   left: 0;
   bottom: 0;
-  width: 60px;
-  background-color: #f5faff;
+  width: 220px;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 10px;
+  align-items: flex-start; /* Rubrik alltid vänster */
+  padding-top: 0;
   z-index: 200;
-  transition: width 0.3s ease-in-out;
   overflow: hidden;
-
+  border-right: 4px solid #e2e2e27e;
 }
 
-.sidebar.open {
-  width: 220px;
-  align-items: flex-start;
-}
-
-.overlay {
-  position: fixed;
-  top: 55px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 150;
-}
-
-.toggleButton {
-  background: none;
-  border: none;
-  color: #333;
-  cursor: pointer;
-  margin-right: 8px;
-  transition: color 0.2s ease;
+.sidebarHeader {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  color: #285986;
+  gap: 1px; /* avstånd mellan bild och text */
 }
 
-.toggleButton:hover {
-  color: #000;
+.logo {
+  width: 45px;    /* justera storlek efter behov */
+  height: 45px;
+  object-fit: contain;
+  margin-left: 30px;
 }
 
+/* Wrapper som centrerar menyn lodrätt */
+/* Wrapper som centrerar menyn lodrätt */
+.navWrapper {
+  flex: 1; /* tar all återstående höjd */
+  display: flex;
+  align-items: center;  /* centrerar lodrätt */
+  justify-content: center; /* centrera horisontellt */
+  width: 100%;
+}
+
+/* Själva menyn */
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  width: 100%;
-  margin-top: 30px;
+  gap: 10px;
+  width: 70%; /* gör menyn smalare och centrerad */
+  align-items: flex-start; /* text vänster i varje item */
+  margin: 0 auto; /* centrerar nav horisontellt i wrapper */
 }
 
-.navButton {
+
+.navItem {
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 8px 13px;
+  padding: 8px 16px;
   border-radius: 10px;
-  background-color: #f0f7fd;
+  background-color: #ffffff;
   color: #292929;
-  cursor: pointer;
   font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
   text-align: left;
   transition: all 0.3s ease;
-  border: none;
 }
 
-.navButton:hover {
-  background-color: #cee8ff;
+.navItem:hover {
+
   color: rgb(73, 131, 197);
 }
 
-.activeNavButton {
-  color: rgb(73, 131, 197);
-  background-color: #cee8ff;
-}
-
-.disabledNavButton {
-  cursor: not-allowed;
-  opacity: 0.5;
+.activeNavItem {
+ 
+  color: rgb(8, 120, 248);
 }
 
 .iconWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 24px;
 }
 
 .navText {
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  text-align: left;
 }
 
-.sidebar.open .navText {
-  opacity: 1;
-}
-
-.hamburgerWrapper {
-  margin-top: auto;
+.sidebarFooter {
+  margin-top: auto; /* pushar till botten */
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* centrera knappen horisontellt */
+  padding-bottom: 20px;
+}
 
+.logoutWrapper {
+  width: 100%;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto; /* gör att logout hamnar längst ner */
+  margin-bottom:-20px;
+}
+
+.waveDecoration {
+  width: 100%;
+  height: 120px; /* större våg */
 }

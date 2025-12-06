@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
-  background-color: rgba(59, 112, 112, 0.125);
+  gap: 5px;
   position: fixed;
   top: 160px;
   right: 0;
@@ -16,6 +15,7 @@
   transition: all 0.3s ease;
   transform-origin: right center;
   z-index: 1000;
+  margin-top: 27px;
 }
 
 .toolbarContainer:hover {
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 36px;
+  height: 33px;
   border-radius: 50px;
   background-color: #fff;
   color: #333;
@@ -87,7 +87,7 @@
 }
 
 .edit {
-  background-color: #d4c705;
+  background-color: #ccc123;
   color: white;
 }
 
