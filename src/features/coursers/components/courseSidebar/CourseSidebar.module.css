@@ -1,0 +1,131 @@
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background-color: #f8fbff;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.iconTextButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f8fbff;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-left: 7px;
+  margin-right: 15px;
+}
+
+.iconTextButton:hover {
+  background-color: #dcebff;
+}
+
+.selected {
+  background-color: #dcebff;
+}
+
+.selected .navText {
+  color: #3b82f6;
+}
+
+.navText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.addButton {
+  background-color: #1d8cf8;
+  color: white;
+}
+
+.addButton:hover {
+  background-color: #0f78e0;
+}
+
+.addText {
+  color: white;
+}
+
+.folder {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.folderHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #f8fbff;
+  transition: background-color 0.2s ease;
+  margin-left: 7px;
+  margin-right: 15px;
+}
+
+.folderHeader:hover {
+  background-color: #dcebff;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+  color: #6b7280;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+  color: #3b82f6;
+}
+
+.folderContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 15px;
+}
+
+.subFolder {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subFolderHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+  margin-bottom: 2px;
+  color: #1e293b;
+}
+
+.courseIcon {
+  color: #3b82f6;
+}
+
+.nested {
+  font-size: 13px;
+  padding: 4px 8px;
+}
+
+.nested:hover {
+  background-color: #dcebff;
+}
