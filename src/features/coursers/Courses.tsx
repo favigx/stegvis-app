@@ -15,10 +15,7 @@ function Courses() {
   );
 
   const handleSelectCourse = (course: AvailableCourses, level: string) => {
-    console.log(course);
     setSelectedCourse({ level, course });
-
-    console.log(selectedCourse);
   };
 
   return (
